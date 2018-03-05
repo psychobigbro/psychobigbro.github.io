@@ -29,7 +29,7 @@
   </header>
 
   <main class="main">
-    <button class="button" onclick="callGoogleScript('getLastLogMsgs')">Click me!</button>
+    <button class="button" onclick="callGoogleScript('getLastLogMsgs',5)">Click me!</button>
 
     <div style="height:700px; width:700px; border:0px solid blue;
                overflow:auto; font-size:100%; background-color: WhiteSmoke;
@@ -42,14 +42,15 @@
     //$("button").click(callGoogleScript("getPastRaceDates"));
 
     // Make an AJAX call to Google Script
-    function callGoogleScript(func) {
+    function callGoogleScript(func,param) {
       console.log("***callGoogleScript CALLED!!!");
-      var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + "func=";
+  	if (param === undefined) param = "";
+      var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + "func=" + func + "&param=" + param;
       //var func = "getPastRaceDates";
 
       var request = $.ajax({
         crossDomain: true,
-        url: url + encodeURIComponent(func),
+        url: url,
         method: "GET",
         dataType: "jsonp",
         success: onSuccess,
