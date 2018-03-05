@@ -23,13 +23,13 @@
 <body>
 
   <header class="header">
-    <h1 class="header__title">TEST6.5</h1>
+    <h1 class="header__title">TEST6.6</h1>
     <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
     <button id="butAdd" class="headerButton" aria-label="Add"></button>
   </header>
 
   <main class="main">
-    <button class="button">Click me!</button>
+    <button class="button" onclick="callGoogleScript('getPastRaceDates')">Click me!</button>
 
     <div style="height:700px; width:700px; border:0px solid blue;
                overflow:auto; font-size:100%; background-color: WhiteSmoke;
@@ -39,13 +39,13 @@
     </div>
 
   <script>
-    $("button").click(callGoogleScript("getPastRaceDates"));
+    //$("button").click(callGoogleScript("getPastRaceDates"));
 
     // Make an AJAX call to Google Script
-    function callGoogleScript(funcid) {
+    function callGoogleScript(func) {
       console.log("***callGoogleScript CALLED!!!");
       var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + "func=";
-      var func = "getPastRaceDates";
+      //var func = "getPastRaceDates";
 
       var request = $.ajax({
         crossDomain: true,
