@@ -23,7 +23,7 @@
 <body>
 
   <header class="header">
-    <h1 class="header__title">TEST5</h1>
+    <h1 class="header__title">TEST5.1</h1>
     <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
     <button id="butAdd" class="headerButton" aria-label="Add"></button>
   </header>
@@ -35,7 +35,7 @@
                overflow:auto; font-size:100%; background-color: WhiteSmoke;
                margin: 5px 4px; padding: 15px 15px;
                resize: vertical;">
-      <p id="demo">Test JSONP: click me for script element to hold query</p>
+      <p id="demo">Test JSONP: click me for $.ajax</p>
     </div>
 
   <script>
@@ -55,7 +55,7 @@
         method: "GET",
         dataType: "jsonp",
         success: onSuccess,
-	  jsonpCallback : "myFunc"
+	  jsonpCallback : "anotherFunc"
       });
 	 console.log("***$.ajax request issued!!!");
 
