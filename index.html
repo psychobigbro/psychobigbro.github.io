@@ -23,7 +23,7 @@
 <body>
 
   <header class="header">
-    <h1 class="header__title">TEST2</h1>
+    <h1 class="header__title">TEST3</h1>
     <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
     <button id="butAdd" class="headerButton" aria-label="Add"></button>
   </header>
@@ -44,9 +44,9 @@
     // Make an AJAX call to Google Script
     function callGoogleScript() {
     
-	 console.log("callGoogleScript CALLED !!!");
-      var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + /*Math.random() + */ 
-"callback=myFunc" + "&func=";
+	 console.log("***callGoogleScript CALLED !!!");
+      var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" /* + Math.random() + "callback=myFunc" */
+       + "&func=";
       var func = "getPastRaceDates";
 
       var request = $.ajax({
@@ -57,9 +57,9 @@
         success: function(result){
             console.log(result);
         },
-	  jsonpCallback : "anotherFunc"
+	  jsonpCallback : "myFunc"
       });
-	 console.log("$.ajax request issued!!!");
+	 console.log("***$.ajax request issued!!!");
 
     }
 
@@ -71,7 +71,7 @@
     }
 
 	function anotherFunc () {
-	 console.log("Complete ajax!!!");
+	 console.log("***anotherFunc called!!!");
 	}
 
   </script>
