@@ -23,7 +23,7 @@
 <body>
 
   <header class="header">
-    <h1 class="header__title">TEST5.1</h1>
+    <h1 class="header__title">TEST5.3</h1>
     <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
     <button id="butAdd" class="headerButton" aria-label="Add"></button>
   </header>
@@ -55,6 +55,7 @@
         method: "GET",
         dataType: "jsonp",
         success: onSuccess,
+	   error: onError,
 	  jsonpCallback : "dummy" //same done by onSuccess
       });
 	 console.log("***$.ajax request issued!!!");
@@ -69,6 +70,13 @@
        = myObj.status + "<br>" + myObj.message + "<br> "
          + myObj.response.toString().replace(/,/g,"<br>"); */
     }
+
+	functio onError (xhr,status,error) {
+	 console.log("***onError called!!!");
+       console.log(xhr);
+      console.log(status);
+      console.log(error);
+	} 
 
 	function onSuccess (result,status,xhr) {
 	 console.log("***onSuccess called!!!");
