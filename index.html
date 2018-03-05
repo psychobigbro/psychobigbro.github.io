@@ -23,7 +23,7 @@
 <body>
 
   <header class="header">
-    <h1 class="header__title">TEST5.3</h1>
+    <h1 class="header__title">TEST5.4</h1>
     <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
     <button id="butAdd" class="headerButton" aria-label="Add"></button>
   </header>
@@ -55,8 +55,8 @@
         method: "GET",
         dataType: "jsonp",
         success: onSuccess,
-	   error: onError,
-	  jsonpCallback : "dummy" //same done by onSuccess
+	   error: onError
+	  //jsonpCallback : "dummy" //same done by onSuccess
       });
 	 console.log("***$.ajax request issued!!!");
 
