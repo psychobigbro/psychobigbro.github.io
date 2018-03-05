@@ -23,13 +23,15 @@
 <body>
 
   <header class="header">
-    <h1 class="header__title">TEST7</h1>
+    <h1 class="header__title">TEST8</h1>
     <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
     <button id="butAdd" class="headerButton" aria-label="Add"></button>
   </header>
 
   <main class="main">
-    <button class="button" onclick="callGoogleScript('getLastLogMsgs',5)">Click me!</button>
+    <button class="button"
+ 	onclick="callGoogleScript(&quot;queryBet&quot;,&quot;{'date':'03032018','class':'<5','unrated':'<3'}&quot;)">
+	Click me!</button>
 
     <div style="height:700px; width:700px; border:0px solid blue;
                overflow:auto; font-size:100%; background-color: WhiteSmoke;
@@ -45,17 +47,17 @@
     function callGoogleScript(func,param) {
       console.log("***callGoogleScript CALLED!!!");
   	if (param === undefined) param = "";
-      var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + "func=" + func + "&param=" + param;
+      var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + "func=" + func + "&param=";
       //var func = "getPastRaceDates";
 
       var request = $.ajax({
         crossDomain: true,
-        url: url,
+        url: url + encodeURIComponent(param),
         method: "GET",
         dataType: "jsonp",
         success: onSuccess,
 	   error: onError
-	  //jsonpCallback : "dummy" //$.ajax will provide default
+	  //jsonpCallback : $.ajax will provide default
       });
 
     }
