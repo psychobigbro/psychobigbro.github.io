@@ -23,7 +23,7 @@
 <body>
 
   <header class="header">
-    <h1 class="header__title">TEST4</h1>
+    <h1 class="header__title">TEST5</h1>
     <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
     <button id="butAdd" class="headerButton" aria-label="Add"></button>
   </header>
@@ -64,17 +64,20 @@
     function myFunc(myObj) {
 
 	 console.log("***myFunc Called!!!");
-
+/* dummy
       document.getElementById("demo").innerHTML
        = myObj.status + "<br>" + myObj.message + "<br> "
-         + myObj.response.toString().replace(/,/g,"<br>");
+         + myObj.response.toString().replace(/,/g,"<br>"); */
     }
 
 	function onSuccess (result,status,xhr) {
 	 console.log("***onSuccess called!!!");
-      console.log(result);
+      // console.log(result);
       console.log(status);
       console.log(xhr);
+	document.getElementById("demo").innerHTML
+       = result.status + "<br>" + result.message + "<br> "
+         + result.response.toString().replace(/,/g,"<br>"); 
 	}
 
   </script>
