@@ -23,7 +23,7 @@
 <body>
 
   <header class="header">
-    <h1 class="header__title">TEST6.4</h1>
+    <h1 class="header__title">TEST6.5</h1>
     <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
     <button id="butAdd" class="headerButton" aria-label="Add"></button>
   </header>
@@ -43,7 +43,7 @@
 
     // Make an AJAX call to Google Script
     function callGoogleScript(funcid) {
-    
+      console.log("***callGoogleScript CALLED!!!");
       var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + "func=";
       var func = "getPastRaceDates";
 
