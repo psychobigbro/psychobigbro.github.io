@@ -44,7 +44,8 @@
     // Make an AJAX call to Google Script
     function callGoogleScript() {
     
-      var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + /*Math.random() + "&callback=myFunc" +*/ "&func=";
+      var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + /*Math.random() + */ 
+"&callback=myFunc" + "&func=";
       var func = "getPastRaceDates";
 
       var request = jQuery.ajax({
@@ -52,7 +53,7 @@
         url: url + encodeURIComponent(func),
         method: "GET",
         dataType: "jsonp"
-	   jsonpCallback : "myFunc"
+	   // jsonpCallback : "myFunc"
       });
     }
 
