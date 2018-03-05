@@ -39,13 +39,13 @@
     </div>
 
   <script>
-    $("button").click(callGoogleScript("getPastRaceDates"));
+    $("button").click(callGoogleScript);
 
     // Make an AJAX call to Google Script
-    function callGoogleScript(func) {
+    function callGoogleScript() {
     
       var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + "func=";
-      //var func = "getPastRaceDates";
+      var func = "getPastRaceDates";
 
       var request = $.ajax({
         crossDomain: true,
