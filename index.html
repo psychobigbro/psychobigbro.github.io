@@ -23,7 +23,7 @@
 <body>
 
   <header class="header">
-    <h1 class="header__title">TEST3</h1>
+    <h1 class="header__title">TEST4</h1>
     <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
     <button id="butAdd" class="headerButton" aria-label="Add"></button>
   </header>
@@ -46,7 +46,7 @@
     
 	 console.log("***callGoogleScript CALLED !!!");
       var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" /* + Math.random() + "callback=myFunc" */
-       + "&func=";
+       + "func=";
       var func = "getPastRaceDates";
 
       var request = $.ajax({
@@ -54,9 +54,7 @@
         url: url + encodeURIComponent(func),
         method: "GET",
         dataType: "jsonp",
-        success: function(result){
-            console.log(result);
-        },
+        success: onSuccess,
 	  jsonpCallback : "myFunc"
       });
 	 console.log("***$.ajax request issued!!!");
@@ -65,13 +63,18 @@
 
     function myFunc(myObj) {
 
+	 console.log("***myFunc Called!!!");
+
       document.getElementById("demo").innerHTML
        = myObj.status + "<br>" + myObj.message + "<br> "
          + myObj.response.toString().replace(/,/g,"<br>");
     }
 
-	function anotherFunc () {
-	 console.log("***anotherFunc called!!!");
+	function onSuccess (result,status,xhr) {
+	 console.log("***onSuccess called!!!");
+      console.log("result>" + result);
+      console.log("status>" + status);
+      console.log("xhr>" + xhr);
 	}
 
   </script>
