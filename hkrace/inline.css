@@ -1,5 +1,5 @@
 /* Swipe works with mouse as well but often causes text selection. */
-#demo-page * {
+#main-page * {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -7,12 +7,12 @@
     user-select: none;
 }
 /* Arrow only buttons in the header. */
-#demo-page .ui-header .ui-btn {
+#main-page .ui-header .ui-btn {
     background: none;
     border: none;
     top: 9px;
 }
-#demo-page .ui-header .ui-btn-inner {
+#main-page .ui-header .ui-btn-inner {
     border: none;
 }
 /* Content styling. */

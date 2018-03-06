@@ -7,19 +7,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HK Race Control</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="theme.css" type="text/css">
-  <link rel="stylesheet" type="text/css" href="inline.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"> </head>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+  <link rel="stylesheet" href="theme.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="inline.css">
+</head>
 
 <body>
   <!--script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <div data-role="page" id="demo-page" data-theme="d" data-url="demo-page">
+  <div data-role="page" id="main-page" data-theme="d" data-url="main-page">
     <div data-role="header" data-theme="b">
-      <h1 class="">HK Race Control 1.7.6</h1>
+      <h1 class="">HK Race 1.8</h1>
       <a href="#left-panel" data-theme="d" data-icon="arrow-r" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc">Open left panel</a>
       <a href="#right-panel" data-theme="d" data-icon="arrow-l" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc">Open right panel</a>
     </div>
@@ -50,19 +51,19 @@
     </div>
     <!-- /content -->
     <div data-role="panel" id="left-panel" data-theme="b">
-      <p>Left reveal panel.</p>
+      <p>ROUTINES</p>
       <a href="#" data-rel="close" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="right">Close</a>
     </div>
     <!-- /panel -->
     <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="c">
-      <p>Right push panel.</p>
+      <p>UTILITIES</p>
       <a href="#" data-rel="close" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="right">Close</a>
     </div>
     <!-- /panel -->
   </div>
   <script>
-    $( document ).on( "pageinit", "#demo-page", function() {
-        $( document ).on( "swipeleft swiperight", "#demo-page", function( e ) {
+    $( document ).on( "pageinit", "#main-page", function() {
+        $( document ).on( "swipeleft swiperight", "#main-page", function( e ) {
             // We check if there is no open panel on the page because otherwise
             // a swipe to close the left panel would also open the right panel (and v.v.).
             // We do this by checking the data that the framework stores on the page element (panel: open).
