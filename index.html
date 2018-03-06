@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <!--link rel="canonical" href="https://weather-pwa-sample.firebaseapp.com/final/"-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HK Race Control</title>
   <link rel="stylesheet" type="text/css" href="styles/inline.css">
@@ -62,15 +61,6 @@
 
     }
 
-    function myFunc(myObj) {
-
-	 console.log("***myFunc Called!!!");
-/* dummy
-      document.getElementById("demo").innerHTML
-       = myObj.status + "<br>" + myObj.message + "<br> "
-         + myObj.response.toString().replace(/,/g,"<br>"); */
-    }
-
 	function onError (xhr,status,error) {
 	 console.log("***onError called!!!");
        console.log(xhr);
@@ -87,7 +77,6 @@
        = result.status + "<br>" + result.message + "<br> "
          + result.response.toString().replace(/,/g,"<br>"); 
 	}
-
   </script>
   </main>
 
@@ -96,8 +85,6 @@
       <div class="dialog-title">Add new city</div>
       <div class="dialog-body">
         <select id="selectCityToAdd">
-          <!-- Values map to Yahoo Weather API Where On Earth Identifiers (WOEIDs).
-               https://developer.yahoo.com/weather/documentation.html#req -->
           <option value="2357536">Austin, TX</option>
           <option value="2367105">Boston, MA</option>
           <option value="2379574">Chicago, IL</option>
@@ -119,9 +106,6 @@
       <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
     </svg>
   </div>
-
-  <!-- Uncomment the line below when ready to test with fake data -->
-  <!--script src="scripts/app.js" async></script-->
 
 </body>
 </html>
