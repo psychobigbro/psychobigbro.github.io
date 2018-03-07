@@ -17,7 +17,7 @@
 }
 /* Content styling. */
 #left-panel { width:auto; }
-#right-panel { width:auto; }
+
 dl { font-family: "Times New Roman", Times, serif; padding: 1em; }
 dt { font-size: 2em; font-weight: bold; }
 dt span { font-size: .5em; color: #777; margin-left: .5em; }
