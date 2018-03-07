@@ -16,9 +16,8 @@
     border: none;
 }
 /* Content styling. */
-#left-panel {width:auto; background-color:darkblue; color:white"}
-#left-panel .ui-panel-animate.ui-panel-position-right.ui-panel-display-push {transform: translate3d(10em,0,0);}
-#left-panel .ui-overlay-a {background-color:darkblue; color:white}
+#left-panel {width:auto}
+#left-panel ul li { background-color:darkblue; color:white" }
 
 #content-container { background-color:Ivory; }
 
