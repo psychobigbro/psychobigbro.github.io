@@ -18,7 +18,7 @@
 /* Content styling. */
 #left-panel { width:auto; }
 #left-panel ul {text-align:center; background-color:darkblue; color:white;}
-#left-panel.ui-panel-page-container-a {text-align:center; background-color:darkblue; color:white;}
+#left-panel.ui-overlay-a {text-align:center; background-color:darkblue; color:white;}
 
 #content-container { background-color:Ivory; }
 
