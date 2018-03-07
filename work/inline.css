@@ -17,6 +17,7 @@
 }
 /* Content styling. */
 #left-panel { width:auto; }
+#log-message { height:90vh; }
 #message-box {
 	position:fixed; bottom:0px; left:0px; right:0px;
 	padding:4px; background-color:darkgray; border-radius: 0px; display:flex;
