@@ -18,8 +18,4 @@
 /* Content styling. */
 #left-panel { width:auto; }
 #content-container { background-color:Ivory; }
-#message-box {
-	position:fixed; bottom:0px; left:0px; right:0px;
-	padding:4px; background-color:darkgray; border-radius: 0px; display:flex;
-	flex-direction:row; align-items:center; justify-content:center;	font-size:18px; color:white;
 }
