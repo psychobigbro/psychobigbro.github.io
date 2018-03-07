@@ -16,7 +16,7 @@
     border: none;
 }
 /* Content styling. */
-#left-panel.ui-panel { width:auto;text-align:center; background-color:darkblue; color:white;}
+#left-panel.ui-panel { width:auto;text-align:center; background-color:darkblue !important; color:white !important;}
 
 #content-container { background-color:Ivory; }
 }
