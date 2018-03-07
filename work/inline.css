@@ -16,6 +16,6 @@
     border: none;
 }
 /* Content styling. */
-#left-panel { width:auto; text-align:center; background-color:tomato; color:white}
+#left-panel { width:auto; text-align:center; background-color:darkblue; color:white}
 #content-container { background-color:Ivory; }
 }
