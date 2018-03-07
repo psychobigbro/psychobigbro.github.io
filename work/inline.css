@@ -17,7 +17,7 @@
 }
 /* Content styling. */
 #left-panel { width:auto;text-align:center; background-color:darkblue; color:white;}
-#left-panel > ul {text-align:center; background-color:darkblue; color:white;}
 
 #content-container { background-color:Ivory; }
+#left-panel-container { text-align:center; background-color:darkblue; color:white;}
 }
