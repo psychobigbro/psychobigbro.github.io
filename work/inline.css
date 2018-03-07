@@ -17,15 +17,9 @@
 }
 /* Content styling. */
 #left-panel { width:auto; }
-#sysmsg {
-	position:fixed;bottom:0px;left:0px;right:0px;padding:4px;
-	background-color:darkgray; border-radius: 0px;display:flex;
-	flex-direction:row;align-items:center;justify-content:center;
-	font-size:18px;color:white;
+#message-box {
+	position:fixed; bottom:0px; left:0px; right:0px; padding:4px;
+	background-color:darkgray; border-radius: 0px; display:flex;
+	flex-direction:row; align-items:center; justify-content:center;
+	font-size:18px; color:white;
 }
-
-dl { font-family: "Times New Roman", Times, serif; padding: 1em; }
-dt { font-size: 2em; font-weight: bold; }
-dt span { font-size: .5em; color: #777; margin-left: .5em; }
-dd { font-size: 1.25em; margin: 1em 0 0; padding-bottom: 1em; border-bottom: 1px solid #eee; }
-.back-btn { float: right; margin: 0 2em 1em 0; }
