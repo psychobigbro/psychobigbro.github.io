@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HK Race Control</title>
-  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"-->
+  <!--link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/-->
   <link rel="stylesheet" type="text/css" href="inline.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-  <!--link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"-->
 </head>
 
 <body> 
@@ -90,7 +90,7 @@
       </table>
     </div>
     <!-- /content -->
-    <div data-role="panel" id="left-panel" data-display="overlay" data-position="left" data-theme="c" style="width:150px;margin-top:0px">
+    <div data-role="panel" id="left-panel" data-display="overlay" data-position="left" data-theme="" style="width:150px;margin-top:0px">
       <span style="color:white;font:20px;background-color:gray">Routines<br></span>
       <a href="#" data-rel="close" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="right">Close</a>
       <a href="#" data-rel="close" data-role="button" data-mini="true" data-inline="true" data-icon="recycle" data-iconpos="right">Refresh</a>  
@@ -105,10 +105,17 @@
       <a href="#" data-rel="close" data-role="button" data-mini="true" data-inline="true" data-icon="check" data-iconpos="right">Final Step</a>
     </div>
     <!-- /panel -->
-    <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="c">
-      <p class="dt">Utilities</p>
+    <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="">
+      <p>Utilities</p>
       <a href="#" data-rel="close" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="right">Close</a>
-    </div>
+	  <ul data-role="listview">
+    	<li>Acura</li>
+      	<li>Audi</li>
+      	<li>BMW</li>
+      	<li>Cadillac</li>
+      	<li>Ferrari</li>
+	  </ul>
+	  </div>
     <!-- /panel -->
   </div>
   <!-- /page -->
