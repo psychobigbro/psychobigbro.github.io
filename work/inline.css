@@ -17,7 +17,7 @@
 }
 /* Content styling. */
 #left-panel { width:auto; }
-#log-container { width: 100vh; height:50vh; background-color:Gray; }
+#content-container { height:50vh; background-color:Gray; }
 #message-box {
 	position:fixed; bottom:0px; left:0px; right:0px;
 	padding:4px; background-color:darkgray; border-radius: 0px; display:flex;
