@@ -15,7 +15,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 0.46</h1>
+      <h1 class="">HKRace 0.48</h1>
       <a href="#left-panel" data-theme="" data-icon="arrow-r" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc">Open left panel</a>
       <a href="#right-panel" data-theme="" data-icon="arrow-l" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc">Open right panel</a>
     </div>
@@ -103,30 +103,30 @@
     <!-- /footer -->
     <div data-role="panel" id="left-panel" data-display="overlay" data-position="left" data-theme="">
       <ul data-role="listview"> 
-        <li>Refresh</li> 
-        <li>Step 1</li> 
-        <li>Step 1.1</li> 
-        <li>Step 2</li> 
-        <li>Step 3</li>
-        <li>Step 4</li> 
-        <li>Step 5</li> 
-        <li>Step 6</li> 
-        <li>Step 7</li> 
-        <li>Final Release</li>
+        <li><h4>Refresh</h4></li> 
+        <li><h4>Step 1</h4></li> 
+        <li><h4>Step 1.1</h4></li> 
+        <li><h4>Step 2</h4></li> 
+        <li><h4>Step 3</h4></li>
+        <li><h4>Step 4</h4></li> 
+        <li><h4>Step 5</h4></li> 
+        <li><h4>Step 6</h4></li> 
+        <li><h4>Step 7</h4></li> 
+        <li><h4>Final Release</h4></li>
       </ul>
     </div>
     <!-- /left-panel -->
     <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="">
       <ul data-role="listview"> 
-        <li>Clean Log</li> 
-        <li>Post Race
+        <li><h4>Clean Log</h4></li> 
+        <li><h4>Post Race</h4>
           <ul data-role="listview">
             <li>Get All Results</li>
             <li>Insert Raw Data</li>
           </ul>
         </li> 
-        <li>Delete Triggers</li> 
-        <li>Query Bet</li>
+        <li><h4>Delete Triggers</h4></li> 
+        <li><h4>Query Bet</h4></li>
       </ul>
     </div>
     <!-- /right-panel -->
@@ -147,6 +147,10 @@
             }
         });
     });
+	
+	$(window).on("navigate", function (event) {
+	  event.preventDefault();
+	});
   </script>
 </body>
 
