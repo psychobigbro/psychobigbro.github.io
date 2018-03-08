@@ -20,7 +20,7 @@
 #left-panel * {
 	color:white; background-color:rgba(0,68,204,0.5);
 }
-#left-panel li,h4 {background-color:rgba(0,68,204,0.5);}
+#left-panel h4 { background-color:rgba(0,68,204,0.5); }
 
 #content-container { background-color:Ivory; }
 
