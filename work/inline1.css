@@ -16,9 +16,10 @@
     border: none;
 }
 /* Content styling. */
-#left-panel {width:auto; opacity:0.5;}
+#left-panel {width:auto;}
+#left-panel .ui-panel-display-overlay {background-color:rgba(0,68,204,0.5);}
 #left-panel * {color:white; }
-/*background-color:rgba(0,68,204,0.3); */
+/* */
 #content-container { background-color:Ivory; }
 
 }
