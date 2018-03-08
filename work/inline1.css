@@ -17,7 +17,7 @@
 }
 /* Content styling. */
 #left-panel {width:auto;}
-#left-panel .ui-panel-display-overlay {background-color:rgba(0,68,204,0.5);}
+#left-panel .ui-panel-inner {background-color:rgba(0,68,204,0.5);}
 #left-panel * {color:white; }
 /* */
 #content-container { background-color:Ivory; }
