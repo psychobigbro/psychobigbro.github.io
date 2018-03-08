@@ -16,8 +16,8 @@
     border: none;
 }
 /* Content styling. */
-#left-panel {width:auto; background-color:darkblue }
-#left-panel * {color:white}
+#left-panel {width:auto; }
+#left-panel * {color:white;background-color:darkblue;}
 
 #content-container { background-color:Ivory; }
 
