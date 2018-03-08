@@ -18,7 +18,7 @@
 /* Content styling. */
 #left-panel { width:auto; }
 #left-panel * {
-	color:white; background-color:rgba(0,0,0,0.5); /*background-color:rgba(0,68,204,0.5)*/
+	color:white; background-color:rgba(0,20,50,0.35); /*background-color:rgba(0,68,204,0.5)*/
 }
 #left-panel p { font-weight: bold; font-size:100%}
 
