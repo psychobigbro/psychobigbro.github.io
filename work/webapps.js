@@ -29,19 +29,26 @@ function onSuccess (result,status,xhr) {
 	// console.log(result);
 	console.log(status);
 	console.log(xhr);
-	$("#sys-msg pl").text(result.status + ":" + result.message);
+	$("#sys-msg").text(result.status + ":" + result.message);
+	for (var i=0; i < result.response.length; i++) {
+		var dateStr = result.response[i][0];
+		var commaIdx = dateStr.indexOf(',');
+		var spIdx = dateStr.indexOf(' ',commaIdx);
+		result.response[i][0] = dateStr.substr(0,commaIdx) + dateStr.substr(spIdx); //remove yyyy
+	}
 	$("#log-table tbody").html(makeTableHTML(result.response));
+	$("#refresh-btn").button('enable');	
 }
 
 /* Return an HTML tr td from 2D array*/
 function makeTableHTML(myArray) {
-  var result = "";
-  for(var i=0; i<myArray.length; i++) {
-    result += "<tr>";
-    for(var j=0; j<myArray[i].length; j++){
-      result += "<td>"+myArray[i][j]+"</td>";
-    }
-    result += "</tr>";
-  }
+	var result = "";
+	for (var i=0; i < myArray.length; i++) {
+		result += "<tr>";
+		for(var j=0; j<myArray[i].length; j++){
+			result += "<td>"+myArray[i][j]+"</td>";
+		}
+		result += "</tr>";
+	}
   return result;
 }
