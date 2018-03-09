@@ -22,6 +22,6 @@
 }
 
 #content-container { background-color:Ivory; }
-pl {font-weight: bold; font-size:100%; }
+pl {font-weight: bold; font-size:100%; background-color:rgba(0,20,50,0.35);}
 
 }
