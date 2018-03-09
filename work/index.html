@@ -157,7 +157,7 @@
 	
 	$("#refresh-btn").on("click", function() {
 		console.log("***refresh-btn clicked!!!");
-		$(this).button('disable');	
+		$("#refresh-btn").button('disable');	
 		callGoogleScript('getLastLogMsgs',10);
 	});
   </script>
