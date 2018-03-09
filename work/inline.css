@@ -23,5 +23,5 @@
 
 #content-container { background-color:Ivory; }
 #left-panel pl {font-weight: bold; font-size:100%; background-color:rgba(0,20,50,0);}
-
+#left-panel plc {font-weight: bold; font-size:100%; background-color:rgba(0,20,50,0); text-align: center;}
 }
