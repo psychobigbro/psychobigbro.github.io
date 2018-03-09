@@ -29,7 +29,19 @@ function onSuccess (result,status,xhr) {
 	// console.log(result);
 	console.log(status);
 	console.log(xhr);
-	document.getElementById("demo").innerHTML
-		= result.status + "<br>" + result.message + "<br> "
-		+ result.response.toString().replace(/,/g,"<br>"); 
+	$("#sys-msg").text(result.status + ":" + result.message);
+	$("#log-table tbody").text(makeTableHTML(result.response));
+}
+
+/* Return an HTML tr td from 2D array*/
+function makeTableHTML(myArray) {
+  var result = "";
+  for(var i=0; i<myArray.length; i++) {
+    result += "<tr>";
+    for(var j=0; j<myArray[i].length; j++){
+      result += "<td>"+myArray[i][j]+"</td>";
+    }
+    result += "</tr>";
+  }
+  return result;
 }
