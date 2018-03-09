@@ -29,8 +29,8 @@ function onSuccess (result,status,xhr) {
 	// console.log(result);
 	console.log(status);
 	console.log(xhr);
-	$("#sys-msg").text(result.status + ":" + result.message);
-	$("#log-table tbody").text(makeTableHTML(result.response));
+	$("#sys-msg" pl).text(result.status + ":" + result.message);
+	$("#log-table tbody").html(makeTableHTML(result.response));
 }
 
 /* Return an HTML tr td from 2D array*/
