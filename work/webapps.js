@@ -33,11 +33,11 @@ function onSuccess (result,status,xhr) {
 	for (var i=0; i < result.response.length; i++) {
 		var dateStr = result.response[i][0];
 		var commaIdx = dateStr.indexOf(',');
-		var spIdx = dateStr.indexOf(' ',commaIdx);
+		var spIdx = dateStr.indexOf(' ',commaIdx+2);
 		result.response[i][0] = dateStr.substr(0,commaIdx) + dateStr.substr(spIdx); //remove yyyy
 	}
 	$("#log-table tbody").html(makeTableHTML(result.response));
-	$("#refresh-btn").button('enable');	
+	$("#refresh-btn").show();	
 }
 
 /* Return an HTML tr td from 2D array*/
