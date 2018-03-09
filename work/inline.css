@@ -18,10 +18,10 @@
 /* Content styling. */
 #left-panel { width:auto; }
 #left-panel * {
-	color:white; background-color:rgba(0,20,50,0.35); /*background-color:rgba(0,68,204,0.5)*/
+	color:white; background-color:rgba(0,68,204,0.35); /*background-color:rgba(0,68,204,0.5)*/
 }
 
 #content-container { background-color:Ivory; }
-#left-panel pl {font-weight: bold; font-size:100%; background-color:rgba(0,20,50,0);}
-#left-panel plc {font-weight: bold; font-size:100%; background-color:rgba(0,20,50,0); text-align: center;}
+#left-panel pl {font-weight: bold; font-size:100%; background-color:rgba(0,68,204,0);}
+#left-panel plc {font-weight: bold; font-size:100%; background-color:rgba(0,68,204,0); text-align: right;}
 }
