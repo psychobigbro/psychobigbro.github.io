@@ -29,7 +29,7 @@ function onSuccess (result,status,xhr) {
 	// console.log(result);
 	console.log(status);
 	console.log(xhr);
-	$("#sys-msg" pl).text(result.status + ":" + result.message);
+	$("#sys-msg pl").text(result.status + ":" + result.message);
 	$("#log-table tbody").html(makeTableHTML(result.response));
 }
 
