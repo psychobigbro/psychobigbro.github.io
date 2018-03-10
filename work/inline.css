@@ -19,7 +19,7 @@
 /* Content styling. */
 #left-panel { width:auto; }
 #left-panel * {
-	color:white; background-color:rgba(0,68,204,0.35); /*background-color:rgba(0,68,204,0.5)*/
+	color:white; background-color:rgba(0,68,204,0.35);
 }
 /* To avoid additive transparent color, topmost layer must have opacity 0 */
 #left-panel pl {font-weight: bold; font-size:100%; background-color:rgba(0,68,204,0);}
@@ -31,6 +31,6 @@
 /* Add alternating row stripes */
 .table-stripe tbody tr:nth-child(odd) td,
 .table-stripe tbody tr:nth-child(odd) th {
-  background-color: rgba(0,0,0,0.04);
+  background-color: rgba(0,0,0,0.1);
 }
 
