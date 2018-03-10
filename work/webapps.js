@@ -1,7 +1,8 @@
 // Make an AJAX call to Google Script
-function callGoogleScript(func,param) {
+function callGoogleScript(func,param,successCallBack) {
 	console.log("***callGoogleScript CALLED!!!");
   	if (param === undefined) param = "";
+	if (successCallBack === undefined) successCallBack = onSuccess;
 		var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + "func=" + func + "&param=";
 		//var func = "getPastRaceDates";
 
@@ -10,7 +11,7 @@ function callGoogleScript(func,param) {
 			url: url + encodeURIComponent(param),
 			method: "GET",
 			dataType: "jsonp",
-			success: onSuccess,
+			success: successCallBack,
 			error: onError
 		//jsonpCallback : $.ajax will provide default
 		});
