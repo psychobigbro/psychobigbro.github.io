@@ -20,14 +20,17 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 4</h1>
+      <h1 class="">HKRace 5</h1>
       <a href="#left-panel" data-rel="popup" data-transition="slidedown" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</a>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
     </div>
     <!-- /header -->
     <div data-role="content" id="content-container">
-      <table id="log-table">
+	  <form>
+    	<input id="filterTable-input" data-type="search">
+	  </form>
+      <table id="log-table" data-filter="true" data-input="#filterTable-input">
         <thead>
           <tr>
             <th>Time</th>
@@ -158,7 +161,7 @@
 	$("#refresh-btn").on("click", function() {
 		console.log("***refresh-btn clicked!!!");
 		$("#refresh-btn").attr("disabled","");
-		callGoogleScript('getLastLogMsgs',10);
+		callGoogleScript('getLastLogMsgs',20);
 	});
   </script>
   <script src="webapps.js" async></script>
