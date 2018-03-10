@@ -33,6 +33,21 @@ function onComplete (xhr,status) {
 	$.mobile.loading( "hide" );  //hide loader
 } 
 
+function getLastLogMsgsCompl (result,status,xhr) {
+	console.log("***onSuccess called!!!");
+	// console.log(result);
+	console.log(status);
+	console.log(xhr);
+	$("#sys-msg").text(result.status + ":" + result.message);
+	for (var i=0; i < result.response.length; i++) {
+		var d = new Date(result.response[i][0]);
+		result.response[i][0] = d.getDate() + "/" + (d.getMonth()+1) + " " +
+								pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
+	}
+	$("#log-table tbody").html(makeTableHTML(result.response));
+	$("#refresh-btn").removeAttr( "disabled" );	
+}
+
 function onSuccess (result,status,xhr) {
 	console.log("***onSuccess called!!!");
 	// console.log(result);
@@ -42,7 +57,7 @@ function onSuccess (result,status,xhr) {
 	for (var i=0; i < result.response.length; i++) {
 		var d = new Date(result.response[i][0]);
 		result.response[i][0] = d.getDate() + "/" + (d.getMonth()+1) + " " +
-								d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+								pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
 	}
 	$("#log-table tbody").html(makeTableHTML(result.response));
 	$("#refresh-btn").removeAttr( "disabled" );	
@@ -59,4 +74,8 @@ function makeTableHTML(myArray) {
 		result += "</tr>";
 	}
   return result;
+}
+
+function pad(n) {
+    return (n < 10) ? ("0" + n) : n;
 }
