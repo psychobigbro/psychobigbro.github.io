@@ -20,8 +20,8 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 19</h1>
-      <a href="#left-panel" data-rel="popup" data-transition="slidedown" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</a>
+      <h1 class="">HKRace 20</h1>
+      <a href="#left-panel" data-rel="popup" data-transition="pop" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</a>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
     </div>
@@ -51,11 +51,11 @@
       </table>
     </div>
     <!-- /content -->
-	<div data-role="popup" id="popupDialog" class="ui-content" data-theme="a" data-dismissible="false" style="max-width:200px;">
-      <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+	<div data-role="popup" id="popupDialog" class="ui-content" data-theme="d" data-dismissible="false" style="max-width:180px;">
+      <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	  <div style="text-align: center">
 	    <h3>Refresh Racecards?</h3>
-        <button id="startBtn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-inline" >Start</button>
+        <button id="start-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-inline" >Start</button>
 	  </div>      
     </div>
 	<!-- /popup -->
@@ -66,7 +66,7 @@
 	<div data-role="panel" id="left-panel" data-display="overlay" data-theme="none" >
       <ul data-role="listview">
 	  	<li><plc>Routines</plc></li>
-        <li><pl><a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="pop">Refresh</a></pl></li> 
+        <li><pl><a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="slideup">Refresh</a></pl></li> 
         <li><pl>Step 1</pl></li> 
         <li><pl>Step 1.1</pl></li> 
         <li><pl>Step 2</pl></li> 
@@ -115,6 +115,14 @@
 		console.log("***refresh-btn clicked!!!");
 		$("#refresh-btn").attr("disabled","");
 		callGoogleScript('getLastLogMsgs',25, getLastLogMsgsCompl);
+	});
+	
+	$("#start-btn").on("click", function() {
+		console.log("***start-btn clicked!!!");
+		$("#start-btn").attr("disabled","");
+		$("#popupDialog").close();
+		$("#left-panel").close();
+		callGoogleScript('dailyRefreshRacecard');
 	});
   </script>
   <script src="webapps.js" async></script>
