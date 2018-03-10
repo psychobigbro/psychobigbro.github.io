@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 20</h1>
+      <h1 class="">HKRace 21</h1>
       <a href="#left-panel" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</a>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -120,7 +120,7 @@
 	$("#start-btn").on("click", function() {
 		console.log("***start-btn clicked!!!");
 		$("#start-btn").attr("disabled","");
-		//$("#popupDialog").dialog("close");
+		$("#popupDialog").dialog("close");
 		//$("#left-panel").panel.close();
 		callGoogleScript('dailyRefreshRacecard');
 	});
