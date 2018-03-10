@@ -1,7 +1,6 @@
 // Make an AJAX call to Google Script
 function callGoogleScript(func,param,successHandler) {
 	console.log("***callGoogleScript CALLED!!!");
-	$(".loader").show();
 	$.mobile.loading( "show" )
   	if (param === undefined) param = "";
 	if (successHandler === undefined) successHandler = onSuccess; //default
@@ -14,8 +13,9 @@ function callGoogleScript(func,param,successHandler) {
 			method: "GET",
 			dataType: "jsonp",
 			success: successHandler,
+			complete: onComplete,
 			error: onError
-		//jsonpCallback : $.ajax will provide default
+			//jsonpCallback : $.ajax will provide default that server will echo back
 		});
 
     }
@@ -25,24 +25,27 @@ function onError (xhr,status,error) {
 	console.log(xhr);
 	console.log(status);
 	console.log(error);
+	$("#sys-msg").text(status + ":" + error);
+} 
+
+function onComplete (xhr,status) {
+	/* common stuff to do after ajax call complete */
+	$.mobile.loading( "hide" );  //hide loader
 } 
 
 function onSuccess (result,status,xhr) {
 	console.log("***onSuccess called!!!");
-	$(".loader").show();
 	// console.log(result);
 	console.log(status);
 	console.log(xhr);
 	$("#sys-msg").text(result.status + ":" + result.message);
 	for (var i=0; i < result.response.length; i++) {
-		var dateStr = result.response[i][0];
-		var commaIdx = dateStr.indexOf(',');
-		var spIdx = dateStr.indexOf(' ',commaIdx+2);
-		result.response[i][0] = dateStr.substr(0,commaIdx) + dateStr.substr(spIdx); //remove yyyy
+		var d = new date(result.response[i][0]);
+		result.response[i][0] = d.getDate() + "/" + (d.getMonth()+1) + " " +
+								d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
 	}
 	$("#log-table tbody").html(makeTableHTML(result.response));
 	$("#refresh-btn").removeAttr( "disabled" );	
-	$.mobile.loading( "hide" );
 }
 
 /* Return an HTML tr td from 2D array*/
