@@ -27,5 +27,10 @@
 
 #content-container { background-color:Ivory; }
 #sys-msg {text-align: center; font-size:100%; padding: 5px 5px 5px 5px;}
-tr:odd {background-color:lightGray;}
+
+/* Add alternating row stripes */
+.table-stripe tbody tr:nth-child(odd) td,
+.table-stripe tbody tr:nth-child(odd) th {
+  background-color: rgba(0,0,0,0.04);
 }
+
