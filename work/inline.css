@@ -27,5 +27,5 @@
 
 #content-container { background-color:Ivory; }
 #sys-msg {text-align: center; font-size:100%; padding: 5px 5px 5px 5px;}
-#log-table td:odd {background-color:lightGray;}
+#log-table tr:odd {background-color:lightGray;}
 }
