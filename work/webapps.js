@@ -3,7 +3,7 @@ function callGoogleScript(func,param,successHandler) {
 	console.log("***callGoogleScript CALLED!!!");
 	$(".loader").show();
   	if (param === undefined) param = "";
-	if (successCallBack === undefined) successhandler = onSuccess; //default
+	if (successHandler === undefined) successHandler = onSuccess; //default
 		var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + "func=" + func + "&param=";
 		//var func = "getPastRaceDates";
 
