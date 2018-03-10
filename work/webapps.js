@@ -2,6 +2,7 @@
 function callGoogleScript(func,param,successHandler) {
 	console.log("***callGoogleScript CALLED!!!");
 	$(".loader").show();
+	$.mobile.loading( "show" )
   	if (param === undefined) param = "";
 	if (successHandler === undefined) successHandler = onSuccess; //default
 		var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + "func=" + func + "&param=";
@@ -41,6 +42,7 @@ function onSuccess (result,status,xhr) {
 	}
 	$("#log-table tbody").html(makeTableHTML(result.response));
 	$("#refresh-btn").removeAttr( "disabled" );	
+	$.mobile.loading( "hide" );
 }
 
 /* Return an HTML tr td from 2D array*/
