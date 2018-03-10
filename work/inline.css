@@ -31,6 +31,6 @@
 /* Add alternating row stripes */
 .table-stripe tbody tr:nth-child(odd) td,
 .table-stripe tbody tr:nth-child(odd) th {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0,0,0,0.06);
 }
 

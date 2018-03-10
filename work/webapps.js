@@ -34,10 +34,7 @@ function onComplete (xhr,status) {
 } 
 
 function getLastLogMsgsCompl (result,status,xhr) {
-	console.log("***onSuccess called!!!");
-	// console.log(result);
-	console.log(status);
-	console.log(xhr);
+	console.log("***getLastLogMsgsCompl called!!!");
 	$("#sys-msg").text(result.status + ":" + result.message);
 	for (var i=0; i < result.response.length; i++) {
 		var d = new Date(result.response[i][0]);
@@ -50,17 +47,10 @@ function getLastLogMsgsCompl (result,status,xhr) {
 
 function onSuccess (result,status,xhr) {
 	console.log("***onSuccess called!!!");
-	// console.log(result);
+	//console.log(result);
 	console.log(status);
 	console.log(xhr);
-	$("#sys-msg").text(result.status + ":" + result.message);
-	for (var i=0; i < result.response.length; i++) {
-		var d = new Date(result.response[i][0]);
-		result.response[i][0] = d.getDate() + "/" + (d.getMonth()+1) + " " +
-								pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
-	}
-	$("#log-table tbody").html(makeTableHTML(result.response));
-	$("#refresh-btn").removeAttr( "disabled" );	
+	$("#sys-msg").text(result.status + ":" + result.message + result.response);
 }
 
 /* Return an HTML tr td from 2D array*/
