@@ -37,7 +37,7 @@ function onSuccess (result,status,xhr) {
 		result.response[i][0] = dateStr.substr(0,commaIdx) + dateStr.substr(spIdx); //remove yyyy
 	}
 	$("#log-table tbody").html(makeTableHTML(result.response));
-	$("#refresh-btn").show();	
+	$("#refresh-btn").removeAttr( "disabled" );	
 }
 
 /* Return an HTML tr td from 2D array*/
