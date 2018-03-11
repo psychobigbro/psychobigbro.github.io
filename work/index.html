@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 26</h1>
+      <h1 class="">HKRace 27</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -66,9 +66,9 @@
 	<div data-role="panel" id="left-panel" data-display="overlay" data-theme="none" >
       <ul data-role="listview">
 	  	<li><plc>Routines</plc></li>
-        <li><pl>Refresh<pl></li>
+        <li><pl func="dailyRacecardRefresh">Refresh<pl></li>
 		<!--a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="slideup">Refresh</a--> 
-        <li><pl>Step 1</pl></li> 
+        <li><pl func="step1">Step 1</pl></li> 
         <li><pl>Step 1.1</pl></li> 
         <li><pl>Step 2</pl></li> 
         <li><pl>Step 3</pl></li>
@@ -97,6 +97,8 @@
   </div>
   <!-- /page -->
   <script>
+  var lastFunc = ""; //global to hold last webapp func name invoked
+  
     $( document ).on( "pageinit", "#main-page", function() {
         $( document ).on( "swipeleft swiperight", "#main-page", function( e ) {
             // We check if there is no open panel on the page because otherwise
@@ -120,13 +122,15 @@
 	
 	$("#routine-btn").on("click", function() {
 		console.log("***refresh-btn clicked!!!");
-		//$("#routine-btn").attr("disabled","");
 		$( "#left-panel" ).panel( "open" );
 	});
 	
 	$("pl").on("click", function() {
-		console.log("pl tag value " + this.value + " clicked!!!");
-		$( "#popupDialog" ).popup( "open" );
+		lastFunc = this.getAttribute("func");
+		console.log("pl tag value " + this.innerHTML + " for func " + lastFunc + " clicked!!!");
+		dialog = $( "#popupDialog" );
+		dialog.find("h3").text("Run " + lastFunc + "?");
+		dialog.popup( "open" );
 	});
 	
 	$("#start-btn").on("click", function() {
