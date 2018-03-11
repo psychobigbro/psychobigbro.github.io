@@ -15,7 +15,7 @@ function callGoogleScript(func,
 		var request = $.ajax({
 			crossDomain: true,
 			url: url + encodeURIComponent(param),
-			method: "POST",
+			method: "GET",  //"POST" will become "GET" for jsonp!!
 			dataType: "jsonp",
 			success: successHandler,
 			complete: onComplete,

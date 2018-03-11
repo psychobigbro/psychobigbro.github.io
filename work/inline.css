@@ -34,3 +34,11 @@
   background-color: rgba(0,0,0,0.06);
 }
 
+#refresh-btn:disabled {
+    animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+    100% {transform: rotate(360deg);}
+}
+

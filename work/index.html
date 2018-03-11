@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 32</h1>
+      <h1 class="">HKRace 33</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -68,7 +68,7 @@
 	  	<li><plc>Routines</plc></li>
         <li><pl func="dailyRacecardRefresh">Refresh Racecard</pl></li>
         <li><pl func="step1">Step 1</pl></li> 
-        <li><pl func="step1.1">Step 1.1</pl></li> 
+        <li><pl func="step1_1">Step 1_1</pl></li> 
         <li><pl func="step2>Step 2</pl></li> 
         <li><pl func="step3">Step 3</pl></li>
         <li><pl func="step4">Step 4</pl></li> 
@@ -92,13 +92,13 @@
         <li><h4>Query Bet</h4></li>
       </ul>
 	  <form>
-    	<div class="ui-field-contain">
+    	<!-- class="ui-field-contain"-->
           <label for="test-mode-switch">Test mode:</label>
-          <select name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" >
+          <select name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="c">
             <option value="off">Off</option>
             <option selected value="on">On</option>
           </select>
-    	</div>
+    	<!--/div-->
 	  </form>
     </div>
     <!-- /right-panel -->
@@ -138,12 +138,12 @@
 		var funcLabel = this.innerHTML;
 		reqFunc = this.getAttribute("func");  //save globally for reference in dialog
 		console.log("pl tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
-		dialog = $( "#popupDialog" );
+		$dialog = $( "#popupDialog" );
 		var prompt = "Run " + funcLabel + "?"
 		if ($("#start-btn")[0].hasAttribute("disabled")) //jq has no hasAttribute method
 			prompt = lastFunc + " in progress!!";
-		dialog.find("h3").text(prompt);
-		dialog.popup( "open" );
+		$dialog.find("h3").text(prompt);
+		$dialog.popup( "open" );
 	});
 	
 	$("#start-btn").on("click", function() {
