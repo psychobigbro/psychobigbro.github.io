@@ -10,7 +10,7 @@ function callGoogleScript(func,
   	if (param === undefined) param = "";
 	if (successHandler === undefined) successHandler = onSuccess; //default
 		var url =  JSONPTestExec + "func=" + func + "&param=";
-		if ($(#test-mode-switch).val() == "off")
+		if ( $("#test-mode-switch").val() == "off" )
 			url =  HKRaceExec + "func=" + func + "&param=";	
 		var request = $.ajax({
 			crossDomain: true,
