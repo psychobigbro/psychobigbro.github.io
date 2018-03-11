@@ -125,7 +125,7 @@
 	});
 	
 	$("pl").on("click", function() {
-		console.log("pl tag value " + this.nodeValue + " clicked!!!");
+		console.log("pl tag value " + $(this).data("value") + " clicked!!!");
 		$( "#popupDialog" ).popup( "open" );
 	});
 	
