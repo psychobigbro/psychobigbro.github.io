@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 33</h1>
+      <h1 class="">HKRace 34</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -51,7 +51,7 @@
       </table>
     </div>
     <!-- /content -->
-	<div data-role="popup" id="popupDialog" class="ui-content" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:180px;">
+	<div data-role="popup" id="popupDialog" class="ui-content" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:200px;">
       <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	  <div style="text-align: center">
 	    <h3></h3>
@@ -92,13 +92,13 @@
         <li><h4>Query Bet</h4></li>
       </ul>
 	  <form>
-    	<!-- class="ui-field-contain"-->
+    	<div class="ui-field-contain" data-inline="true" >
           <label for="test-mode-switch">Test mode:</label>
-          <select name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="c">
+          <select name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="b" data-theme="b">
             <option value="off">Off</option>
             <option selected value="on">On</option>
           </select>
-    	<!--/div-->
+    	</div>
 	  </form>
     </div>
     <!-- /right-panel -->
@@ -141,7 +141,7 @@
 		$dialog = $( "#popupDialog" );
 		var prompt = "Run " + funcLabel + "?"
 		if ($("#start-btn")[0].hasAttribute("disabled")) //jq has no hasAttribute method
-			prompt = lastFunc + " in progress!!";
+			prompt = "Waiting for " + lastFunc + "'s response!<br>" + prompt;
 		$dialog.find("h3").text(prompt);
 		$dialog.popup( "open" );
 	});
