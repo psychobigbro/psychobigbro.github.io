@@ -21,6 +21,7 @@
 #left-panel * {
 	color:white; background-color:rgba(0,68,204,0.35);
 }
+#right-panel pl {font-weight: bold; font-size:100%; } 
 #right-panel plc {font-weight: bold; font-size:100%;}
 /* To avoid additive transparent color, topmost layer must have opacity 0 */
 #left-panel pl {font-weight: bold; font-size:100%; background-color:rgba(0,68,204,0);}
