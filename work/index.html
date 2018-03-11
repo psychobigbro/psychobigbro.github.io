@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 30</h1>
+      <h1 class="">HKRace 31</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -91,6 +91,15 @@
         <li><h4>Delete Triggers</h4></li> 
         <li><h4>Query Bet</h4></li>
       </ul>
+	  <form>
+    	<div class="ui-field-contain">
+          <label for="test-mode">Flip toggle switch:</label>
+          <select name="test-mode" value="on" id="test-mode-switch" data-role="slider" data-mini="true" >
+            <option value="off">Off</option>
+            <option value="on">On</option>
+          </select>
+    	</div>
+	  </form>
     </div>
     <!-- /right-panel -->
   </div>

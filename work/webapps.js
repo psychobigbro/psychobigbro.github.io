@@ -1,16 +1,21 @@
 // Make an AJAX call to Google Script
-function callGoogleScript(func,param,successHandler) {
+const HKRaceExec = "https://script.google.com/macros/s/AKfycbxLQFYtxgPdUH8QzOsVgW__vZ_5qC6ObmmktSZyGmGYevOShLfU/exec?";
+const JSONPTestExec = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?";
+
+function callGoogleScript(func,
+						  param,
+						  successHandler) {
 	console.log("***callGoogleScript CALLED!!!");
 	$.mobile.loading( "show" )
   	if (param === undefined) param = "";
 	if (successHandler === undefined) successHandler = onSuccess; //default
-		var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + "func=" + func + "&param=";
-		//var func = "getPastRaceDates";
-
+		var url =  JSONPTestExec + "func=" + func + "&param=";
+		if ($(#test-mode_switch).value("test-mode") == "off")
+			url =  HKRaceExec + "func=" + func + "&param=";	
 		var request = $.ajax({
 			crossDomain: true,
 			url: url + encodeURIComponent(param),
-			method: "GET",
+			method: "POST",
 			dataType: "jsonp",
 			success: successHandler,
 			complete: onComplete,
@@ -18,7 +23,7 @@ function callGoogleScript(func,param,successHandler) {
 			//jsonpCallback : $.ajax will provide default that server will echo back
 		});
 
-    }
+}
 
 function onError (xhr,status,error) {
 	console.log("***onError called!!!");
@@ -35,7 +40,7 @@ function onComplete (xhr,status) {
 
 function getLastLogMsgsCompl (result,status,xhr) {
 	console.log("***getLastLogMsgsCompl called!!!");
-	$("#sys-msg").text(result.status + ":" + result.message);
+	//$("#sys-msg").text(result.status + ": " + result.message);
 	for (var i=0; i < result.response.length; i++) {
 		var d = new Date(result.response[i][0]);
 		result.response[i][0] = d.getDate() + "/" + (d.getMonth()+1) + " " +
@@ -50,7 +55,7 @@ function onSuccess (result,status,xhr) {
 	//console.log(result);
 	console.log(status);
 	console.log(xhr);
-	$("#sys-msg").text(result.status + ":" + result.message + result.response);
+	$("#sys-msg").text(result.status + ": " + result.message + " " + result.response);
 	$("#start-btn").removeAttr("disabled");  //enable dialog start btn
 }
 
