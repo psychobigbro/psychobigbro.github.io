@@ -51,6 +51,7 @@ function onSuccess (result,status,xhr) {
 	console.log(status);
 	console.log(xhr);
 	$("#sys-msg").text(result.status + ":" + result.message + result.response);
+	$("#start-btn").removeAttr("disabled");  //enable dialog start btn
 }
 
 /* Return an HTML tr td from 2D array*/
