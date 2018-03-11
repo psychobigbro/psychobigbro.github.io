@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 37</h1>
+      <h1 class="">HKRace 2</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -91,8 +91,8 @@
         <li><h4>Delete Triggers</h4></li> 
         <li><h4>Query Bet</h4></li>
 		<li><h4>Test Mode:</h4>
-          <label for="test-mode-switch" class="ui-hidden-accessible">Test Mode:</label>
-          <select name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="b" data-theme="b">
+          <!--label for="test-mode-switch" class="ui-hidden-accessible">Test Mode:</label-->
+          <select data-inline="true" name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="b" data-theme="b">
             <option value="off">Off</option>
             <option selected value="on">On</option>
           </select>
@@ -154,6 +154,7 @@
 		$("#popupDialog").popup("close");
 		$("#left-panel").panel("close");	
 		lastFunc = reqFunc; //indicate lastFunc started
+		$.mobile.loading( "show" );  //indicate routine in progress
 		callGoogleScript(lastFunc);
 	});
   </script>

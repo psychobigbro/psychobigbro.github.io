@@ -6,7 +6,6 @@ function callGoogleScript(func,
 						  param,
 						  successHandler) {
 	console.log("***callGoogleScript CALLED!!!");
-	$.mobile.loading( "show" )
   	if (param === undefined) param = "";
 	if (successHandler === undefined) successHandler = onSuccess; //default
 		var url =  JSONPTestExec + "func=" + func + "&param=";
@@ -35,10 +34,7 @@ function onError (xhr,status,error) {
 
 function onComplete (xhr,status) {
 	/* common stuff to do after ajax call complete */
-	console.log ($.active);
-	console.log ($.ajax.active);
-	if ($.ajax.active <= 1)
-		$.mobile.loading( "hide" );  //hide loader if last ajax request
+
 } 
 
 function getLastLogMsgsCompl (result,status,xhr) {
@@ -54,12 +50,13 @@ function getLastLogMsgsCompl (result,status,xhr) {
 }
 
 function onSuccess (result,status,xhr) {
+	// default success callback: write sys-msg from response, enable start-btn & hide loader
+	
 	console.log("***onSuccess called!!!");
-	//console.log(result);
-	console.log(status);
-	console.log(xhr);
+
 	$("#sys-msg").text(result.status + ": " + result.message + " " + result.response);
 	$("#start-btn").removeAttr("disabled");  //enable dialog start btn
+	$.mobile.loading( "hide" );  //hide loader; only 1 pending routine func allowed
 }
 
 /* Return an HTML tr td from 2D array*/
