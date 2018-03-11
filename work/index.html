@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 28</h1>
+      <h1 class="">HKRace 29</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -131,7 +131,7 @@
 		console.log("pl tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
 		dialog = $( "#popupDialog" );
 		var prompt = "Run " + funcLabel + "?"
-		if ($("#start-btn").hasAttribute("disabled"))
+		if ($("#start-btn")[0].hasAttribute("disabled")) //jq has no hasAttribute method
 			prompt = lastFunc + " in progress!!";
 		dialog.find("h3").text(prompt);
 		dialog.popup( "open" );
