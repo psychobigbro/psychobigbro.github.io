@@ -143,7 +143,7 @@
 		$dialog = $( "#popupDialog" );
 		var prompt = "Run " + funcLabel + "?"
 		if ($("#start-btn")[0].hasAttribute("disabled")) //jq has no hasAttribute method
-			prompt = "Waiting for  + lastFunc + "'s response!<br>" + prompt;
+			prompt = "Waiting for " + lastFunc + "'s response!<br>" + prompt;
 		$dialog.find("h3").html(prompt);
 		$dialog.popup( "open" );
 	});
