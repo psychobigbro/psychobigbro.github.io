@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 34</h1>
+      <h1 class="">HKRace 35</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -60,7 +60,7 @@
     </div>
 	<!-- /popup -->
     <div data-role="footer" data-theme="c" data-position="fixed"> 
-	  <div id="sys-msg">System Message Display</div>
+	  <div id="sys-msg">Ready</div>
 	</div>
     <!-- /footer -->
 	<div data-role="panel" id="left-panel" data-display="overlay" data-theme="none" >
@@ -69,13 +69,13 @@
         <li><pl func="dailyRacecardRefresh">Refresh Racecard</pl></li>
         <li><pl func="step1">Step 1</pl></li> 
         <li><pl func="step1_1">Step 1_1</pl></li> 
-        <li><pl func="step2>Step 2</pl></li> 
+        <li><pl func="step2">Step 2</pl></li> 
         <li><pl func="step3">Step 3</pl></li>
         <li><pl func="step4">Step 4</pl></li> 
         <li><pl func="step5">Step 5</pl></li> 
         <li><pl func="step6">Step 6</pl></li> 
         <li><pl func="step7">Step 7</pl></li> 
-        <li><pl func="lastStepReleaseSpreadsheet">Last Step</pl></li>
+        <li><pl func="lastStepReleaseSpreadsheet">Final Release</pl></li>
       </ul>
     </div>
     <!-- /left-panel -->   
@@ -90,16 +90,18 @@
         </li> 
         <li><h4>Delete Triggers</h4></li> 
         <li><h4>Query Bet</h4></li>
-      </ul>
-	  <form>
-    	<div class="ui-field-contain" data-inline="true" >
+		<li>
           <label for="test-mode-switch">Test mode:</label>
           <select name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="b" data-theme="b">
             <option value="off">Off</option>
             <option selected value="on">On</option>
           </select>
+		</li>
+      </ul>
+	  <!--form>
+    	<div class="ui-field-contain" >
     	</div>
-	  </form>
+	  </form-->
     </div>
     <!-- /right-panel -->
   </div>
@@ -141,8 +143,8 @@
 		$dialog = $( "#popupDialog" );
 		var prompt = "Run " + funcLabel + "?"
 		if ($("#start-btn")[0].hasAttribute("disabled")) //jq has no hasAttribute method
-			prompt = "Waiting for " + lastFunc + "'s response!<br>" + prompt;
-		$dialog.find("h3").text(prompt);
+			prompt = "Waiting for  + lastFunc + "'s response!<br>" + prompt;
+		$dialog.find("h3").html(prompt);
 		$dialog.popup( "open" );
 	});
 	

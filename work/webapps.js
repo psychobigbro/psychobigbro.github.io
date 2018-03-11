@@ -35,7 +35,8 @@ function onError (xhr,status,error) {
 
 function onComplete (xhr,status) {
 	/* common stuff to do after ajax call complete */
-	$.mobile.loading( "hide" );  //hide loader
+	if ($.active < 1)
+		$.mobile.loading( "hide" );  //hide loader if no outstanding ajax request
 } 
 
 function getLastLogMsgsCompl (result,status,xhr) {
