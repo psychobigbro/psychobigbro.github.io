@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 35</h1>
+      <h1 class="">HKRace 36</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -69,7 +69,8 @@
 	<!-- /popup 2 by right-panel -->
 	<div data-role="popup" id="triggerDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
     	<form>
-     	<div style="padding:5px 10px;">
+     	<!--div style="padding:5px 10px;"-->
+		<div class="ui-content">
     	  <fieldset data-role="controlgroup" data-iconpos="right">
         	<legend>Check to delete triggers:</legend>
         	<input type="checkbox" name="checkbox-h-6a" id="checkbox-h-6a" data-mini="true">
@@ -91,7 +92,7 @@
     	  </fieldset>
 		  <button id="del-trigger-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-left ui-btn-inline">Delete</button>
 		  <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-right">Dismiss</a>
-		  </div>
+		 </div>
 		</form>
 	</div>
 	<!-- /triggerDialog -->
