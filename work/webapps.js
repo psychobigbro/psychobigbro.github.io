@@ -74,7 +74,7 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 	console.log("***onDeleteTimeTriggersSuccess called!!!");
 	console.log(result.response);
 	$("#sys-msg").text(result.status + ": " + result.message);
-	var timeTriggers = JSON.parse(result.response);
+	var timeTriggers = result.response;
 	$dialog = $( "#triggerDialog" );
 	if (Array.isArray(timeTriggers) && timeTriggers.length > 0) {
 		var htmlStr = '<legend><h4>Check to delete triggers:</h4></legend>';

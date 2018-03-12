@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 43</h1>
+      <h1 class="">HKRace 44</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -201,7 +201,8 @@
 		$("#del-trigger-btn").attr("disabled","");  //disable delete btn
 		//$dialog.find("a").attr("disabled",""); //disable anchor close btn as well
 		$dialog.popup( "open" );
-		callGoogleScript(reqFunc, JSON.stringify([0]), onDeleteTimeTriggersSuccess); //get trigger list using dummy param
+		var emptyArr = [];
+		callGoogleScript(reqFunc, JSON.stringify(emptyArr), onDeleteTimeTriggersSuccess); //get trigger list using dummy param
 	});
 	
 	/* start button click within popupDialog opened by either left or right panel func */
