@@ -59,6 +59,14 @@ function onSuccess (result,status,xhr) {
 	$.mobile.loading( "hide" );  //hide loader; only 1 pending routine func allowed
 }
 
+function onConcurrentSuccess (result,status,xhr) {
+	// success callback for concurrent func: write sys-msg from response only
+	
+	console.log("***onConcurrentSuccess called!!!");
+
+	$("#sys-msg").text(result.status + ": " + result.message + " " + result.response);
+
+}
 /* Return an HTML tr td from 2D array*/
 function makeTableHTML(myArray) {
 	var result = "";
