@@ -86,7 +86,7 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 					+ handler + '::after</label><input type="checkbox" name="' + uid  + '" data-mini="true"></div>'
 					+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 		}
-		$("#triggerDialog fieldset").find(".ui-control-group-controls").html(htmlStr);
+		$("#triggerDialog div.ui-control-group-controls").html(htmlStr);
 	}
 	$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
 	//$( "#triggerDialog" ).find("a").removeAttr("disabled"); //enable anchor close btn
