@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 38</h1>
+      <h1 class="">HKRace 39</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -146,21 +146,20 @@
   var lastFunc = ""; //global to hold last webapp func name invoked
   var reqFunc = "";  //global to hold webapp func being requested
   
-    $( document ).on( "pageinit", "#main-page", function() {
-        $( document ).on( "swipeleft swiperight", "#main-page", function( e ) {
+  $( document ).on( "pageinit", "#main-page", function() {
+    $( document ).on( "swipeleft swiperight", "#main-page", function( e ) {
             // We check if there is no open panel on the page because otherwise
             // a swipe to close the left panel would also open the right panel (and v.v.).
             // We do this by checking the data that the framework stores on the page element (panel: open).
-            if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
-                if ( e.type === "swipeleft"  ) {
+        if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
+            if ( e.type === "swipeleft"  ) {
                     $( "#right-panel" ).panel( "open" );
-                } else if ( e.type === "swiperight" ) {
+            } else if ( e.type === "swiperight" ) {
                     //$( "#left-panel" ).panel( "open" );
-                }
             }
-        });
+        }
     });
-	
+		
 	$("#refresh-btn").on("click", function() {
 		console.log("***routine-btn clicked!!!");
 		$("#refresh-btn").attr("disabled","");
@@ -235,8 +234,8 @@
 		$("#triggerDialog").popup("close");
 		$( "#right-panel" ).panel( "close" );
 	});
-	
-
+		
+  });	
   </script>
   <script src="webapps.js" async></script>
 </body>
