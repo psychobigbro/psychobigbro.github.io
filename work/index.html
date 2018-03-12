@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 10</h1>
+      <h1 class="">HKRace 11</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -80,22 +80,23 @@
     </div>
     <!-- /left-panel -->   
     <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="none">
-      <ul data-role="listview"> 
-        <li><h4>Clean Log</h4></li> 
-        <li><pl>Post Race</pl>
+      <ul data-role="listview">
+	    <li><pl func="getDataForHorsesInRange>Get Horse Data in Range</pl></li> 
+        <li><pl func="cleanLog>Clean Log</pl></li> 
+        <li><pl func="dailyPostRaceRoutine">Post Race</pl>
           <ul data-role="listview">
-            <li><pl>Get All Results</pl></li>
-            <li><pl>Insert Raw Data</pl></li>
+            <li><pl func="getAllResults">Get All Results</pl></li>
+            <li><pl func="insertRawData">Insert Raw Data</pl></li>
           </ul>
         </li> 
-        <li><h4>Delete Triggers</h4></li> 
-        <li><h4>Query Bet</h4></li>
+        <li><pl func="getAllTimeTriggers">Time Triggers</pl></li> 
+        <li><pl func="queryBet">Query Bet</pl></li>
       </ul>
 	  <form>
     	<div class="ui-field-contain" >
 		  <!--plc>Test Mode:</plc-->
           <label for="test-mode-switch" <!--class="ui-hidden-accessible"--><plc>Test Mode:</plc></label>
-          <select data-inline="false" name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="b">
+          <select data-inline="true" name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="b">
             <option value="off">Off</option>
             <option selected value="on">On</option>
           </select>
