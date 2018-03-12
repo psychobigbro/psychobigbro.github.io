@@ -21,11 +21,11 @@
 #left-panel * {
 	color:white; background-color:rgba(0,68,204,0.35);
 }
-#right-panel pl {font-weight: 900; font-size:100%; } 
-#right-panel plc {font-weight: 900; font-size:100%;}
 /* To avoid additive transparent color, topmost layer must have opacity 0 */
 #left-panel pl {font-weight: bold; font-size:100%; background-color:rgba(0,68,204,0);}
 #left-panel plc {font-weight: 900; font-size:120%; background-color:rgba(0,68,204,0);}
+#right-panel pl {font-weight: 900; font-size:100%; } 
+#right-panel plc {font-weight: 900; font-size:100%;}
 
 #content-container { background-color:Ivory; }
 #sys-msg {text-align: center; font-size:100%; padding: 5px 5px 5px 5px;}
