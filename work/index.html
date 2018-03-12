@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 16</h1>
+      <h1 class="">HKRace 17</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -67,6 +67,18 @@
 	  </div>      
     </div>
 	<!-- /popup 2 by right-panel -->
+	<div data-role="popup" id="triggerDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+	  <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+      <div data-role="header" data-theme="a">
+    	<h1>Delete Time Trigger</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <h3 class="ui-title">Select triggers to delete:</h3>
+    	<p>This action cannot be undone.</p>
+        <button id="del-trigger-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-inline" >Delete</button>
+	  </div>
+	</div>
+	<!-- /triggerDialog -->
     <div data-role="footer" data-theme="c" data-position="fixed"> 
 	  <div id="sys-msg">Ready</div>
 	</div>
@@ -97,7 +109,7 @@
             <li><pl func="insertRawData">Insert Raw Data</pl></li>
           </ul>
         </li> 
-        <li><pr func="getAllTimeTriggers">Time Triggers</pr></li> 
+        <li><prt func="getAllTimeTriggers">Time Triggers</prt></li> 
         <li><pr func="queryBet">Query Bet</pr></li>
       </ul>
 	  <form>
@@ -167,6 +179,16 @@
 		$dialog.popup( "open" );
 	});
 	
+	/* prt exclusively used on right panel for trigger function */
+	$("prt").on("click", function() {
+		var funcLabel = this.innerHTML;
+		reqFunc = this.getAttribute("func");  //save globally for reference in dialog
+		console.log("prt tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
+		$dialog = $( "#triggerDialog" );
+		//var prompt = "Execute " + funcLabel + "?"
+		//$dialog.find("h3").html(prompt);
+		$dialog.popup( "open" );
+	});
 	/* start button click within popupDialog opened by either left or right panel func */
 	$("#start-btn").on("click", function() {
 		console.log("***start-btn clicked!!!");
@@ -178,6 +200,7 @@
 		lastFunc = reqFunc; //indicate lastFunc started
 		$.mobile.loading( "show" );  //indicate routine in progress
 		callGoogleScript(lastFunc);
+		$("#sys-msg").text(lastFunc + " running...);
 	});
 	
 	/* go button click within popupDialog 2 opened only by right panel func */
@@ -185,8 +208,8 @@
 		console.log("***go-btn clicked!!!");
 		$("#popupDialog2").popup("close");
 		$("#right-panel").panel("close");
-		//$.mobile.loading( "show" );  //indicate routine in progress
 		callGoogleScript(reqFunc,"",onConcurrentSuccess);
+		$("#sys-msg").text(reqFunc + " executing...);
 	});
   </script>
   <script src="webapps.js" async></script>
