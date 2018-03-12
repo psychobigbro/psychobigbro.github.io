@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 11</h1>
+      <h1 class="">HKRace 12</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -81,8 +81,8 @@
     <!-- /left-panel -->   
     <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="none">
       <ul data-role="listview">
-	    <li><pl func="getDataForHorsesInRange>Get Horse Data in Range</pl></li> 
-        <li><pl func="cleanLog>Clean Log</pl></li> 
+	    <li><pl func="getDataForHorsesInRange">Get Horse Data in Range</pl></li> 
+        <li><pl func="cleanLog">Clean Log</pl></li> 
         <li><pl func="dailyPostRaceRoutine">Post Race</pl>
           <ul data-role="listview">
             <li><pl func="getAllResults">Get All Results</pl></li>
@@ -96,7 +96,7 @@
     	<div class="ui-field-contain" >
 		  <!--plc>Test Mode:</plc-->
           <label for="test-mode-switch" <!--class="ui-hidden-accessible"--><plc>Test Mode:</plc></label>
-          <select data-inline="true" name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="b">
+          <select data-inline="true" name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
             <option value="off">Off</option>
             <option selected value="on">On</option>
           </select>
