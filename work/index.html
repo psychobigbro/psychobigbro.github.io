@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 40</h1>
+      <h1 class="">HKRace 41</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -68,9 +68,9 @@
     </div>
 	<!-- /popup 2 by right-panel -->
 	<div data-role="popup" id="triggerDialog" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:400px;">
-      <!--form-->
-		<div class="ui-content">
-    	  <fieldset data-role="controlgroup" data-iconpos="right">
+      <!--form : putting button inside form would trigger default submit!!-->
+	  <div class="ui-content">
+    	<fieldset data-role="controlgroup" data-iconpos="right">
         	<legend><h4>Check to delete triggers:</h4></legend>
         	<input type="checkbox" name="checkbox-h-6a" id="checkbox-h-6a" data-mini="true">
         	<label for="checkbox-h-6a">Trigger One</label>
@@ -80,19 +80,19 @@
         	<label for="checkbox-h-6c">Trigger Three</label>
         	<input type="checkbox" name="checkbox-h-6d" id="checkbox-h-6d" data-mini="true">
         	<label for="checkbox-h-6d">Trigger Four</label>
-	       	<input type="checkbox" name="checkbox-h-6e" id="checkbox-h-6e" data-mini="true">
+	    	<input type="checkbox" name="checkbox-h-6e" id="checkbox-h-6e" data-mini="true">
         	<label for="checkbox-h-6e">Trigger Five</label>
         	<input type="checkbox" name="checkbox-h-6f" id="checkbox-h-6f" data-mini="true">
         	<label for="checkbox-h-6f">Trigger Six</label>
        		<input type="checkbox" name="checkbox-h-6g" id="checkbox-h-6g" data-mini="true">
         	<label for="checkbox-h-6g">Trigger Seven</label>
        		<input type="checkbox" name="checkbox-h-6h" id="checkbox-h-6h" data-mini="true">
-        	<label for="checkbox-h-6h">Trigger Eight</label>
-    	  </fieldset>
-		  <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-right">Cancel</a>
-		  <button id="del-trigger-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-left ui-btn-inline">Delete</button>
-		 </div>
-		<!--/form-->
+       		<label for="checkbox-h-6h">Trigger Eight</label>
+    	</fieldset>
+		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-right">Cancel</a>
+		<button id="del-trigger-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-left ui-btn-inline">Delete</button>
+	  </div>
+	  <!--/form-->
 	</div>
 	<!-- /triggerDialog -->
     <div data-role="footer" data-theme="c" data-position="fixed"> 
@@ -128,7 +128,7 @@
         <li><prt func="getAllTimeTriggers">Time Triggers</prt></li> 
         <li><pr func="queryBet">Query Bet</pr></li>
       </ul>
-	  <form>
+	  <!--form-->
     	<div class="ui-field-contain" >
           <label for="test-mode-switch" <!--class="ui-hidden-accessible"--><prc>Test Mode:</prc></label>
           <select data-inline="true" name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
@@ -136,7 +136,7 @@
             <option selected value="on">On</option>
           </select>
     	</div>
-	  </form>
+	  <!--/form-->
     </div>
     <!-- /right-panel -->
   </div>
