@@ -67,6 +67,18 @@ function onConcurrentSuccess (result,status,xhr) {
 	$("#sys-msg").text(result.status + ": " + result.message + " " + result.response);
 
 }
+
+function onDeleteTimeTriggersSuccess (result,status,xhr) {
+	// success callback for concurrent func: write sys-msg from response only
+	
+	console.log("***onDeleteTimeTriggersSuccess called!!!");
+	console.log(result.response);
+	$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
+	$( "#triggerDialog" ).find("a").removeAttr("disabled"); //enable anchor close btn
+
+	$("#sys-msg").text(result.status + ": " + result.message);
+
+}
 /* Return an HTML tr td from 2D array*/
 function makeTableHTML(myArray) {
 	var result = "";

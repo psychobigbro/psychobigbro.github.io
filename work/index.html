@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 41</h1>
+      <h1 class="">HKRace 1</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -42,16 +42,12 @@
           <!--tr>
             <td>12/12 12:01:17</td>
             <td>Web client request - queryBet:{....................}</td>
-          </tr>
-          <tr>
-            <td>12/12 12:01:12</td>
-            <td>Web client request - queryBet:{.................................}</td>
           </tr-->
         </tbody>
       </table>
     </div>
     <!-- /content -->
-	<div data-role="popup" id="popupDialog" class="ui-content" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:200px;">
+	<div data-role="popup" id="popupDialog" class="ui-content" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:17em;">
       <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	  <div style="text-align: center">
 	    <h3></h3>
@@ -59,7 +55,7 @@
 	  </div>      
     </div>
 	<!-- /popup by left-panel -->
-	<div data-role="popup" id="popupDialog2" class="ui-content" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:200px;">
+	<div data-role="popup" id="popupDialog2" class="ui-content" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:17em;">
       <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	  <div style="text-align: center">
 	    <h3></h3>
@@ -125,7 +121,7 @@
             <li><pl func="insertRawData">Insert Raw Data</pl></li>
           </ul>
         </li> 
-        <li><prt func="getAllTimeTriggers">Time Triggers</prt></li> 
+        <li><prt func="deleteTimeTriggers">Delete Time Triggers</prt></li> 
         <li><pr func="queryBet">Query Bet</pr></li>
       </ul>
 	  <!--form-->
@@ -200,10 +196,14 @@
 		reqFunc = this.getAttribute("func");  //save globally for reference in dialog
 		console.log("prt tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
 		$dialog = $( "#triggerDialog" );
-		//var prompt = "Execute " + funcLabel + "?"
-		//$dialog.find("h3").html(prompt);
+		var prompt = "Loading time triggers ... "
+		$dialog.find("h4").html(prompt);
+		$("#del-trigger-btn").attr("disabled","");  //disable delete btn
+		$dialog.find("a").attr("disabled",""); //disable anchor close btn as well
 		$dialog.popup( "open" );
+		callGoogleScript(reqFunc, "", onDeleteTimeTriggersSuccess); //get trigger list using dummy param
 	});
+	
 	/* start button click within popupDialog opened by either left or right panel func */
 	$("#start-btn").on("click", function() {
 		console.log("***start-btn clicked!!!");
