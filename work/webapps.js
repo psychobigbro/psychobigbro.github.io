@@ -75,7 +75,7 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 	console.log(result.response);
 	$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
 	$( "#triggerDialog" ).find("a").removeAttr("disabled"); //enable anchor close btn
-
+//
 	$("#sys-msg").text(result.status + ": " + result.message);
 
 }
