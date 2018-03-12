@@ -73,12 +73,23 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 	
 	console.log("***onDeleteTimeTriggersSuccess called!!!");
 	console.log(result.response);
-	$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
-	$( "#triggerDialog" ).find("a").removeAttr("disabled"); //enable anchor close btn
-//
 	$("#sys-msg").text(result.status + ": " + result.message);
-
+	var timeTriggers = JSON.parse(result.response);
+	$dialog = $( "#triggerDialog" );
+	if (Array.isArray(timeTriggers) && timeTriggers.length > 0) {
+		var htmlStr = '<legend><h4>Check to delete triggers:</h4></legend>';
+		for (var i = 0; i < timeTriggers.length; i++) {
+			var uid = timeTriggers[i][0];
+			var handler = timeTriggers[i][1];
+			htmlStr += '<input type="checkbox" name="' + uid + '" id="'  + uid + '" data-mini="true">' +
+						'<label for="' + uid + '">' + handler + '</label>';
+		}
+		$dialog.find("fieldset").html(htmlStr);
+	}
+	$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
+	//$( "#triggerDialog" ).find("a").removeAttr("disabled"); //enable anchor close btn
 }
+
 /* Return an HTML tr td from 2D array*/
 function makeTableHTML(myArray) {
 	var result = "";
