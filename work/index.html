@@ -69,9 +69,6 @@
 	<!-- /popup 2 by right-panel -->
 	<div data-role="popup" id="triggerDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
 	  <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-      <!--div data-role="header" data-theme="a">
-    	<h1>Delete Time Trigger</h1>
-      <!--/div-->
       <div class="ui-content">
         <!--h4 class="ui-title">Select triggers to delete:</h4-->
     	<form>
@@ -233,7 +230,7 @@
 	});
 	
 	/* delete button click within triggerDialog */
-	("#del-trigger-btn").on("click", function() {
+	$("#del-trigger-btn").on("click", function() {
 		console.log("***del-trigger-btn clicked!!!");
 		$("#triggerDialog").popup("close");
 		$( "#right-panel" ).panel( "close" );
