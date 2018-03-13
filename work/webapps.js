@@ -103,8 +103,7 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 function makeTableHTML(myArray) {
 	var result = "";
 	for (var i=0; i < myArray.length; i++) {
-		var d = new Date(myArray[i][0]);
-		if (isNaN( d.getTime() )) continue;  //skip invalid date
+		if (myArray[i][0]) == "") continue;  //skip blank row
 		result += "<tr>";
 		for(var j=0; j<myArray[i].length; j++){
 			result += "<td>"+myArray[i][j]+"</td>";
