@@ -33,7 +33,7 @@
 #content-container { background-color:Ivory; }
 #sys-msg {
 	text-align: center; font-size:100%; padding: 5px 1px 5px 1px;
-	animation: flash 2s infinite;
+	/*animation: flash 2s infinite;*/
 }
 
 /* Add alternating row stripes */
@@ -53,10 +53,8 @@
 @keyframes flash {
   0%, 49% {
     background-color: red;
-    /*border: 3px solid #e50000;*/
   }
   50%, 100% {
     background-color: green;
-    /*border: 3px solid rgb(117, 209, 63);*/
   }
 }
