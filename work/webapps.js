@@ -77,21 +77,18 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 	var timeTriggers = result.response;
 	$dialog = $( "#triggerDialog" );
 	$fieldset = $dialog.find("fieldset");
-		var str1 = $fieldset.children().eq(0).html();
-		
+	var origHtmlStr = $fieldset.children().eq(1).html();	
 	if (Array.isArray(timeTriggers) && timeTriggers.length > 0) {
-		var htmlStr = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+		var htmlStr = "";
 		for (var i = 0; i < timeTriggers.length; i++) {
 			var uid = timeTriggers[i][0];
 			var handler = timeTriggers[i][1];
-			htmlStr += '<div class="ui-checkbox ui-mini"><label for="' + uid
-					+ '" class=ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-right ui-checkbox-off ui-first-child">'
-					+ handler + '::after</label><input type="checkbox" name="' + uid  + '" data-mini="true"></div>'
-					+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+			var str = origHtmlStr.replace(/uid/g, uid);
+			htmlStr += str.replace(/handler/g, handler);
 		}
-		
 		$fieldset.children().eq(1).html(htmlStr);
 	}
+	$fieldset.find("h4").html("Check to delete triggers:");
 	$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
 	$( "#triggerDialog" ).find("[href]").removeAttr("disabled"); //enable anchor close btn
 }
