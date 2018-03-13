@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 68</h1>
+      <h1 class="">HKRace 69</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -217,17 +217,18 @@
 	/* delete button click within triggerDialog */
 	$("#del-trigger-btn").on("click", function() {
 		console.log("***del-trigger-btn clicked!!!");
-		$("#del-trigger-btn").attr("disabled","");  //disable delete btn
-		var prompt = "Deleting ..."
-		$dialog.find("h3").html(prompt);
 		//$("#triggerDialog").popup("close");
 		//$( "#right-panel" ).panel( "close" );
-		var arr = [];
-		$elm = $dialog.find('input:checked');
-		for (var i=0; i<$elm.length; i++)
-			arr.push($elm[i].id);
-		callGoogleScript(reqFunc, JSON.stringify(arr), onDeleteTimeTriggersSuccess); //get trigger list using dummy param
-
+		$elm = $dialog.find("input:checked");
+		if ($elm.length > 0) {
+			$("#del-trigger-btn").attr("disabled","");  //disable delete btn
+			var arr = [];
+			for (var i=0; i<$elm.length; i++)
+				arr.push($elm[i].id);
+			var prompt = "Deleting " + $elm.length + " triggers ..."
+			$dialog.find("h3").html(prompt);
+			callGoogleScript(reqFunc, JSON.stringify(arr), onDeleteTimeTriggersSuccess);
+		}
 	});
 			
   });	

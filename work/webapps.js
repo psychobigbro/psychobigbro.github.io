@@ -93,7 +93,7 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 		$fieldset.find("h3").html("Check to delete triggers:");
 		$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
 	} else
-		$fieldset.find("h3").html("No triggers left!");
+		$fieldset.find("h3").html("No time triggers left!");
 	
 	//$( "#triggerDialog" ).find("[href]").removeAttr("disabled"); //enable anchor close btn
 }
