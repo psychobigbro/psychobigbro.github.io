@@ -89,7 +89,9 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 							+ uid + '"><label for="' + uid + '">' + handler + '</label>');
 		}
 		//$fieldset.children().eq(1).html(htmlStr);  //original template string replaced
-		$fieldset.controlgroup("refresh");
+		$("[type=checkbox]").checkboxradio();
+		$("[data-role=controlgroup]").controlgroup("refresh");
+		//$fieldset.controlgroup("refresh");
 	}
 	$fieldset.find("h4").html("Check to delete triggers:");
 	$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
