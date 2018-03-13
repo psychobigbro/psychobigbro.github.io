@@ -77,21 +77,19 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 	var timeTriggers = result.response;
 	$dialog = $( "#triggerDialog" );
 	$fieldset = $dialog.find("fieldset");
-
+	$fieldset.find("input").remove();
+	$fieldset.find("label").remove();
 	if (Array.isArray(timeTriggers) && timeTriggers.length > 0) {
 		var htmlStr = "";
 		for (var i = 0; i < timeTriggers.length; i++) {
 			var uid = timeTriggers[i][0];
 			var handler = timeTriggers[i][1];
-			var str = checkboxTemplate.replace(/uid/g, uid);
-			htmlStr += str.replace(/handler/g, handler);
 			$fieldset.append('<input type="checkbox" name="' + uid + '" id="' 
 							+ uid + '"><label for="' + uid + '">' + handler + '</label>');
 		}
-		//$fieldset.children().eq(1).html(htmlStr);  //original template string replaced
+		//ask jqm to enhance all checkboxes and controlgroup
 		$("[type=checkbox]").checkboxradio();
 		$("[data-role=controlgroup]").controlgroup("refresh");
-		//$fieldset.controlgroup("refresh");
 	}
 	$fieldset.find("h4").html("Check to delete triggers:");
 	$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
