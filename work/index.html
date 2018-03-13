@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 65</h1>
+      <h1 class="">HKRace 66</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -67,11 +67,11 @@
       <!--form : putting button inside form would trigger default submit!!-->
 	  <div class="ui-content">
     	<fieldset data-role="controlgroup" data-iconpos="right" >
-        	<legend><h4>Check to delete triggers:</h4></legend>
-        	<input type="checkbox" name="uid" id="uid" data-mini="true" >
-        	<label for="uid">handler</label>
+        	<legend><h3>Check to delete triggers:</h3></legend>
+        	<!--input type="checkbox" name="uid" id="uid" data-mini="true" >
+        	<label for="uid">handler</label-->
     	</fieldset>
-		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-right">Cancel</a>
+		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-right">Dismiss</a>
 		<button id="del-trigger-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-left ui-btn-inline">Delete</button>
 	  </div>
 	  <!--/form-->
@@ -183,7 +183,7 @@
 		console.log("prt tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
 		$dialog = $( "#triggerDialog" );
 		var prompt = "Loading time triggers ... "
-		$dialog.find("h4").html(prompt);
+		$dialog.find("h3").html(prompt);
 		$("#del-trigger-btn").attr("disabled","");  //disable delete btn
 		$dialog.find("[href]").attr("disabled",""); //disable anchor close btn as well
 		$dialog.popup( "open" );

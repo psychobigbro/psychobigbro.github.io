@@ -85,15 +85,15 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 			var uid = timeTriggers[i][0];
 			var handler = timeTriggers[i][1];
 			$fieldset.append('<input type="checkbox" name="' + uid + '" id="' 
-							+ uid + '"><label for="' + uid + '">' + handler + '</label>');
+							+ uid + '" data-mini="true"><label for="' + uid + '">' + handler + '</label>');
 		}
 		//ask jqm to enhance all checkboxes and controlgroup
 		$("[type=checkbox]").checkboxradio();
 		$("[data-role=controlgroup]").controlgroup("refresh");
 	}
-	$fieldset.find("h4").html("Check to delete triggers:");
+	$fieldset.find("h3").html("Check to delete triggers:");
 	$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
-	$( "#triggerDialog" ).find("[href]").removeAttr("disabled"); //enable anchor close btn
+	//$( "#triggerDialog" ).find("[href]").removeAttr("disabled"); //enable anchor close btn
 }
 
 /* Return an HTML tr td from 2D array*/
