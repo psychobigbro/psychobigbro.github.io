@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 58</h1>
+      <h1 class="">HKRace 59</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -70,20 +70,6 @@
         	<legend><h4>Check to delete triggers:</h4></legend>
         	<input type="checkbox" name="uid" id="uid" data-mini="true">
         	<label for="uid">handler</label>
-        	<!--input type="checkbox" name="checkbox-h-6b" id="checkbox-h-6b" data-mini="true">
-        	<label for="checkbox-h-6b">Trigger Two</label>
-        	<input type="checkbox" name="checkbox-h-6c" id="checkbox-h-6c" data-mini="true">
-        	<label for="checkbox-h-6c">Trigger Three</label>
-        	<input type="checkbox" name="checkbox-h-6d" id="checkbox-h-6d" data-mini="true">
-        	<label for="checkbox-h-6d">Trigger Four</label>
-	    	<input type="checkbox" name="checkbox-h-6e" id="checkbox-h-6e" data-mini="true">
-        	<label for="checkbox-h-6e">Trigger Five</label>
-        	<input type="checkbox" name="checkbox-h-6f" id="checkbox-h-6f" data-mini="true">
-        	<label for="checkbox-h-6f">Trigger Six</label>
-       		<input type="checkbox" name="checkbox-h-6g" id="checkbox-h-6g" data-mini="true">
-        	<label for="checkbox-h-6g">Trigger Seven</label>
-       		<input type="checkbox" name="checkbox-h-6h" id="checkbox-h-6h" data-mini="true">
-       		<label for="checkbox-h-6h">Trigger Eight</label-->
     	</fieldset>
 		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-right">Cancel</a>
 		<button id="del-trigger-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-left ui-btn-inline">Delete</button>
@@ -140,6 +126,7 @@
   <script>
   var lastFunc = ""; //global to hold last webapp func name invoked
   var reqFunc = "";  //global to hold webapp func being requested
+  var checkboxTemplate = $( "#triggerDialog" ).find("fieldset").children().eq(1).html(); //saved template trigger checkbox list
   
   $( document ).on( "pageinit", "#main-page", function() {
     $( document ).on( "swipeleft swiperight", "#main-page", function( e ) {
@@ -236,7 +223,7 @@
 	});
 	
 	/* saved global template for builder time trigger checkbox list */
-	var checkboxTemplate = $( "#triggerDialog" ).find("fieldset").children().eq(1).html();			
+	//var checkboxTemplate = $( "#triggerDialog" ).find("fieldset").children().eq(1).html();			
   });	
   </script>
   <script src="webapps.js" async></script>
