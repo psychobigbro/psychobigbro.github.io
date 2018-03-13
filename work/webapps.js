@@ -92,7 +92,7 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 		var str1 = $("fieldset:nth-child(2)").html();
 		var str2 = $("#triggerDialog fieldset div.ui-control-group-control").html();
 		var str3 = $("#triggerDialog").find("div.ui-control-group-control").html();
-		"
+		
 		$("fieldset:nth-child(2)").html(htmlStr);
 	}
 	$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
