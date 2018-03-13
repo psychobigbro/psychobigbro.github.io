@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 71</h1>
+      <h1 class="">HKRace 72</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -98,6 +98,13 @@
     </div>
     <!-- /left-panel -->   
     <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="none">
+	  <div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
+      <h4>Settings</h4>
+        <ul data-role="listview">
+          <li>Read-only list item 1</li>
+          <li>Read-only list item 2</li>
+        </ul>
+	  </div>
       <ul data-role="listview">
 	    <li><pl func="getDataForHorsesInRange">Get Horse Data in Range</pl></li> 
         <li><pr func="cleanLog">Clean Log</pr></li> 
@@ -112,7 +119,7 @@
       </ul>
 	  <!--form-->
     	<div class="ui-field-contain" >
-          <label for="test-mode-switch" <!--class="ui-hidden-accessible"--><prc>Test Mode:</prc></label>
+          <label for="test-mode-switch" <prc>Test Mode:</prc></label>
           <select data-inline="true" name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
             <option value="off">Off</option>
             <option selected value="on">On</option>
@@ -230,11 +237,11 @@
 			callGoogleScript(reqFunc, JSON.stringify(arr), onDeleteTimeTriggersSuccess);
 		}
 	});
-	
+	/*
 	$("#sys-msg").on("click", function() {
 		console.log("***sys-msg clicked!!!");
 		$("#sys-msg").css("animation","flash 2s");
-	});
+	}); */
   });	
   </script>
   <script src="webapps.js" async></script>
