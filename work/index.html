@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 85</h1>
+      <h1 class="">HKRace 86</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -98,17 +98,6 @@
     </div>
     <!-- /left-panel -->   
     <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="a">
-	  <div data-role="collapsible"  data-inset="false" 
-		   data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
-      <h2>Settings</h2>
-		<div class="ui-field-contain" >
-          <label for="test-mode-switch" <prc>Test Mode:</prc></label>
-          <select data-inline="true" name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
-            <option value="off">Off</option>
-            <option selected value="on">On</option>
-          </select>
-    	</div>
-	  </div>
       <ul data-role="listview">
 	    <li><pl func="getDataForHorsesInRange"><h4>Get Horse Data in Range</h4></pl></li> 
 	    <li><pl func="dailyPostRaceRoutine"><h4>Post Race</h4></pl></li>
@@ -120,6 +109,17 @@
         <li><prt func="deleteTimeTriggers"><h4>Delete Time Triggers</h4></prt></li> 
         <li><pr func="queryBet"><h4>Query Bet</h4></pr></li>
       </ul>
+	  <div data-role="collapsible"  data-inset="false" 
+		   data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+        <h2>Settings</h2>
+		<div class="ui-field-contain" >
+          <label for="test-mode-switch" <prc>Test Mode:</prc></label>
+          <select data-inline="true" name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
+            <option value="off">Off</option>
+            <option selected value="on">On</option>
+          </select>
+    	</div>
+	  </div>
     </div>
     <!-- /right-panel -->
   </div>
