@@ -77,11 +77,7 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 	var timeTriggers = result.response;
 	$dialog = $( "#triggerDialog" );
 	$fieldset = $dialog.find("fieldset");
-	var str1 = $fieldset.children("div.ui-control-group-controls").html();
-		var str2 = $("#triggerDialog .ui-control-group-controls").html();
-		var str3 = $("#triggerDialog").find("div.ui-control-group-controls").html();
-		var str4 = $fieldset.children().eq(1).html();
-		var str5 = $fieldset.children().eq(2).html();
+		var str1 = $fieldset.children().eq(0).html();
 		
 	if (Array.isArray(timeTriggers) && timeTriggers.length > 0) {
 		var htmlStr = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -94,10 +90,10 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 					+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 		}
 		
-		$("fieldset:nth-child(2)").html(htmlStr);
+		$fieldset.children().eq(1).html(htmlStr);
 	}
 	$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
-	//$( "#triggerDialog" ).find("a").removeAttr("disabled"); //enable anchor close btn
+	$( "#triggerDialog" ).find("[href]").removeAttr("disabled"); //enable anchor close btn
 }
 
 /* Return an HTML tr td from 2D array*/
