@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 81</h1>
+      <h1 class="">HKRace 82</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -109,14 +109,13 @@
           </select>
     	</div>
 	  </div>
-	  <pl func="getDataForHorsesInRange"><h4>Get Horse Data in Range<h4></pl>
       <ul data-role="listview">
 	    <li><pl func="dailyPostRaceRoutine"><h4>Post Race</h4></pl>
           <ul data-role="listview">
             <li><pl func="getAllResults">Get All Results</pl></li>
             <li><pl func="insertRawData">Insert Raw Data</pl></li>
           </ul>
-	    <!--><pl func="getDataForHorsesInRange">Get Horse Data in Range</pl></li--> 
+	    <pl func="getDataForHorsesInRange"></h4>Get Horse Data in Range</h4></pl></li> 
         <li><pr func="cleanLog"><h4>Clean Log</h4></pr></li> 
         </li> 
         <li><prt func="deleteTimeTriggers"><h4>Delete Time Triggers</h4></prt></li> 
