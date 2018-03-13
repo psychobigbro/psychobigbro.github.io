@@ -42,6 +42,7 @@ function getLastLogMsgsCompl (result,status,xhr) {
 	//$("#sys-msg").text(result.status + ": " + result.message);
 	for (var i=0; i < result.response.length; i++) {
 		var d = new Date(result.response[i][0]);
+		if (isNaN( d.getTime() )) continue;  //skip invalid date
 		result.response[i][0] = d.getDate() + "/" + (d.getMonth()+1) + " " +
 								pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
 	}
@@ -102,6 +103,8 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 function makeTableHTML(myArray) {
 	var result = "";
 	for (var i=0; i < myArray.length; i++) {
+		var d = new Date(myArray[i][0]);
+		if (isNaN( d.getTime() )) continue;  //skip invalid date
 		result += "<tr>";
 		for(var j=0; j<myArray[i].length; j++){
 			result += "<td>"+myArray[i][j]+"</td>";
