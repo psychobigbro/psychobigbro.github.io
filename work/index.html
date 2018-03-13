@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 91</h1>
+      <h1 class="">HKRace 92</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -114,7 +114,7 @@
       <ul data-role="listview" data-inset="true">
 	    <li><pl func="getDataForHorsesInRange"><h4>Get Horse Data in Range</h4></pl></li> 
 	    <li><pl func="dailyPostRaceRoutine"><h4>Post Race</h4></pl></li>
-          <ul data-role="listview" data-inset="true">
+          <ul data-role="listview" data-inset="false">
             <li><pl func="getAllResults">Get All Results</pl></li>
             <li><pl func="insertRawData">Insert Raw Data</pl></li>
           </ul>
@@ -122,6 +122,14 @@
         <li><prt func="deleteTimeTriggers"><h4>Delete Time Triggers</h4></prt></li> 
         <li><pr func="queryBet"><h4>Query Bet</h4></pr></li>
       </ul>
+	  <div data-role="collapsible"  data-inset="true" 
+		   data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+        <h2>Under Development</h2>
+		<ul data-role="listview">
+		  <li><pr func=""><h4>Item 1</h4></pr></li>
+		  <li><pr func=""><h4>Item 2</h4></pr></li> 
+		</ul>
+	  </div>
     </div>
     <!-- /right-panel -->
   </div>
