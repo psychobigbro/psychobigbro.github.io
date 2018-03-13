@@ -76,11 +76,12 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 	$("#sys-msg").text(result.status + ": " + result.message);
 	var timeTriggers = result.response;
 	$dialog = $( "#triggerDialog" );
-		var str1 = $dialog.find("fieldset").html();
-		var str2 = $("#triggerDialog div.ui-control-group-controls").html();
+	$fieldset = $dialog.find("fieldset");
+	var str1 = $fieldset.children("div.ui-control-group-controls").html();
+		var str2 = $("#triggerDialog .ui-control-group-controls").html();
 		var str3 = $("#triggerDialog").find("div.ui-control-group-controls").html();
-		var str4 = $dialog.find (".ui-control-group-controls").html();
-		var str5 = $("fieldset:nth-child(2)").html;
+		var str4 = $fieldset.children().eq(1).html();
+		var str5 = $fieldset.children().eq(2).html();
 		
 	if (Array.isArray(timeTriggers) && timeTriggers.length > 0) {
 		var htmlStr = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
