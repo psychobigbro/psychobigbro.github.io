@@ -85,10 +85,10 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 			var handler = timeTriggers[i][1];
 			var str = checkboxTemplate.replace(/uid/g, uid);
 			htmlStr += str.replace(/handler/g, handler);
-			$fieldset.append('<input type="checkbox" name="' + uid + '" id="' 
-							+ uid + '"><label for="' + uid + '">' + handler + '</label>');
+			//$fieldset.append('<input type="checkbox" name="' + uid + '" id="' 
+			//				+ uid + '"><label for="' + uid + '">' + handler + '</label>');
 		}
-		//$fieldset.children().eq(1).html(htmlStr);  //original template string replaced
+		$fieldset.children().eq(1).html(htmlStr);  //original template string replaced
 	}
 	$fieldset.find("h4").html("Check to delete triggers:");
 	$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
