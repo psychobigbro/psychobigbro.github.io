@@ -76,9 +76,12 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 	$("#sys-msg").text(result.status + ": " + result.message);
 	var timeTriggers = result.response;
 	$dialog = $( "#triggerDialog" );
-		var str1 = $("fieldset:nth-child(2)").html();
-		var str2 = $("#triggerDialog fieldset div.ui-control-group-control").html();
-		var str3 = $("#triggerDialog").find("div.ui-control-group-control").html();
+		var str1 = $dialog.find("fieldset").html();
+		var str2 = $("#triggerDialog div.ui-control-group-controls").html();
+		var str3 = $("#triggerDialog").find("div.ui-control-group-controls").html();
+		var str4 = $dialog.find (".ui-control-group-controls").html();
+		var str5 = $("fieldset:nth-child(2)").html;
+		
 	if (Array.isArray(timeTriggers) && timeTriggers.length > 0) {
 		var htmlStr = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 		for (var i = 0; i < timeTriggers.length; i++) {
@@ -89,9 +92,6 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 					+ handler + '::after</label><input type="checkbox" name="' + uid  + '" data-mini="true"></div>'
 					+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 		}
-		var str1 = $("fieldset:nth-child(2)").html();
-		var str2 = $("#triggerDialog fieldset div.ui-control-group-control").html();
-		var str3 = $("#triggerDialog").find("div.ui-control-group-control").html();
 		
 		$("fieldset:nth-child(2)").html(htmlStr);
 	}
