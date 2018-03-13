@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 59</h1>
+      <h1 class="">HKRace 60</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -66,9 +66,9 @@
 	<div data-role="popup" id="triggerDialog" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:22em;">
       <!--form : putting button inside form would trigger default submit!!-->
 	  <div class="ui-content">
-    	<fieldset data-role="controlgroup" data-iconpos="right">
+    	<fieldset data-role="controlgroup" data-iconpos="right" >
         	<legend><h4>Check to delete triggers:</h4></legend>
-        	<input type="checkbox" name="uid" id="uid" data-mini="true">
+        	<input type="checkbox" name="uid" id="uid" data-mini="true" >
         	<label for="uid">handler</label>
     	</fieldset>
 		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-right">Cancel</a>
@@ -223,7 +223,8 @@
 	});
 	
 	/* saved global template for builder time trigger checkbox list */
-	//var checkboxTemplate = $( "#triggerDialog" ).find("fieldset").children().eq(1).html();			
+	if (checkboxTemplate == "")  //seems to come here more than once!!
+		checkboxTemplate = $( "#triggerDialog" ).find("fieldset").children().eq(1).html();			
   });	
   </script>
   <script src="webapps.js" async></script>
