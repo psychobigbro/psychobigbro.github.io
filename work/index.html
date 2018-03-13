@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 79</h1>
+      <h1 class="">HKRace 80</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -109,16 +109,15 @@
           </select>
     	</div>
 	  </div>
-	  <h4>Get Horse Data in Range</h4>
-	  <h4>Clean Log</h4>
+	  <pl func="getDataForHorsesInRange">Get Horse Data in Range</pl>
       <ul data-role="listview">
-	    <li><pl func="getDataForHorsesInRange">Get Horse Data in Range</pl></li> 
-        <li><pr func="cleanLog">Clean Log</pr></li> 
-        <li><pl func="dailyPostRaceRoutine">Post Race</pl>
+	    <li><pl func="dailyPostRaceRoutine">Post Race</pl>
           <ul data-role="listview">
             <li><pl func="getAllResults">Get All Results</pl></li>
             <li><pl func="insertRawData">Insert Raw Data</pl></li>
           </ul>
+	    <!--><pl func="getDataForHorsesInRange">Get Horse Data in Range</pl></li--> 
+        <li><pr func="cleanLog">Clean Log</pr></li> 
         </li> 
         <li><prt func="deleteTimeTriggers">Delete Time Triggers</prt></li> 
         <li><pr func="queryBet">Query Bet</pr></li>
