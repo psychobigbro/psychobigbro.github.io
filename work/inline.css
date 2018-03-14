@@ -21,6 +21,7 @@
 #popupDialog2  .ui-popup-container {width: 60%}
 */
 .ui-popup-container {width: 80%}
+#triggerDialog .ui-popup-container {width: 85%}
 
 /* Content styling. */
 #left-panel { width:auto; }
