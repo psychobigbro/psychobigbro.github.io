@@ -17,9 +17,9 @@
 }
 /*
 #triggerDialog .ui-popup-container {width: 85%}
-#popupDialog   .ui-popup-container {width: 80%}
-#popupDialog2  .ui-popup-container {width: 60%}
-*/
+#popupDialog   .ui-popup-container {width: 80%} */
+#popupDialog2  .ui-popup-container {width: 13em}
+
 
 /* Content styling. */
 #left-panel { width:auto; }
