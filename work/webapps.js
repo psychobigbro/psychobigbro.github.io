@@ -91,7 +91,7 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 		//ask jqm to enhance all checkboxes and controlgroup
 		$("[type=checkbox]").checkboxradio();
 		$("[data-role=controlgroup]").controlgroup("refresh");
-		$fieldset.find("h3").html("Check to delete triggers:");
+		$fieldset.find("h3").html("Refreshed. Check to delete triggers:");
 		$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
 	} else
 		$fieldset.find("h3").html("No time triggers left!");
