@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 13</h1>
+      <h1>HKRace 14</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -101,6 +101,14 @@
 	  <div data-role="collapsible"  data-inset="true" data-theme="a"
 		   data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
         <h2>Settings</h2>
+		<fieldset>
+		  <div data-role="fieldcontain">
+		    <label for="monitor-flipswitch">Monitor:</label>
+			<input type="checkbox" id="minitor-flipswitch" data-role="flipswitch">
+			<label for="test-mode-flipswitch">Test Mode:</label>
+			<input type="checkbox" id="test-mode-flipswitch" data-role="flipswitch">
+		  </div>
+		</fieldset>
 		<ul data-role="listview">
 		<li class="ui-field-contain">
           <label for="test-mode-switch" >Test Mode:</label>
