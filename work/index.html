@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 22</h1>
+      <h1>HKRace 23</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -106,15 +106,20 @@
 			<div data-role="fieldcontain">
 			  <fieldset data-role="controlgroup">
 				<legend>Monitor</legend>
-				<input type="checkbox" id="minitor-flipswitch" data-role="flipswitch" data-mini="true" data-theme="a">
-				<label for="monitor-flipswitch">Monitor</label>
+				<input type="checkbox" id="minitor-flipswitch" data-role="flipswitch" data-mini="true" data-theme="a"/>
+				<label for="monitor-flipswitch">Monitor:</label>
 			  </fieldset>
 			</div>
 			<div data-role="fieldcontain">
 			  <fieldset data-role="controlgroup">
-				<legend>Monitor2</legend>
-				<input type="checkbox" id="minitor-flipswitch2" data-role="flipswitch" data-mini="true" data-theme="a">
-				<label for="monitor-flipswitch">Monitor2</label>
+				<legend>Interval</legend>
+				<select name="monitor-interval" id="monitor-interval" data-mini="true" data-theme="a">
+				  <option value="15000">15 seconds</option>
+           		  <option selected value="30000">30 seconds</option>
+				  <option value="45000">45 seconds</option>
+				  <option value="60000">60 seconds</option>
+				</select>
+				<label for="Monitor-interval">Interval</label>
 			  </fieldset>
 			</div>
 		  </div>
@@ -122,8 +127,8 @@
 			<div data-role="fieldcontain">
 			  <fieldset data-role="controlgroup">
 				<legend>Test Mode</legend>
-				<input type="checkbox" id="test-mode-flipswitch" data-role="flipswitch" data-mini="true" data-theme="a">
-				<label for="test-mode-flipswitch">Test Mode</label>
+				<input type="checkbox" id="test-mode-flipswitch" data-role="flipswitch" data-mini="true" data-theme="a"/>
+				<label for="test-mode-flipswitch">Test Mode:</label>
 			  </fieldset>
 			</div>
 			<div data-role="field-contain">
