@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 16</h1>
+      <h1>HKRace 17</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -106,20 +106,22 @@
 		    <label for="monitor-flipswitch">Monitor:</label>
 			<input type="checkbox" id="minitor-flipswitch" data-role="flipswitch" data-mini="true" data-theme="a">
 		  </fieldset>
+		</div>
+		<div data-role="fieldcontain">
 		  <fieldset data-role="controlgroup">
 			<label for="test-mode-flipswitch">Test Mode:</label>
-			<input type="checkbox" id="test-mode-flipswitch" data-role="flipswitch" data-mini="true" data-theme="b">
+			<input type="checkbox" id="test-mode-flipswitch" data-role="flipswitch" data-mini="true" data-theme="c">
 		  </fieldset>
 		</div>
-		<ul data-role="listview">
-		<li class="ui-field-contain">
+		<div class="ui-field-contain">
+		  <fieldset data-role="controlgroup">
           <label for="test-mode-switch" >Test Mode:</label>
           <select data-inline="true" name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
             <option value="off">Off</option>
             <option selected value="on">On</option>
           </select>
-    	</li>
-		</ul>
+		  </fieldset>
+    	</div>
 	  </div> <!--collapsible/-->
       <ul data-role="listview" data-inset="true">
 	    <li><pl func="getDataForHorsesInRange"><h4>Get Horse Data in Range</h4></pl></li> 
