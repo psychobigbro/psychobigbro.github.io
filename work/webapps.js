@@ -48,8 +48,10 @@ function getLastLogMsgsCompl (result,status,xhr) {
 	}
 	var tblContent = "<thead><tr><th>Time</th><th>Message</th></tr></thead><tbody>"
 					+ makeTableHTML(result.response) + "</tbody>";
-	$("#log-table").empty().append(tblContent);
-	$("#log-table").table().table("rebuild");
+	$logTbl = $("#log-table");
+	$logTbl.find("thead").remove();
+	$logTbl.find("tbody").remove();
+	$logTbl.append(tblContent).table("rebuild");
 	//$("#log-table tbody").html(makeTableHTML(result.response));
 	$("#refresh-btn").removeAttr( "disabled" );	
 }
