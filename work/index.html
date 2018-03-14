@@ -20,17 +20,17 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1 class="">HKRace 5</h1>
+      <h1>HKRace 6</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
     </div>
     <!-- /header -->
     <div data-role="content" id="content-container">
-	  <!--form class="ui-filterable">
+	  <form class="ui-filterable">
 	    <label for="filterTable-input" class="ui-hidden-accessible">Filter:</label>
         <input type="search" id="filterTable-input" data-mini="true" placeholder="filter text ..." >
-	  </form-->
+	  </form>
       <table id="log-table" data-filter="true" data-input="#filterTable-input" class="ui-responsive table-stripe">
         <thead>
           <tr>
@@ -228,8 +228,6 @@
 	/* delete button click within triggerDialog */
 	$("#del-trigger-btn").on("click", function() {
 		console.log("***del-trigger-btn clicked!!!");
-		//$("#triggerDialog").popup("close");
-		//$( "#right-panel" ).panel( "close" );
 		$elm = $dialog.find("input:checked");
 		if ($elm.length > 0) {
 			$("#del-trigger-btn").attr("disabled","");  //disable delete btn

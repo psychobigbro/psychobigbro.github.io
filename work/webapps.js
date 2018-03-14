@@ -46,7 +46,10 @@ function getLastLogMsgsCompl (result,status,xhr) {
 		result.response[i][0] = d.getDate() + "/" + (d.getMonth()+1) + " " +
 								pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
 	}
-	$("#log-table tbody").html(makeTableHTML(result.response));
+	var tblContent = "<thead><tr><th>Time</th><th>Message</th></tr></thead><tbody>"
+					+ makeTableHTML(result.response) + "</tbody>";
+	$("#log-table").empty.append(tblContent).table("rebuild");
+	//$("#log-table tbody").html(makeTableHTML(result.response));
 	$("#refresh-btn").removeAttr( "disabled" );	
 }
 
@@ -95,8 +98,6 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 		$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
 	} else
 		$fieldset.find("h3").html("No time triggers left!");
-	
-	//$( "#triggerDialog" ).find("[href]").removeAttr("disabled"); //enable anchor close btn
 }
 
 /* Return an HTML tr td from 2D array*/
