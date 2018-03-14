@@ -16,6 +16,8 @@
     border: none;
 }
 
+.ui-popup-container {width: 85%}
+
 /* Content styling. */
 #left-panel { width:auto; }
 #left-panel * {
