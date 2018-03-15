@@ -53,7 +53,7 @@ function getLastLogMsgsCompl (result,status,xhr) {
 	$logTbl.find("tbody").remove();
 	$logTbl.append(tblContent).table("rebuild");
 	/* check if monitor is on */
-	var switchOn = $("#monitor-flipswitch".prop("checked"));
+	var switchOn = $("#monitor-flipswitch").prop("checked");
 	if (switchOn) {
 		clearTimeout(refreshMsgLogTimer); //clear any incase this refresh was manually clicked
 		var monInterval = $("#monitor-interval").val();
