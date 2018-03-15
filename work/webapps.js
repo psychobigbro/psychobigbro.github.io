@@ -56,10 +56,7 @@ function getLastLogMsgsCompl (result,status,xhr) {
 
 	if ($("#monitor-flipswitch")[0].value == "on") {
 		clearTimeout(refreshMsgLogTimer); //clear any incase this refresh was manually clicked
-		var monInterval = $("monitor-interval").val();
-		temp1 = $("#monitor-interval")[0].value;
-		temp2 = $("#monitor-interval").val();
-		temp3 = $("#monitor-interval option:checked").val();
+		var monInterval = $("#monitor-interval").val();
 		refreshMsgLogTimer = setTimeout (refreshMsgLog, monInterval);  //schedule next refresh
 		}
 
@@ -112,6 +109,11 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 		$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
 	} else
 		$fieldset.find("h3").html("No time triggers left!");
+}
+
+function refreshMsgLog () {
+	$("#refresh-btn").attr("disabled","");
+	callGoogleScript('getLastLogMsgs',25, getLastLogMsgsCompl);
 }
 
 /* Return an HTML tr td from 2D array*/
