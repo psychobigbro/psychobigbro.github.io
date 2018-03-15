@@ -108,7 +108,7 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 
 	if (status == "timeout") { //ajax timeout 
 		$fieldset.find("h3").html("Request timeout. Try again");
-	} else if (Array.isArray(timeTriggers) {
+	} else if (Array.isArray(timeTriggers)) {
 		$fieldset.find("input").remove();
 		$fieldset.find("label").remove();
 		if (timeTriggers.length) > 0) {
