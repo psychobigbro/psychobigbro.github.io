@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <title>HK Race Control</title>
@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 41</h1>
+      <h1>HKRace 42</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -188,20 +188,20 @@
 	
 	$( "[data-role='footer']" ).toolbar();  //init external footer
 	
-	/* catch ajax network error not catched by error callback */
+	/* catch ajax network error not catched by error callback 
 	$(document).on("ajaxError", function( event, request, settings ) {
         //When XHR Status code is 0 there is no connection with the server
 		console.log("***ajaxError function called!!!");
 		console.log(request.status);
         if (request.status == 0){ 
             $("#sys-msg").text("Network error!!");
-			/* enable start-btn etc. to allow retry, if applicable */
+			// enable start-btn etc. to allow retry, if applicable 
 			$("#start-btn").removeAttr("disabled");  //enable dialog start btn
 			$.mobile.loading( "hide" );  //hide loader; only 1 pending routine func allowed
 			$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
         } 
     });
-		
+	*/	
 	$("#refresh-btn").on("click", refreshMsgLog);
 	
 	$("#routine-btn").on("click", function() {
@@ -245,7 +245,7 @@
 		//$dialog.find("[href]").attr("disabled",""); //disable anchor close btn as well
 		$dialog.popup( "open" );
 		var emptyArr = [];
-		callGoogleScript(reqFunc, JSON.stringify(emptyArr), onDeleteTimeTriggersSuccess); //get trigger list using dummy param
+		callGoogleScript(reqFunc, JSON.stringify(emptyArr), onDeleteTimeTriggersSuccess, 30000); //get trigger list using dummy param
 	});
 	
 	/* start button click within popupDialog opened by either left or right panel func */
@@ -267,7 +267,7 @@
 		console.log("***go-btn clicked!!!");
 		$("#popupDialog2").popup("close");
 		$("#right-panel").panel("close");
-		callGoogleScript(reqFunc,"",onConcurrentSuccess);
+		callGoogleScript(reqFunc,"",onConcurrentSuccess, 30000);
 		$("#sys-msg").text(reqFunc + " executing...");
 	});
 	
@@ -282,7 +282,7 @@
 				arr.push($elm[i].id);
 			var prompt = "Deleting " + $elm.length + " trigger(s) ..."
 			$dialog.find("h3").html(prompt);
-			callGoogleScript(reqFunc, JSON.stringify(arr), onDeleteTimeTriggersSuccess);
+			callGoogleScript(reqFunc, JSON.stringify(arr), onDeleteTimeTriggersSuccess, 30000);
 		}
 	});
 	

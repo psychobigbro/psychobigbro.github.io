@@ -4,9 +4,11 @@ const JSONPTestExec = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuo
 
 function callGoogleScript(func,
 						  param,
-						  successHandler) {
+						  successHandler,
+						  respTimeout) {
 	console.log("***callGoogleScript CALLED!!!");
   	if (param === undefined) param = "";
+	if (respTimeout === undefined) respTimeout = 6 * 60 * 1000;  //default to 6 minutes
 	if (successHandler === undefined) successHandler = onSuccess; //default
 		var url =  JSONPTestExec + "func=" + func + "&param=";
 		if ( $("#test-mode-switch").val() == "off" )
@@ -18,6 +20,7 @@ function callGoogleScript(func,
 			dataType: "jsonp",
 			success: successHandler,
 			complete: onComplete,
+			timeout: respTimeout,
 			error: onError
 			//jsonpCallback : $.ajax will provide default that server will echo back
 		});
@@ -113,7 +116,7 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 
 function refreshMsgLog () {
 	$("#refresh-btn").attr("disabled","");
-	callGoogleScript('getLastLogMsgs',25, getLastLogMsgsCompl);
+	callGoogleScript('getLastLogMsgs',25, getLastLogMsgsCompl,30000);
 }
 
 /* Return an HTML tr td from 2D array*/
