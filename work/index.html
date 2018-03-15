@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 53</h1>
+      <h1>HKRace 54</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -168,22 +168,28 @@
       <a href="#" data-rel="back" data-icon="back" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Back</a>
     </div>
 	<div role="main" class="ui-content" >
+	  <form>
 	  <fieldset data-role="controlgroup" data-mini="true">
      	<legend>Choose Query Criteria</legend>
+		<div class="ui-field-contain">
     	  <label for="race-date">Race Date:</label>
    	 	  <select name="race-date" id="race-date" data-iconpos="right">
         	<option value="#">20180101</option>
         	<option value="#">20180107</option>
         	<option value="#">20180118</option>
    	 	  </select>
+		</div>
 	  </fieldset>
 	  <fieldset data-role="controlgroup" data-mini="true" data-type="horizontal">
+	  	<div class="ui-field-contain">
    	 	  <label for="class">Class:</label>
   	  	  <select name="class" id="class" data-iconpos="right">
         	<option value="<6">All classes</option>
         	<option selected value="<5">Up to 4th class </option>
         	<option value="<4">Up to 3rd class</option>
  	   	  </select>
+		</div>
+		<div class="ui-field-contain">
 	      <label for="max-unrated">Max. unrated:</label>
 	      <select name="max-unrated" id="max-unrated" data-iconpos="right">
         	<option value="<2">Max. 1 unrated</option>
@@ -192,7 +198,10 @@
         	<option value="<5">Max. 4 unrated</option>
         	<option value="<6">Max. 5 unrated</option>
 	      </select>
+		  </div>
 	    </fieldset>
+		<input type="submit" id="query-btn">
+		</form>
 	</div>
   </div>
   <!-- /query-page -->
@@ -290,7 +299,7 @@
 		var funcLabel = this.innerHTML;
 		reqFunc = this.getAttribute("func");  //save globally for reference in dialog
 		console.log("prq tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
-		$.mobile.navigate( "#query-page", { transition : "slide", info: "Handle Bet Query" });
+		$.mobile.navigate( "#query-page" ); //, { transition : "slide", info: "Handle Bet Query" });
 		/*
 		$dialog = $( "#triggerDialog" );
 		var prompt = "Loading time triggers ..."
