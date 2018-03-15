@@ -22,19 +22,24 @@ function callGoogleScript(func,
 			complete: onComplete,
 			timeout: respTimeout,
 			error:  function (xhr,status,error) {
-						onError (xhr,status,error,func);
+						onError (xhr,status,error,func, successHandler);
 					}
 			//jsonpCallback : $.ajax will provide default that server will echo back
 		});
 
 }
 
-function onError (xhr,status,error, func) {
+function onError (xhr,status,error, func, successHandler) {
 	console.log("***onError called!!!");
 	console.log(xhr);
 	console.log(status);
 	console.log(error);
-	$("#sys-msg").text(func + ":" + error);
+	if (error == 'timeout') {
+		//construct a dummy result and call successHandler to windup
+		var dummyResult = {status:func, message:error, response:""};
+		successHandler(dummyResult,status,xhr);
+	} else 
+		$("#sys-msg").text(func + ":" + error);
 } 
 
 function onComplete (xhr,status) {
@@ -51,12 +56,14 @@ function getLastLogMsgsCompl (result,status,xhr) {
 		result.response[i][0] = d.getDate() + "/" + (d.getMonth()+1) + " " +
 								pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
 	}
-	var tblContent = "<thead><tr><th>Time</th><th>Message</th></tr></thead><tbody>"
-					+ makeTableHTML(result.response) + "</tbody>";
-	$logTbl = $("#log-table");
-	$logTbl.find("thead").remove();
-	$logTbl.find("tbody").remove();
-	$logTbl.append(tblContent).table("rebuild");
+	if (result.response.length > 0) {
+		var tblContent = "<thead><tr><th>Time</th><th>Message</th></tr></thead><tbody>"
+						+ makeTableHTML(result.response) + "</tbody>";
+		$logTbl = $("#log-table");
+		$logTbl.find("thead").remove();
+		$logTbl.find("tbody").remove();
+		$logTbl.append(tblContent).table("rebuild");
+	}
 	/* check if monitor is on */
 	var switchOn = $("#monitor-flipswitch").prop("checked");
 	if (switchOn) {
@@ -92,14 +99,15 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 	// success callback for concurrent func: write sys-msg from response only
 	
 	console.log("***onDeleteTimeTriggersSuccess called!!!");
-	console.log(result.response);
+	//console.log(result.response);
 	$("#sys-msg").text(result.status + ": " + result.message);
 	var timeTriggers = result.response;
 	$dialog = $( "#triggerDialog" );
 	$fieldset = $dialog.find("fieldset");
-	$fieldset.find("input").remove();
-	$fieldset.find("label").remove();
+
 	if (Array.isArray(timeTriggers) && timeTriggers.length > 0) {
+		$fieldset.find("input").remove();
+		$fieldset.find("label").remove();
 		var htmlStr = "";
 		for (var i = 0; i < timeTriggers.length; i++) {
 			var uid = timeTriggers[i][0];
@@ -110,6 +118,9 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 		//ask jqm to enhance all checkboxes and controlgroup
 		$("[type=checkbox]").checkboxradio();
 		$("[data-role=controlgroup]").controlgroup("refresh");
+		$fieldset.find("h3").html("Check to delete triggers:");
+		$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
+	} else if (status == "timeout") { //ajax timeout 
 		$fieldset.find("h3").html("Check to delete triggers:");
 		$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
 	} else
