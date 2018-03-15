@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 54</h1>
+      <h1>HKRace 55</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -170,9 +170,9 @@
 	<div role="main" class="ui-content" >
 	  <form>
 	  <fieldset data-role="controlgroup" data-mini="true">
-     	<legend>Choose Query Criteria</legend>
+     	<legend class="ui-hidden-accessible">Choose Query Criteria</legend>
 		<div class="ui-field-contain">
-    	  <label for="race-date">Race Date:</label>
+    	  <label for="race-date" class="ui-hidden-accessible">Race Date:</label>
    	 	  <select name="race-date" id="race-date" data-iconpos="right">
         	<option value="#">20180101</option>
         	<option value="#">20180107</option>
@@ -182,7 +182,7 @@
 	  </fieldset>
 	  <fieldset data-role="controlgroup" data-mini="true" data-type="horizontal">
 	  	<div class="ui-field-contain">
-   	 	  <label for="class">Class:</label>
+   	 	  <label for="class" class="ui-hidden-accessible">Class:</label>
   	  	  <select name="class" id="class" data-iconpos="right">
         	<option value="<6">All classes</option>
         	<option selected value="<5">Up to 4th class </option>
@@ -190,7 +190,7 @@
  	   	  </select>
 		</div>
 		<div class="ui-field-contain">
-	      <label for="max-unrated">Max. unrated:</label>
+	      <label for="max-unrated" class="ui-hidden-accessible">Max. unrated:</label>
 	      <select name="max-unrated" id="max-unrated" data-iconpos="right">
         	<option value="<2">Max. 1 unrated</option>
         	<option selected value="<3">Max. 2 unrated</option>
