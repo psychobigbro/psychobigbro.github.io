@@ -192,7 +192,7 @@
 	$(document).ajaxError(function( event, request, settings ) {
         //When XHR Status code is 0 there is no connection with the server
         if (request.status == 0){ 
-            $("#sys-msg").text(Network error!!);
+            $("#sys-msg").text("Network error!!");
 			/* enable start-btn etc. to allow retry, if applicable */
 			$("#start-btn").removeAttr("disabled");  //enable dialog start btn
 			$.mobile.loading( "hide" );  //hide loader; only 1 pending routine func allowed
