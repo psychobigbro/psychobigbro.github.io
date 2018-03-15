@@ -49,7 +49,8 @@ function onComplete (xhr,status) {
 
 function getLastLogMsgsCompl (result,status,xhr) {
 	console.log("***getLastLogMsgsCompl called!!!");
-	//$("#sys-msg").text(result.status + ": " + result.message);
+	if (status == "timeout")
+		$("#sys-msg").text(result.status + ": " + result.message);
 	for (var i=0; i < result.response.length; i++) {
 		var d = new Date(result.response[i][0]);
 		if (isNaN( d.getTime() )) continue;  //skip invalid date
