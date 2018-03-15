@@ -21,18 +21,20 @@ function callGoogleScript(func,
 			success: successHandler,
 			complete: onComplete,
 			timeout: respTimeout,
-			error: onError
+			error:  function (xhr,status,error) {
+						onError (xhr,status,error,func);
+					}
 			//jsonpCallback : $.ajax will provide default that server will echo back
 		});
 
 }
 
-function onError (xhr,status,error) {
+function onError (xhr,status,error, func) {
 	console.log("***onError called!!!");
 	console.log(xhr);
 	console.log(status);
 	console.log(error);
-	$("#sys-msg").text(status + ":" + error);
+	$("#sys-msg").text(func + ":" + error);
 } 
 
 function onComplete (xhr,status) {
