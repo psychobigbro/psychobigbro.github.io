@@ -58,7 +58,7 @@ function getLastLogMsgsCompl (result,status,xhr) {
 		var monInterval = $("monitor-interval").val();
 		refreshMsgLogTimer = setTimeout (refreshMsgLog, monInterval);  //schedule next refresh
 		}
-	}
+
 	//$("#log-table tbody").html(makeTableHTML(result.response));
 	$("#refresh-btn").removeAttr( "disabled" );	
 }
