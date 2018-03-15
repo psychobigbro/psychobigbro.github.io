@@ -26,8 +26,8 @@
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
     </div>
     <!-- /header -->
-    <div data-role="content" id="content-container">
-	  <label for="filterTable-input">Filter</label>
+	<div role="main" class="ui-content" id="content-container">
+	  <!--label for="filterTable-input">Filter</label>
       <input type="search" id="filterTable-input" name="search-text value = "" data-mini="true" data-clear-btn="true">
       <!--table id="log-table" data-filter="true" data-input="#filterTable-input" class="ui-responsive table-stripe"-->
 	  <table data-role="table" id="log-table" data-mode="columntoggle:none" class="table-stripe">
@@ -148,7 +148,7 @@
           </ul>
         <li><pr func="cleanLog"><h4>Clean Log</h4></pr></li> 
         <li><prt func="deleteTimeTriggers"><h4>Delete Time Triggers</h4></prt></li> 
-        <li><pr func="queryBet"><h4>Query Bet</h4></pr></li>
+        <li><prq func="queryBet"><h4>Query Bet</h4></prq></li>
       </ul>
 	  <div data-role="collapsible"  data-inset="true" 
 		   data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
@@ -161,7 +161,18 @@
     </div>
     <!-- /right-panel -->
   </div>
-  <!-- /page -->
+  <!-- /main-page -->
+  <div data-role="page" id="query-page" data-theme="a" data-url="query-page">
+    <div data-role="header" data-theme="b" data-position="fixed">
+      <h1>Bet Query</h1>
+      <a href="#" data-rel="back" data-icon="back" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Back</a>
+    </div>
+	<div role="main" class="ui-content" >
+	  <div>
+	  </div>
+	</div>
+  </div>
+  <!-- /query-page -->
   <div data-role="footer" data-theme="c" data-position="fixed"> 
 	<div id="sys-msg">Ready</div>
 	</div>
@@ -251,6 +262,23 @@
 		callGoogleScript(reqFunc, JSON.stringify(emptyArr), onDeleteTimeTriggersSuccess, 30000); //get trigger list using dummy param
 	});
 	
+	/* prq exclusively used on right panel to invoke query page */
+	$("prq").on("click", function() {
+		var funcLabel = this.innerHTML;
+		reqFunc = this.getAttribute("func");  //save globally for reference in dialog
+		console.log("prq tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
+		$.mobile.navigate( "#query-page", { transition : "slide", info: "Handle Bet Query" });
+		/*
+		$dialog = $( "#triggerDialog" );
+		var prompt = "Loading time triggers ..."
+		$dialog.find("h3").html(prompt);
+		$("#del-trigger-btn").attr("disabled","");  //disable delete btn
+		//$dialog.find("[href]").attr("disabled",""); //disable anchor close btn as well
+		$dialog.popup( "open" );
+		var emptyArr = [];
+		callGoogleScript(reqFunc, JSON.stringify(emptyArr), onDeleteTimeTriggersSuccess, 30000); */
+	});
+	
 	/* start button click within popupDialog opened by either left or right panel func */
 	$("#start-btn").on("click", function() {
 		console.log("***start-btn clicked!!!");
@@ -306,7 +334,11 @@
 		console.log("***sys-msg clicked!!!");
 		$("#sys-msg").css("animation","flash 2s");
 	}); */
-  });	
+  });
+  
+  $( document ).on( "pageinit", "#query-page", function() {
+	$( "[data-role='footer']" ).toolbar();  //init external footer
+  });
   </script>
   <script src="webapps.js"></script>
 </body>
