@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 37</h1>
+      <h1>HKRace 38</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -77,10 +77,6 @@
 	  <!--/form-->
 	</div>
 	<!-- /triggerDialog -->
-    <div data-role="footer" data-theme="c" data-position="fixed"> 
-	  <div id="sys-msg">Ready</div>
-	</div>
-    <!-- /footer -->
 	<div data-role="panel" id="left-panel" data-display="overlay" data-theme="none" >
       <ul data-role="listview">
 	  	<li><plc>Routines</plc></li>
@@ -106,7 +102,7 @@
 			<div data-role="fieldcontain">
 			  <!--fieldset data-role="controlgroup"-->
 				<legend>Monitor</legend>
-				<input type="checkbox" id="monitor-flipswitch" name="monitor" data-role="flipswitch" data-mini="true" data-theme="a"/>
+				<input type="checkbox" id="monitor-flipswitch" data-role="flipswitch" data-mini="true" data-theme="a"/>
 				<!--label for="monitor-flipswitch">Monitor:</label-->
 			  <!--/fieldset-->
 			</div>
@@ -167,6 +163,10 @@
     <!-- /right-panel -->
   </div>
   <!-- /page -->
+  <div data-role="footer" data-theme="c" data-position="fixed"> 
+	<div id="sys-msg">Ready</div>
+	</div>
+  <!-- /External footer -->
   <script>
   var lastFunc = ""; //global to hold last webapp func name invoked
   var reqFunc = "";  //global to hold webapp func being requested
@@ -185,6 +185,8 @@
             }
         }
     });
+	
+	$( "[data-role='footer']" ).toolbar();  //init external footer
 		
 	$("#refresh-btn").on("click", refreshMsgLog);
 	
