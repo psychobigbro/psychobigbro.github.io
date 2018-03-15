@@ -105,14 +105,14 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 
 	$dialog = $( "#triggerDialog" );
 	$fieldset = $dialog.find("fieldset");
-
+	var timeTriggers = result.response;
+	
 	if (status == "timeout") { //ajax timeout 
 		$fieldset.find("h3").html("Request timeout. Try again");
 	} else if (Array.isArray(timeTriggers)) {
 		$fieldset.find("input").remove();
 		$fieldset.find("label").remove();
 		if (timeTriggers.length > 0) {
-			var timeTriggers = result.response;
 			var htmlStr = "";
 			for (var i = 0; i < timeTriggers.length; i++) {
 				var uid = timeTriggers[i][0];
