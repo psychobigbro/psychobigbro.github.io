@@ -102,30 +102,33 @@ function onDeleteTimeTriggersSuccess (result,status,xhr) {
 	console.log("***onDeleteTimeTriggersSuccess called!!!");
 	//console.log(result.response);
 	$("#sys-msg").text(result.status + ": " + result.message);
-	var timeTriggers = result.response;
+
 	$dialog = $( "#triggerDialog" );
 	$fieldset = $dialog.find("fieldset");
 
-	if (Array.isArray(timeTriggers) && timeTriggers.length > 0) {
+	if (status == "timeout") { //ajax timeout 
+		$fieldset.find("h3").html("Request timeout. Try again");
+	} else if (Array.isArray(timeTriggers) {
 		$fieldset.find("input").remove();
 		$fieldset.find("label").remove();
-		var htmlStr = "";
-		for (var i = 0; i < timeTriggers.length; i++) {
-			var uid = timeTriggers[i][0];
-			var handler = timeTriggers[i][1];
-			$fieldset.append('<input type="checkbox" name="' + uid + '" id="' 
+		if (timeTriggers.length) > 0) {
+			var timeTriggers = result.response;
+			var htmlStr = "";
+			for (var i = 0; i < timeTriggers.length; i++) {
+				var uid = timeTriggers[i][0];
+				var handler = timeTriggers[i][1];
+				$fieldset.append('<input type="checkbox" name="' + uid + '" id="' 
 							+ uid + '" data-mini="true"><label for="' + uid + '">' + handler + '</label>');
-		}
-		//ask jqm to enhance all checkboxes and controlgroup
-		$("[type=checkbox]").checkboxradio();
-		$("[data-role=controlgroup]").controlgroup("refresh");
-		$fieldset.find("h3").html("Check to delete triggers:");
-		$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
-	} else if (status == "timeout") { //ajax timeout 
-		$fieldset.find("h3").html("Check to delete triggers:");
-		$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
+			}
+			//ask jqm to enhance all checkboxes and controlgroup
+			$("[type=checkbox]").checkboxradio();
+			$("[data-role=controlgroup]").controlgroup("refresh");
+			$fieldset.find("h3").html("Check to delete triggers:");
+			$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
+		} else
+			$fieldset.find("h3").html("No time triggers left!");
 	} else
-		$fieldset.find("h3").html("No time triggers left!");
+		$fieldset.find("h3").html("Invalid response. Try again");
 }
 
 function refreshMsgLog () {
