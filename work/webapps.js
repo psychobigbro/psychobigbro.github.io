@@ -52,6 +52,13 @@ function getLastLogMsgsCompl (result,status,xhr) {
 	$logTbl.find("thead").remove();
 	$logTbl.find("tbody").remove();
 	$logTbl.append(tblContent).table("rebuild");
+	/* check if monitor is on */
+	if ($("monitor-flipswitch").val() == "on") {
+		clearTimeout(refreshMsgLogTimer); //clear any incase this refresh was manually clicked
+		var monInterval = $("monitor-interval").val();
+		refreshMsgLogTimer = setTimeout (refreshMsgLog, monInterval);  //schedule next refresh
+		}
+	}
 	//$("#log-table tbody").html(makeTableHTML(result.response));
 	$("#refresh-btn").removeAttr( "disabled" );	
 }

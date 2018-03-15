@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 27</h1>
+      <h1>HKRace 28</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -106,7 +106,7 @@
 			<div data-role="fieldcontain">
 			  <!--fieldset data-role="controlgroup"-->
 				<legend>Monitor</legend>
-				<input type="checkbox" id="minitor-flipswitch" data-role="flipswitch" data-mini="true" data-theme="a"/>
+				<input type="checkbox" id="monitor-flipswitch" data-role="flipswitch" data-mini="true" data-theme="a"/>
 				<!--label for="monitor-flipswitch">Monitor:</label-->
 			  <!--/fieldset-->
 			</div>
@@ -170,6 +170,7 @@
   <script>
   var lastFunc = ""; //global to hold last webapp func name invoked
   var reqFunc = "";  //global to hold webapp func being requested
+  var refreshMsgLogTimer;
   
   $( document ).on( "pageinit", "#main-page", function() {
     $( document ).on( "swipeleft swiperight", "#main-page", function( e ) {
@@ -185,11 +186,12 @@
         }
     });
 		
-	$("#refresh-btn").on("click", function() {
-		console.log("***routine-btn clicked!!!");
+	$("#refresh-btn").on("click", refreshMsgLog);
+	
+	function refreshMsgLog () {
 		$("#refresh-btn").attr("disabled","");
 		callGoogleScript('getLastLogMsgs',25, getLastLogMsgsCompl);
-	});
+	}
 	
 	$("#routine-btn").on("click", function() {
 		console.log("***refresh-btn clicked!!!");
@@ -272,6 +274,18 @@
 			callGoogleScript(reqFunc, JSON.stringify(arr), onDeleteTimeTriggersSuccess);
 		}
 	});
+	
+	/* Monitor flip-switch change */
+		$("#monitor-flipswitch").on("change", function() {
+		console.log("***" + this.id + " changed value to " + this.value + "!!!");
+		if (this.value = "on") {
+			if ($("#refresh-btn")[0].hasAttribute("disabled") == false) //not being refreshed
+				refreshMsgLog();
+			/* timer to be set after refresh complete */
+		} else
+			clearTimeout(refreshMsgLogTimer);
+	});
+	
 	/*
 	$("#sys-msg").on("click", function() {
 		console.log("***sys-msg clicked!!!");
