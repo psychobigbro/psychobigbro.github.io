@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 39</h1>
+      <h1>HKRace 40</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -191,6 +191,8 @@
 	/* catch ajax network error not catched by error callback */
 	$(document).ajaxError(function( event, request, settings ) {
         //When XHR Status code is 0 there is no connection with the server
+		console.log("***ajaxError function called!!!");
+		console.log(request.status);
         if (request.status == 0){ 
             $("#sys-msg").text("Network error!!");
 			/* enable start-btn etc. to allow retry, if applicable */
