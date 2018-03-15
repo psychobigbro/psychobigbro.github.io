@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 51</h1>
+      <h1>HKRace 52</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -168,8 +168,29 @@
       <a href="#" data-rel="back" data-icon="back" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Back</a>
     </div>
 	<div role="main" class="ui-content" >
-	  <div>
-	  </div>
+	  <fieldset data-role="controlgroup" data-mini="true">
+     	<legend>Choose Query Criteria</legend>
+    	  <label for="race-date">Race Date:</label>
+   	 	  <select name="race-date" id="race-date" data-iconpos="right">
+        	<option value="#">20180101</option>
+        	<option value="#">20180107</option>
+        	<option value="#">20180118</option>
+   	 	  </select>
+   	 	  <label for="class">Class:</label>
+  	  	  <select name="class" id="class" data-iconpos="right">
+        	<option value="<6"><All classes</option>
+        	<option value="<5" select="selected"><fourth or below</option>
+        	<option value="<4">third or below</option>
+ 	   	  </select>
+	      <label for="number-unrated">Max. unrated:</label>
+	      <select name="max-unrated" id="max-unrated" data-iconpos="right">
+        	<option value="<2">One</option>
+        	<option value="<3" select="selected">Two</option>
+        	<option value="<4">Three</option>
+        	<option value="<5">Four</option>
+        	<option value="<6">Five</option>
+	      </select>
+	    </fieldset>
 	</div>
   </div>
   <!-- /query-page -->
