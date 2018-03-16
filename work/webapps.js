@@ -138,7 +138,7 @@ function refreshMsgLog () {
 
 function preSubmitProc (form) {
     form.submit.disabled = true;
-
+	console.log("***preSubmitProc called!!!");
     return false;
 }
 
