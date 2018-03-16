@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 58</h1>
+      <h1>HKRace 59</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -168,9 +168,7 @@
       <a href="#" data-rel="back" data-icon="back" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Back</a>
     </div>
 	<div role="main" class="ui-content" >
-	  <form>
-	  <!--fieldset data-role="controlgroup" data-mini="true">
-     	<legend class="ui-hidden-accessible">Choose Query Criteria</legend-->
+	  <form onsubmit="preSubmitProc(this)">
 		<div class="ui-field-contain">
     	  <label for="race-date" class="ui-hidden-accessible">Race Date:</label>
    	 	  <select name="race-date" id="race-date" data-iconpos="right">
@@ -179,8 +177,6 @@
         	<option value="#">20180118</option>
    	 	  </select>
 		</div>
-	  <!--/fieldset>
-	  <fieldset data-role="controlgroup" data-mini="true" data-type="horizontal"-->
 	  	<div class="ui-field-contain">
    	 	  <label for="class" class="ui-hidden-accessible">Class:</label>
   	  	  <select name="class" id="class" data-iconpos="right">
@@ -198,10 +194,9 @@
         	<option value="<5">Max. 4 unrated</option>
         	<option value="<6">Max. 5 unrated</option>
 	      </select>
-		  </div>
-	    </fieldset>
-		<input type="submit" id="query-btn">Submit</input>
-		</form>
+		</div>
+		<input type="submit" id="query-btn" name="submitBtn" value="Submit">
+	  </form>
 	</div>
   </div>
   <!-- /query-page -->
@@ -254,7 +249,7 @@
 		console.log("***refresh-btn clicked!!!");
 		$( "#left-panel" ).panel( "open" );
 	});
-	$("#sys-msg").on("click", function() {
+	$("h1").on("click", function() {
 		var win = window.open(location.href, "_blank");
 		win.focus();
 	});
