@@ -136,6 +136,12 @@ function refreshMsgLog () {
 	callGoogleScript('getLastLogMsgs',25, getLastLogMsgsCompl,30000);
 }
 
+function preSubmitProc (form) {
+    form.submit.disabled = true;
+
+    return false;
+}
+
 /* Return an HTML tr td from 2D array*/
 function makeTableHTML(myArray) {
 	var result = "";
