@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 72</h1>
+      <h1>HKRace 73</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -152,13 +152,14 @@
       <a href="#" data-rel="back" data-icon="back" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Back</a>
     </div>
 	<div role="main" class="ui-content" >
-	  <form onsubmit="return preSubmitProc(this)">
+	  <form id="query-form" onsubmit="return preSubmitProc(this)">
 		<div class="ui-grid-a">
 		  <div class="ui-block-a">
+		    <h3>Query Bet:</h3>
    	 	  	<select name="race-date" id="race-date" data-iconpos="right" data-mini="true">
-        	  <option value="#">20180101</option>
-        	  <option value="#">20180107</option>
-        	  <option value="#">20180118</option>
+        	  <option value="20180314">20180314</option>
+        	  <option value="20180311">20180311</option>
+        	  <option value="20180307">20180307</option>
    	 	  	</select>
 		  </div>
 		  <div class="ui-block-b">
@@ -184,6 +185,8 @@
 			<input type="submit" id="query-btn" name="submit-btn" value="Submit" data-mini="true" data-theme="c">
 		  </div>
 	  </form>
+	  <table data-role="table" id="query-table" data-mode="columntoggle:none" class="table-stripe">
+	  </table>
 	</div>
   </div>
   <!-- /query-page -->
