@@ -138,7 +138,7 @@ function refreshMsgLog () {
 
 function preSubmitProc (form) {
     //form.submit.disabled = true;
-	$("#submit-btn").attr("disabled","");
+	$("#query-btn").attr("disabled","");
 	console.log("***preSubmitProc called!!!");
     return false;
 }
