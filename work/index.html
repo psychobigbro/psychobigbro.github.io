@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 59</h1>
+      <h1>HKRace 60</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -99,14 +99,10 @@
 		<div class="ui-grid-a">
 		  <div class="ui-block-a">
 			<div data-role="fieldcontain">
-			  <!--fieldset data-role="controlgroup"-->
 				<legend>Monitor</legend>
 				<input type="checkbox" id="monitor-flipswitch" data-role="flipswitch" data-mini="true" data-theme="a"/>
-				<!--label for="monitor-flipswitch">Monitor:</label-->
-			  <!--/fieldset-->
 			</div>
 			<div data-role="fieldcontain">
-			  <!--fieldset data-role="controlgroup"-->
 				<legend>Interval</legend>
 				<select name="monitor-interval" id="monitor-interval" data-mini="true" data-theme="a">
 				  <option value="15000">15 seconds</option>
@@ -114,27 +110,15 @@
 				  <option value="45000">45 seconds</option>
 				  <option value="60000">60 seconds</option>
 				</select>
-				<!--label for="Monitor-interval">Interval:</label-->
-			  <!--/fieldset-->
 			</div>
 		  </div>
 		  <div class="ui-block-b">
-			<!--div data-role="fieldcontain">
-			  <fieldset data-role="controlgroup">
-				<legend>Test Mode</legend>
-				<input type="checkbox" id="test-mode-flipswitch" data-role="flipswitch" data-mini="true" data-theme="a"/>
-				<label for="test-mode-flipswitch">Test Mode:</label>
-			  </fieldset>
-			</div-->
 			<div data-role="fieldcontain">
-			  <!--fieldset data-role="controlgroup"-->
 				<legend>Test Mode</legend>
-          		<!--label for="test-mode-switch" >Test Mode:</label-->
           		<select data-inline="false" name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
           		  <option value="off">Off</option>
            		  <option selected value="on">On</option>
          		</select>
-			  <!--/fieldset-->
     		</div>
 		  </div>
 		</div>
@@ -176,16 +160,12 @@
         	<option value="#">20180107</option>
         	<option value="#">20180118</option>
    	 	  </select>
-		</div>
-	  	<div class="ui-field-contain">
    	 	  <label for="class" class="ui-hidden-accessible">Class:</label>
   	  	  <select name="class" id="class" data-iconpos="right">
         	<option value="<6">All classes</option>
         	<option selected value="<5">Up to 4th class </option>
         	<option value="<4">Up to 3rd class</option>
  	   	  </select>
-		</div>
-		<div class="ui-field-contain">
 	      <label for="max-unrated" class="ui-hidden-accessible">Max. unrated:</label>
 	      <select name="max-unrated" id="max-unrated" data-iconpos="right">
         	<option value="<2">Max. 1 unrated</option>
@@ -194,8 +174,8 @@
         	<option value="<5">Max. 4 unrated</option>
         	<option value="<6">Max. 5 unrated</option>
 	      </select>
+		  <input type="submit" id="query-btn" name="submitBtn" value="Submit">
 		</div>
-		<input type="submit" id="query-btn" name="submitBtn" value="Submit">
 	  </form>
 	</div>
   </div>
