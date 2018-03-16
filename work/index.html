@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 55</h1>
+      <h1><HKRace 56</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -169,8 +169,8 @@
     </div>
 	<div role="main" class="ui-content" >
 	  <form>
-	  <fieldset data-role="controlgroup" data-mini="true">
-     	<legend class="ui-hidden-accessible">Choose Query Criteria</legend>
+	  <!--fieldset data-role="controlgroup" data-mini="true">
+     	<legend class="ui-hidden-accessible">Choose Query Criteria</legend-->
 		<div class="ui-field-contain">
     	  <label for="race-date" class="ui-hidden-accessible">Race Date:</label>
    	 	  <select name="race-date" id="race-date" data-iconpos="right">
@@ -179,8 +179,8 @@
         	<option value="#">20180118</option>
    	 	  </select>
 		</div>
-	  </fieldset>
-	  <fieldset data-role="controlgroup" data-mini="true" data-type="horizontal">
+	  <!--/fieldset>
+	  <fieldset data-role="controlgroup" data-mini="true" data-type="horizontal"-->
 	  	<div class="ui-field-contain">
    	 	  <label for="class" class="ui-hidden-accessible">Class:</label>
   	  	  <select name="class" id="class" data-iconpos="right">
@@ -200,7 +200,7 @@
 	      </select>
 		  </div>
 	    </fieldset>
-		<input type="submit" id="query-btn">
+		<input type="submit" id="query-btn">Submit</input>
 		</form>
 	</div>
   </div>
@@ -253,6 +253,10 @@
 	$("#routine-btn").on("click", function() {
 		console.log("***refresh-btn clicked!!!");
 		$( "#left-panel" ).panel( "open" );
+	});
+	$("h1").on("click", function() {
+		var win = windows.open(location.href, "_blank");
+		win.focus();
 	});
 	
 	/* pl mainly used on left panel for serial functions */
