@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 65</h1>
+      <h1>HKRace 66</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -152,7 +152,7 @@
       <a href="#" data-rel="back" data-icon="back" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Back</a>
     </div>
 	<div role="main" class="ui-content" >
-	  <form onsubmit="preSubmitProc(this)">
+	  <form onsubmit="return preSubmitProc(this)">
 		<div class="ui-grid-a">
 		  <div class="ui-block-a">
   	  	    <select name="class" id="class" data-iconpos="right" data-mini="true">
@@ -164,25 +164,26 @@
 		  <div class="ui-block-b">
 		  	<input type="submit" id="query-btn" name="submitBtn" value="Submit" data-mini="true">
 		  </div>
-		  <div class="ui-grid-b">
-		    <div class="ui-block-a">
-		      <fieldset data-role="controlgroup" data-mini="true">
+		</div>
+		<div class="ui-grid-b">
+		  <div class="ui-block-a">
+		    <fieldset data-role="controlgroup" data-mini="true">
    	 	  	  <select name="race-date" id="race-date" data-iconpos="right">
         	  <option value="#">20180101</option>
         	  <option value="#">20180107</option>
         	  <option value="#">20180118</option>
    	 	  	  </select>
-			  </fieldset>
-			</div>
-			<div class="ui-block-b">
-	      	  <select name="max-unrated" id="max-unrated" data-iconpos="right" data-mini="true">
+			</fieldset>
+		  </div>
+		  <div class="ui-block-b">
+	      	<select name="max-unrated" id="max-unrated" data-iconpos="right" data-mini="true">
         	  <option value="<2">Max. 1 unrated</option>
         	  <option selected value="<3">Max. 2 unrated</option>
         	  <option value="<4">Max. 3 unrated</option>
         	  <option value="<5">Max. 4 unrated</option>
         	  <option value="<6">Max. 5 unrated</option>
-	      	  </select>
-		    </div>
+	      	</select>
+		   </div>
 		  </div>
 		<!--/div-->
 	  </form>
