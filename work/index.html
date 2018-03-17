@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 85</h1>
+      <h1>HKRace 86</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -239,8 +239,9 @@
 		console.log("***refresh-btn clicked!!!");
 		$( "#left-panel" ).panel( "open" );
 	});
-	$("h1").on("click", "#main-page", function() {
-		var win = window.open(location.href, "_blank");
+	$("h1").on("click", function() {
+		var href = location.protocol + "//" + location.hostname + location.pathname;  //skip ? and #
+		var win = window.open(href, "_blank");
 		win.focus();
 	});
 	
