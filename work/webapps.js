@@ -113,10 +113,10 @@ function onGetPastRaceDatesSuccess (result,status,xhr) {
 		for (var i=0; i<raceDates.length; i++)
 			options += '<option value="' + raceDates[i] + '">' + raceDates[i] + '</option>';
 		$selectMenu.append(options).selectmenu('refresh', true);
-		$form.find("h4").html("Dates refreshed");
+		$("#query-form").find("h4").html("Dates refreshed");
 	}
 	else
-		$form.find("h4").html("No dates refreshed");
+		$("#query-form").find("h4").html("No dates refreshed");
 	
 	$("#query-btn").button('enable');
 }
