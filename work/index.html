@@ -289,7 +289,7 @@
 		reqFunc = this.getAttribute("func");  //save globally for reference in dialog
 		console.log("prq tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
 		$("#query-form").find("h4").html("Loading ...");
-		$("#query-btn").button.button('disable');
+		$("#query-btn").button().button('disable');
 		callGoogleScript(reqFunc, "", onGetPastRaceDatesSuccess, 30000);
 		$.mobile.navigate( "#query-page" ); //, { transition : "slide", info: "Handle Bet Query" });
 	});
