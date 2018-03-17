@@ -97,7 +97,7 @@ function betQueryCompl(result,status,xhr) {
 		$tbl.append(tblContent).table("rebuild");
 	}
 	//$("#query-btn").removeAttr( "disabled" );
-	$("#query-btn").prop('disabled', false)
+	$("#query-btn").prop('disabled', false);
 	$("#sys-msg").text(result.status + ": " + result.message);
 }
 
@@ -107,7 +107,7 @@ function onGetPastRaceDatesSuccess (result,status,xhr) {
 
 	$("#sys-msg").text(result.status + ": " + result.message );
 	$("#query-form").find("h4").html("Dates refreshed");
-	$("#query-btn").removeAttr("disabled");  //enable dialog start btn
+	$("#query-btn").prop('disabled', false);
 }
 
 function onSuccess (result,status,xhr) {
@@ -172,7 +172,7 @@ function refreshMsgLog () {
 function preSubmitBetQuery () {
 	console.log("***preSubmitProc called!!!");
     //form.submit.disabled = true;
-	$("#query-btn").attr("disabled","");
+	$("#query-btn").prop('disabled', true);
 	var param = {date:$("#race-date").val(),class:$("#class").val(),unrated:$("#max-unrated").val()};
 	callGoogleScript('betQuery',JSON.stringify(param), betQueryCompl,30000);
 	$("#query-form").find("h4").html("Working ...");
