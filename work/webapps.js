@@ -104,9 +104,20 @@ function betQueryCompl(result,status,xhr) {
 function onGetPastRaceDatesSuccess (result,status,xhr) {
 	
 	console.log("***onGetPastRaceDatesSuccess called!!!");
-
 	$("#sys-msg").text(result.status + ": " + result.message );
-	$("#query-form").find("h4").html("Dates refreshed");
+	$selectMenu = $("#race-date");
+	var raceDates = result.response;
+	if (Array.isArray(raceDates) && raceDates.length > 0) {
+		$selectMenu.empty();
+		var options = "";
+		for (var i=0; i<raceDates.length; i++)
+			options += '<option value="' + raceDates[i] + '">' + raceDates[i] + '</option>';
+		$selectMenu.append(options).selectmenu('refresh', true);
+		$form.find("h4").html("Dates refreshed");
+	}
+	else
+		$form.find("h4").html("No dates refreshed");
+	
 	$("#query-btn").button('enable');
 }
 
