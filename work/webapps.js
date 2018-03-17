@@ -80,7 +80,9 @@ function getLastLogMsgsCompl (result,status,xhr) {
 function betQueryCompl(result,status,xhr) {
 	console.log("***betQueryCompl called!!!");
 	if (status == "timeout")
-		$("#sys-msg").text(result.status + ": " + result.message);
+		$("#query-form").find("h4").html(status);
+	else
+		$("#query-form").find("h4").html("Completed");
 	if (result.response.length > 0) {
 		var tbody = result.response;
 		var thead = tbody.shift();
@@ -95,7 +97,8 @@ function betQueryCompl(result,status,xhr) {
 		$tbl.append(tblContent).table("rebuild");
 	}
 	$("#query-btn").removeAttr( "disabled" );
-	$("#query-form").find("h4").html("Completed");
+
+	$("#sys-msg").text(result.status + ": " + result.message + " " + result.response);
 }
 
 function onSuccess (result,status,xhr) {
