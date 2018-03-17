@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 92</h1>
+      <h1>HKRace 93</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -162,24 +162,24 @@
         	  <option value="<5">Max. 4 unrated</option>
         	  <option value="<6">Max. 5 unrated</option>
 			</select>
-		  </div>
-		  <div class = "ui-block-b">
-			<select name="race-date" id="race-date" data-iconpos="right" data-mini="true">
-			</select>
-		  </div>
-		</div>
-		<div class="ui-grid-a">
-		  <div class="ui-block-a">
 			<select name="class" id="class" data-iconpos="right" data-mini="true">
        	  	  <option value="<6">All classes</option>
         	  <option selected value="<5">Up to 4th class </option>
         	  <option value="<4">Up to 3rd class</option>
 			</select>
 		  </div>
-		  <div class="ui-block-b">
-		    <span>Loading...</span>		  
+		  <div class = "ui-block-b">
+			<select name="race-date" id="race-date" data-iconpos="right" data-mini="true">
+			</select>
+			<p style="color:darkblue;text-align=right">Loading...</p>
 		  </div>
 		</div>
+		<!--div class="ui-grid-a">
+		  <div class="ui-block-a">
+		  </div>
+		  <div class="ui-block-b">
+		  </div>
+		</div-->
 		<div class="ui-grid-a">
 		  <div class="ui-block-a">
 			<button type="button" onclick="window.history.back();" data-mini="true" data-theme="b">Cancel</button>
@@ -293,7 +293,7 @@
 		var funcLabel = this.innerHTML;
 		reqFunc = this.getAttribute("func");  //save globally for reference in dialog
 		console.log("prq tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
-		$("#query-form").find("span").html("Loading ...");
+		$("#query-form").find("p").html("Loading ...");
 		$("#query-btn").button().button('disable');
 		callGoogleScript(reqFunc, "", onGetPastRaceDatesSuccess, 30000);
 		$.mobile.navigate( "#query-page" ); //, { transition : "slide", info: "Handle Bet Query" });
