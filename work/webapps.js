@@ -113,10 +113,10 @@ function onGetPastRaceDatesSuccess (result,status,xhr) {
 		for (var i=0; i<raceDates.length; i++)
 			options += '<option value="' + raceDates[i] + '">' + raceDates[i] + '</option>';
 		$selectMenu.append(options).selectmenu('refresh', true);
-		$("#query-form").find("h4").html("Dates refreshed");
+		$("#query-form").find("span").html("Dates refreshed");
 	}
 	else
-		$("#query-form").find("h4").html("No dates refreshed");
+		$("#query-form").find("span").html("No dates refreshed");
 	
 	$("#query-btn").button('enable');
 }
@@ -186,7 +186,7 @@ function preSubmitBetQuery () {
 	$("#query-btn").button().button('disable');
 	var param = {date:$("#race-date").val(),class:$("#class").val(),unrated:$("#max-unrated").val()};
 	callGoogleScript('betQuery',JSON.stringify(param), betQueryCompl,30000);
-	$("#query-form").find("h4").html("Working ...");
+	$("#query-form").find("span").html("Working ...");
     return false;  //disable default ajax call
 }
 
