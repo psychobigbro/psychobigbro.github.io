@@ -172,7 +172,7 @@ function refreshMsgLog () {
 function preSubmitBetQuery () {
 	console.log("***preSubmitProc called!!!");
     //form.submit.disabled = true;
-	$("#query-btn").button('disabled');
+	$("#query-btn").button().button('disable');
 	var param = {date:$("#race-date").val(),class:$("#class").val(),unrated:$("#max-unrated").val()};
 	callGoogleScript('betQuery',JSON.stringify(param), betQueryCompl,30000);
 	$("#query-form").find("h4").html("Working ...");
