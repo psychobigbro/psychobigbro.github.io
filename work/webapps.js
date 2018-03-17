@@ -77,6 +77,27 @@ function getLastLogMsgsCompl (result,status,xhr) {
 	$("#refresh-btn").removeAttr( "disabled" );	
 }
 
+function betQueryCompl(result,status,xhr) {
+	console.log("***getLastLogMsgsCompl called!!!");
+	if (status == "timeout")
+		$("#sys-msg").text(result.status + ": " + result.message);
+	if (result.response.length > 0) {
+		var tbody = result.response;
+		var thead = tbody.shift();
+		var tblContent = "<thead><tr><th>" + thead[0]
+						+ "</th><th>" + thead[1] 
+						+ "</th><th>" + thead[2]
+						+ "</th></tr></thead><tbody>"
+						+ makeTableHTML(tbody) + "</tbody>";
+		$tbl = $("#query-table");
+		$tbl.find("thead").remove();
+		$tbl.find("tbody").remove();
+		$tbl.append(tblContent).table("rebuild");
+	}
+	$("#query-btn").removeAttr( "disabled" );
+	$("#query-form).find("h4").html("Completed");
+}
+
 function onSuccess (result,status,xhr) {
 	// default success callback: write sys-msg from response, enable start-btn & hide loader
 	
@@ -137,10 +158,13 @@ function refreshMsgLog () {
 }
 
 function preSubmitProc (form) {
+	console.log("***preSubmitProc called!!!");
     //form.submit.disabled = true;
 	$("#query-btn").attr("disabled","");
-	console.log("***preSubmitProc called!!!");
-    return false;
+	var param = {date:$(#race-date).val(),class:$(#class").val(),unrated:$("max-unrated").val()};
+	callGoogleScript('betQuery',param, betQueryCompl,30000);
+	$("#query-form).find("h4").html("Working ...");
+    return false;  //disable default ajax call
 }
 
 /* Return an HTML tr td from 2D array*/
