@@ -101,6 +101,15 @@ function betQueryCompl(result,status,xhr) {
 	$("#sys-msg").text(result.status + ": " + result.message);
 }
 
+function onGetPastRaceDatesSuccess (result,status,xhr) {
+	
+	console.log("***onGetPastRaceDatesSuccess called!!!");
+
+	$("#sys-msg").text(result.status + ": " + result.message + " " + result.response);
+	$("#query-form").find("h4").html("Dates refreshed");
+	$("#query-btn").removeAttr("disabled");  //enable dialog start btn
+}
+
 function onSuccess (result,status,xhr) {
 	// default success callback: write sys-msg from response, enable start-btn & hide loader
 	

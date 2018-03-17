@@ -20,7 +20,7 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 76</h1>
+      <h1>HKRace 77</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
@@ -132,7 +132,7 @@
           </ul>
         <li><pr func="cleanLog"><h4>Clean Log</h4></pr></li> 
         <li><prt func="deleteTimeTriggers"><h4>Delete Time Triggers</h4></prt></li> 
-        <li><prq func="queryBet"><h4>Query Bet</h4></prq></li>
+        <li><prq func="getPastRaceDates"><h4>Bet Query</h4></prq></li>
       </ul>
 	  <div data-role="collapsible"  data-inset="true" 
 		   data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
@@ -283,21 +283,15 @@
 		callGoogleScript(reqFunc, JSON.stringify(emptyArr), onDeleteTimeTriggersSuccess, 30000); //get trigger list using dummy param
 	});
 	
-	/* prq exclusively used on right panel to invoke query page */
+	/* prq exclusively used on right panel to invoke bet query page */
 	$("prq").on("click", function() {
 		var funcLabel = this.innerHTML;
 		reqFunc = this.getAttribute("func");  //save globally for reference in dialog
 		console.log("prq tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
+		$("#query-form").find("h4").html("Loading ...");
+		$("#query-btn").attr("disabled","");
+		callGoogleScript(reqFunc, "", onGetPastRaceDatesSuccess, 30000);
 		$.mobile.navigate( "#query-page" ); //, { transition : "slide", info: "Handle Bet Query" });
-		/*
-		$dialog = $( "#triggerDialog" );
-		var prompt = "Loading time triggers ..."
-		$dialog.find("h3").html(prompt);
-		$("#del-trigger-btn").attr("disabled","");  //disable delete btn
-		//$dialog.find("[href]").attr("disabled",""); //disable anchor close btn as well
-		$dialog.popup( "open" );
-		var emptyArr = [];
-		callGoogleScript(reqFunc, JSON.stringify(emptyArr), onDeleteTimeTriggersSuccess, 30000); */
 	});
 	
 	/* start button click within popupDialog opened by either left or right panel func */
