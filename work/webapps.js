@@ -163,7 +163,7 @@ function preSubmitProc (form) {
 	$("#query-btn").attr("disabled","");
 	var param = {date:$("#race-date").val(),class:$("#class").val(),unrated:$("max-unrated").val()};
 	callGoogleScript('betQuery',param, betQueryCompl,30000);
-	$("#query-form).find("h4").html("Working ...");
+	$("#query-form").find("h4").html("Working ...");
     return false;  //disable default ajax call
 }
 
