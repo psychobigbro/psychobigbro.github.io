@@ -20,17 +20,17 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 96</h1>
+      <h1>HKRace 97</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
       <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
     </div>
     <!-- /header -->
 	<div role="main" class="ui-content" id="content-container">
-	  <input type="search" id="filterTable-input" name="search-text" value="" data-mini="true" data-clear-btn="true">
-	  <label for="filterTable-input">Filter</label>
-	  <!--table data-role="table" id="log-table" data-mode="columntoggle:none" class="table-stripe"-->
-      <table data-role="table" id="log-table" data-filter="true" data-input="#filterTable-input" data-mode="columntoggle:none" class="table-stripe">
+	  <!--input type="search" id="filterTable-input" name="search-text" value="" data-mini="true" data-clear-btn="true">
+	  <label for="filterTable-input">Filter</label-->
+	  <table data-role="table" id="log-table" data-mode="columntoggle:none" class="table-stripe">
+      <!--table data-role="table" id="log-table" data-filter="true" data-input="#filterTable-input" data-mode="columntoggle:none" class="table-stripe"-->
       </table>
     </div>
     <!-- /content -->
@@ -103,9 +103,9 @@
 		  <div class="ui-block-b">
 			<div data-role="fieldcontain">
 				<legend>Test Mode</legend>
-          		<select data-inline="false" name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
-          		  <option value="off">Off</option>
-           		  <option selected value="on">On</option>
+				<select name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
+				  <option selected value="off">Off</option>
+           		  <option value="on">On</option>
          		</select>
     		</div>
 		  </div>
