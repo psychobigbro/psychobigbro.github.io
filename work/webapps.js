@@ -96,8 +96,8 @@ function betQueryCompl(result,status,xhr) {
 		$tbl.find("tbody").remove();
 		$tbl.append(tblContent).table("rebuild");
 	}
-	$("#query-btn").removeAttr( "disabled" );
-
+	//$("#query-btn").removeAttr( "disabled" );
+	$("#query-btn").prop('disabled', false)
 	$("#sys-msg").text(result.status + ": " + result.message);
 }
 
@@ -105,7 +105,7 @@ function onGetPastRaceDatesSuccess (result,status,xhr) {
 	
 	console.log("***onGetPastRaceDatesSuccess called!!!");
 
-	$("#sys-msg").text(result.status + ": " + result.message + " " + result.response);
+	$("#sys-msg").text(result.status + ": " + result.message );
 	$("#query-form").find("h4").html("Dates refreshed");
 	$("#query-btn").removeAttr("disabled");  //enable dialog start btn
 }
