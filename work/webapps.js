@@ -95,7 +95,7 @@ function betQueryCompl(result,status,xhr) {
 		$tbl.append(tblContent).table("rebuild");
 	}
 	$("#query-btn").removeAttr( "disabled" );
-	$("#query-form).find("h4").html("Completed");
+	$("#query-form").find("h4").html("Completed");
 }
 
 function onSuccess (result,status,xhr) {
