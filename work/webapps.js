@@ -98,7 +98,7 @@ function betQueryCompl(result,status,xhr) {
 	}
 	$("#query-btn").removeAttr( "disabled" );
 
-	$("#sys-msg").text(result.status + ": " + result.message + " " + result.response);
+	$("#sys-msg").text(result.status + ": " + result.message);
 }
 
 function onSuccess (result,status,xhr) {
@@ -160,7 +160,7 @@ function refreshMsgLog () {
 	callGoogleScript('getLastLogMsgs',25, getLastLogMsgsCompl,30000);
 }
 
-function preSubmitProc (form) {
+function preSubmitBetQuery () {
 	console.log("***preSubmitProc called!!!");
     //form.submit.disabled = true;
 	$("#query-btn").attr("disabled","");
