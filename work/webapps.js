@@ -80,9 +80,9 @@ function getLastLogMsgsCompl (result,status,xhr) {
 function betQueryCompl(result,status,xhr) {
 	console.log("***betQueryCompl called!!!");
 	if (status == "timeout")
-		$("#query-form").find("h4").html(status);
+		$("#query-form").find("p").text(status);
 	else
-		$("#query-form").find("h4").html("Completed");
+		$("#query-form").find("p").text("Completed");
 	if (result.response.length > 0) {
 		var tbody = result.response;
 		var thead = tbody.shift();
@@ -196,8 +196,8 @@ function makeTableHTML(myArray) {
 	for (var i=0; i < myArray.length; i++) {
 		if ( myArray[i][0] == "" ) continue;  //skip blank row
 		result += "<tr>";
-		for (var j=0; j<myArray[i].length; j++) {
-			result += "<td>"+myArray[i][j]+"</td>";
+		for (var j=0; j < myArray[i].length; j++) {
+			result += "<td>" + myArray[i][j] + "</td>";
 		}
 		result += "</tr>";
 	}
