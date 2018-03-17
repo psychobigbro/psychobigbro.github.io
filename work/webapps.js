@@ -78,7 +78,7 @@ function getLastLogMsgsCompl (result,status,xhr) {
 }
 
 function betQueryCompl(result,status,xhr) {
-	console.log("***getLastLogMsgsCompl called!!!");
+	console.log("***betQueryCompl called!!!");
 	if (status == "timeout")
 		$("#sys-msg").text(result.status + ": " + result.message);
 	if (result.response.length > 0) {
@@ -162,7 +162,7 @@ function preSubmitProc (form) {
     //form.submit.disabled = true;
 	$("#query-btn").attr("disabled","");
 	var param = {date:$("#race-date").val(),class:$("#class").val(),unrated:$("max-unrated").val()};
-	callGoogleScript('betQuery',param, betQueryCompl,30000);
+	callGoogleScript('betQuery',JSON.stringify(param), betQueryCompl,30000);
 	$("#query-form").find("h4").html("Working ...");
     return false;  //disable default ajax call
 }
