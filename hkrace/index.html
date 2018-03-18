@@ -342,12 +342,12 @@
 		console.log("***sys-msg clicked!!!");
 		$("#sys-msg").css("animation","flash 2s");
 	}); */
+	
+	$("#refresh-btn").trigger( "click" );
   });
   
   $( document ).on( "pageinit", "#query-page", function() {
 	$( "[data-role='footer']" ).toolbar();  //init external footer
-	
-  $("#refresh-btn").trigger( "click" );
   });
 
   </script>
