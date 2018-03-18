@@ -346,11 +346,12 @@
   
   $( document ).on( "pageinit", "#query-page", function() {
 	$( "[data-role='footer']" ).toolbar();  //init external footer
+	
+  $("#refresh-btn").trigger( "click" );
   });
 
   </script>
   <script src="webapps.js"></script>
-  <script> $("#refresh-btn").trigger( "click" ); </script>
 </body>
 
 </html>
