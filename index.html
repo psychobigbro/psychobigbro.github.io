@@ -1,111 +1,355 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HK Race Control</title>
-  <link rel="stylesheet" type="text/css" href="styles/inline.css">
-
-  <!-- TODO add manifest here -->
-  <link rel="manifest" href="/manifest.json">
-  <!-- Add to home screen for Safari on iOS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Weather PWA">
-  <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
-  <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
-  <meta name="msapplication-TileColor" content="#2F3BA2">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-  </script>
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>HK Race Control</title>
+  <!--link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.css"/-->
+  <link rel="stylesheet" href="themes/Bootstrap.css">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+  <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="inline.css">
 </head>
+
 <body>
-
-  <header class="header">
-    <h1 class="header__title">TEST8.2</h1>
-    <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
-    <button id="butAdd" class="headerButton" aria-label="Add"></button>
-  </header>
-
-  <main class="main">
-    <button class="button"
- 	onclick=callGoogleScript('queryBet','{"date":"20180303","class":"<5","unrated":"<3"}')>
-	Click me!</button>
-
-    <div style="height:700px; width:700px; border:0px solid blue;
-               overflow:auto; font-size:100%; background-color: WhiteSmoke;
-               margin: 5px 4px; padding: 15px 15px;
-               resize: vertical;">
-      <p id="demo">Test JSONP: click me for $.ajax</p>
+  <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
+    <div data-role="header" data-theme="b" data-position="fixed">
+      <h1>HKRace 97</h1>
+      <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
+      <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
+      <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
     </div>
-
+    <!-- /header -->
+	<div role="main" class="ui-content" id="content-container">
+	  <!--input type="search" id="filterTable-input" name="search-text" value="" data-mini="true" data-clear-btn="true">
+	  <label for="filterTable-input">Filter</label-->
+	  <table data-role="table" id="log-table" data-mode="columntoggle:none" class="table-stripe">
+      <!--table data-role="table" id="log-table" data-filter="true" data-input="#filterTable-input" data-mode="columntoggle:none" class="table-stripe"-->
+      </table>
+    </div>
+    <!-- /content -->
+	<div data-role="popup" id="popupDialog" class="ui-content" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:20em">
+      <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+	  <div style="text-align: center">
+	    <h3></h3>
+        <button id="start-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-inline" >Start</button>
+	  </div>      
+    </div>
+	<!-- /popup by left-panel -->
+	<div data-role="popup" id="popupDialog2" class="ui-content" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:17em;">
+      <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+	  <div style="text-align: center">
+	    <h3></h3>
+        <button id="go-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-inline" >Go</button>
+	  </div>      
+    </div>
+	<!-- /popup 2 by right-panel -->
+	<div data-role="popup" id="triggerDialog" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:22em;">
+      <!--form : putting button inside form would trigger default submit!!-->
+	  <div class="ui-content">
+    	<fieldset data-role="controlgroup" data-iconpos="right" >
+        	<legend><h3>Check to delete triggers:</h3></legend>
+        	<!--input type="checkbox" name="uid" id="uid" data-mini="true" >
+        	<label for="uid">handler</label-->
+    	</fieldset>
+		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-right">Dismiss</a>
+		<button id="del-trigger-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-left ui-btn-inline">Delete</button>
+	  </div>
+	  <!--/form-->
+	</div>
+	<!-- /triggerDialog -->
+	<div data-role="panel" id="left-panel" data-display="overlay" data-theme="none" >
+      <ul data-role="listview">
+	  	<li><plc>Routines</plc></li>
+        <li><pl func="dailyRacecardRefresh">Refresh Racecard</pl></li>
+        <li><pl func="step1">Step 1</pl></li> 
+        <li><pl func="step1_1">Step 1_1</pl></li> 
+        <li><pl func="step2">Step 2</pl></li> 
+        <li><pl func="step3">Step 3</pl></li>
+        <li><pl func="step4">Step 4</pl></li> 
+        <li><pl func="step5">Step 5</pl></li> 
+        <li><pl func="step6">Step 6</pl></li> 
+        <li><pl func="step7">Step 7</pl></li> 
+        <li><pl func="lastStepReleaseSpreadsheet">Final Release</pl></li>
+      </ul>
+    </div>
+    <!-- /left-panel -->   
+    <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="a">
+	  <div data-role="collapsible"  data-inset="true" data-theme="a"
+		   data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+        <h2>Settings</h2>
+		<div class="ui-grid-a">
+		  <div class="ui-block-a">
+			<div data-role="fieldcontain">
+				<legend>Monitor</legend>
+				<input type="checkbox" id="monitor-flipswitch" data-role="flipswitch" data-mini="true" data-theme="a"/>
+			</div>
+			<div data-role="fieldcontain">
+				<legend>Interval</legend>
+				<select name="monitor-interval" id="monitor-interval" data-mini="true" data-theme="a">
+				  <option value="15000">15 seconds</option>
+				  <option selected value="30000">30 seconds</option>
+				  <option value="45000">45 seconds</option>
+				  <option value="60000">60 seconds</option>
+				</select>
+			</div>
+		  </div>
+		  <div class="ui-block-b">
+			<div data-role="fieldcontain">
+				<legend>Test Mode</legend>
+				<select name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
+				  <option selected value="off">Off</option>
+				  <option value="on">On</option>
+				</select>
+    		</div>
+		  </div>
+		</div>
+	  </div> <!--collapsible/-->
+      <ul data-role="listview" data-inset="true">
+	    <li><pl func="getDataForHorsesInRange"><h4>Get Horse Data in Range</h4></pl></li> 
+	    <li><pl func="dailyPostRaceRoutine"><h4>Post Race</h4></pl></li>
+          <ul data-role="listview" data-inset="true">
+            <li><pl func="getAllResults">Get All Results</pl></li>
+            <li><pl func="insertRawData">Insert Raw Data</pl></li>
+          </ul>
+        <li><pr func="cleanLog"><h4>Clean Log</h4></pr></li> 
+        <li><prt func="deleteTimeTriggers"><h4>Delete Time Triggers</h4></prt></li> 
+        <li><prq func="getPastRaceDates"><h4>Bet Query</h4></prq></li>
+      </ul>
+	  <div data-role="collapsible"  data-inset="true" 
+		   data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+        <h2>Under Development</h2>
+		<ul data-role="listview">
+		  <li><h4>Item 1</h4></li>
+		  <li><h4>Item 2</h4></li> 
+		</ul>
+	  </div>
+    </div>
+    <!-- /right-panel -->
+  </div>
+  <!-- /main-page -->
+  <div data-role="page" id="query-page" data-theme="a" data-url="query-page">
+    <div data-role="header" data-theme="b" data-position="fixed">
+      <h1>Bet Query</h1>
+      <!--a href="#" data-rel="back" data-icon="back" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Back</a-->
+    </div>
+	<div role="main" class="ui-content" >
+	  <form id="query-form" onsubmit="return preSubmitBetQuery()">
+		<div class="ui-grid-a">
+		  <div class="ui-block-a">
+			<select name="max-unrated" id="max-unrated" data-iconpos="right" data-mini="true">
+        	  <option value="<2">Max. 1 unrated</option>
+        	  <option selected value="<3">Max. 2 unrated</option>
+        	  <option value="<4">Max. 3 unrated</option>
+        	  <option value="<5">Max. 4 unrated</option>
+        	  <option value="<6">Max. 5 unrated</option>
+			</select>
+			<select name="class" id="class" data-iconpos="right" data-mini="true">
+       	  	  <option value="<6">All classes</option>
+        	  <option selected value="<5">Up to 4th class </option>
+        	  <option value="<4">Up to 3rd class</option>
+			</select>
+		  </div>
+		  <div class = "ui-block-b">
+			<select name="race-date" id="race-date" data-iconpos="right" data-mini="true">
+			</select>
+			<p style="color:red;text-align:center">Loading...</p>
+		  </div>
+		</div>
+		<!--div class="ui-grid-a">
+		  <div class="ui-block-a">
+		  </div>
+		  <div class="ui-block-b">
+		  </div>
+		</div-->
+		<div class="ui-grid-a">
+		  <div class="ui-block-a">
+			<button type="button" onclick="window.history.back();" data-mini="true" data-theme="b">Cancel</button>
+		  </div>
+		  <div class="ui-block-b">
+			<input type="submit" id="query-btn" name="submit-btn" value="Submit" disabled="disabled" data-mini="true" data-theme="c">
+		  </div>
+		</div>
+	  </form>
+	  <table data-role="table" id="query-table" data-mode="columntoggle:none" class="table-stripe">
+	  </table>
+	</div>
+  </div>
+  <!-- /query-page -->
+  <div data-role="footer" data-theme="c" data-position="fixed"> 
+	<div id="sys-msg">Ready</div>
+	</div>
+  <!-- /External footer -->
   <script>
-    //$("button").click(callGoogleScript("getPastRaceDates"));
+  var lastFunc = ""; //global to hold last webapp func name invoked
+  var reqFunc = "";  //global to hold webapp func being requested
+  var refreshMsgLogTimer;
+  
+  $( document ).on( "pageinit", "#main-page", function() {
+    $( document ).on( "swipeleft swiperight", "#main-page", function( e ) {
+            // We check if there is no open panel on the page because otherwise
+            // a swipe to close the left panel would also open the right panel (and v.v.).
+            // We do this by checking the data that the framework stores on the page element (panel: open).
+        if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
+            if ( e.type === "swipeleft"  ) {
+                    $( "#right-panel" ).panel( "open" );
+            } else if ( e.type === "swiperight" ) {
+                    //$( "#left-panel" ).panel( "open" );
+            }
+        }
+    });
+	
+	$( "[data-role='footer']" ).toolbar();  //init external footer
+	
+	$( function() {
+		$("#filterTable-input").textinput();
+	});
+	
+	/* catch ajax network error not catched by error callback 
+	$(document).on("ajaxError", function( event, request, settings ) {
+        //When XHR Status code is 0 there is no connection with the server
+		console.log("***ajaxError function called!!!");
+		console.log(request.status);
+        if (request.status == 0){ 
+            $("#sys-msg").text("Network error!!");
+			// enable start-btn etc. to allow retry, if applicable 
+			$("#start-btn").removeAttr("disabled");  //enable dialog start btn
+			$.mobile.loading( "hide" );  //hide loader; only 1 pending routine func allowed
+			$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
+        } 
+    });
+	*/	
+	$("#refresh-btn").on("click", refreshMsgLog);
+	
+	$("#routine-btn").on("click", function() {
+		console.log("***refresh-btn clicked!!!");
+		$( "#left-panel" ).panel( "open" );
+	});
+	$("h1").on("click", function() {
+		var href = location.protocol + "//" + location.hostname + location.pathname;  //skip ? and #
+		var win = window.open(href, "_blank");
+		win.focus();
+	});
+	
+	/* pl mainly used on left panel for serial functions */
+	$("pl").on("click", function() {
+		var funcLabel = this.innerHTML;
+		reqFunc = this.getAttribute("func");  //save globally for reference in dialog
+		console.log("pl tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
+		$dialog = $( "#popupDialog" );
+		var prompt = "<p>Run " + funcLabel + "?</p>"
+		if ($("#start-btn")[0].hasAttribute("disabled")) //jq has no hasAttribute method
+			prompt = "<p>Waiting for " + lastFunc + "'s response!</p>" + prompt;
+		$dialog.find("h3").html(prompt);
+		$dialog.popup( "open" );
+	});
+	
+	/* pr only used on right panel for concurrent functions */
+	$("pr").on("click", function() {
+		var funcLabel = this.innerHTML;
+		reqFunc = this.getAttribute("func");  //save globally for reference in dialog
+		console.log("pr tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
+		$dialog = $( "#popupDialog2" );
+		var prompt = "Execute " + funcLabel + "?"
+		$dialog.find("h3").html(prompt);
+		$dialog.popup( "open" );
+	});
+	
+	/* prt exclusively used on right panel for trigger function */
+	$("prt").on("click", function() {
+		var funcLabel = this.innerHTML;
+		reqFunc = this.getAttribute("func");  //save globally for reference in dialog
+		console.log("prt tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
+		$dialog = $( "#triggerDialog" );
+		var prompt = "Loading time triggers ..."
+		$dialog.find("h3").html(prompt);
+		$("#del-trigger-btn").attr("disabled","");  //disable delete btn
+		//$dialog.find("[href]").attr("disabled",""); //disable anchor close btn as well
+		$dialog.popup( "open" );
+		var emptyArr = [];
+		callGoogleScript(reqFunc, JSON.stringify(emptyArr), onDeleteTimeTriggersSuccess, 30000); //get trigger list using dummy param
+	});
+	
+	/* prq exclusively used on right panel to invoke bet query page */
+	$("prq").on("click", function() {
+		var funcLabel = this.innerHTML;
+		reqFunc = this.getAttribute("func");  //save globally for reference in dialog
+		console.log("prq tag value " + funcLabel + " for func " + reqFunc + " clicked!!!");
+		$("#query-form").find("p").html("Loading ...");
+		$("#query-btn").button().button('disable');
+		callGoogleScript(reqFunc, "", onGetPastRaceDatesSuccess, 30000);
+		$.mobile.navigate( "#query-page" ); //, { transition : "slide", info: "Handle Bet Query" });
+	});
+	
+	/* start button click within popupDialog opened by either left or right panel func */
+	$("#start-btn").on("click", function() {
+		console.log("***start-btn clicked!!!");
+		$("#start-btn").attr("disabled","");
+		$("#popupDialog").popup("close");
+		// close both left and right panel, either could open this dialog
+		$("#left-panel").panel("close");
+		$("#right-panel").panel("close");
+		lastFunc = reqFunc; //indicate lastFunc started
+		$.mobile.loading( "show" );  //indicate routine in progress
+		callGoogleScript(lastFunc);
+		$("#sys-msg").text(lastFunc + " running...");
+	});
+	
+	/* go button click within popupDialog 2 opened only by right panel func */
+	$("#go-btn").on("click", function() {
+		console.log("***go-btn clicked!!!");
+		$("#popupDialog2").popup("close");
+		$("#right-panel").panel("close");
+		callGoogleScript(reqFunc,"",onConcurrentSuccess, 30000);
+		$("#sys-msg").text(reqFunc + " executing...");
+	});
+	
+	/* delete button click within triggerDialog */
+	$("#del-trigger-btn").on("click", function() {
+		console.log("***del-trigger-btn clicked!!!");
+		$elm = $dialog.find("input:checked");
+		if ($elm.length > 0) {
+			$("#del-trigger-btn").attr("disabled","");  //disable delete btn
+			var arr = [];
+			for (var i=0; i<$elm.length; i++)
+				arr.push($elm[i].id);
+			var prompt = "Deleting " + $elm.length + " trigger(s) ..."
+			$dialog.find("h3").html(prompt);
+			callGoogleScript(reqFunc, JSON.stringify(arr), onDeleteTimeTriggersSuccess, 30000);
+		}
+	});
+	
+	/* Monitor flip-switch change */
+		$("#monitor-flipswitch").on("change", function() {
+		var switchOn = $("#monitor-flipswitch").prop("checked");
+		console.log("***" + this.id + " changed value to " + switchOn + "!!!");
+		if (switchOn) {
+			if ($("#refresh-btn")[0].hasAttribute("disabled") == false) //not being refreshed
+				refreshMsgLog();
+			/* timer to be set after refresh complete */
+		} else
+			clearTimeout(refreshMsgLogTimer);
+	});
+	
+	/*
+	$("#sys-msg").on("click", function() {
+		console.log("***sys-msg clicked!!!");
+		$("#sys-msg").css("animation","flash 2s");
+	}); */
+  });
+  
+  $( document ).on( "pageinit", "#query-page", function() {
+	$( "[data-role='footer']" ).toolbar();  //init external footer
+  });
 
-    // Make an AJAX call to Google Script
-    function callGoogleScript(func,param) {
-      console.log("***callGoogleScript CALLED!!!");
-  	if (param === undefined) param = "";
-      var url = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?" + "func=" + func + "&param=";
-      //var func = "getPastRaceDates";
-
-      var request = $.ajax({
-        crossDomain: true,
-        url: url + encodeURIComponent(param),
-        method: "GET",
-        dataType: "jsonp",
-        success: onSuccess,
-	   error: onError
-	  //jsonpCallback : $.ajax will provide default
-      });
-
-    }
-
-	function onError (xhr,status,error) {
-	 console.log("***onError called!!!");
-       console.log(xhr);
-      console.log(status);
-      console.log(error);
-	} 
-
-	function onSuccess (result,status,xhr) {
-	 console.log("***onSuccess called!!!");
-      // console.log(result);
-      console.log(status);
-      console.log(xhr);
-	document.getElementById("demo").innerHTML
-       = result.status + "<br>" + result.message + "<br> "
-         + result.response.toString().replace(/,/g,"<br>"); 
-	}
   </script>
-  </main>
-
-  <div class="dialog-container">
-    <div class="dialog">
-      <div class="dialog-title">Add new city</div>
-      <div class="dialog-body">
-        <select id="selectCityToAdd">
-          <option value="2357536">Austin, TX</option>
-          <option value="2367105">Boston, MA</option>
-          <option value="2379574">Chicago, IL</option>
-          <option value="2459115">New York, NY</option>
-          <option value="2475687">Portland, OR</option>
-          <option value="2487956">San Francisco, CA</option>
-          <option value="2490383">Seattle, WA</option>
-        </select>
-      </div>
-      <div class="dialog-buttons">
-        <button id="butAddCity" class="button">Add</button>
-        <button id="butAddCancel" class="button">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="loader" hidden>
-    <svg viewBox="0 0 32 32" width="32" height="32">
-      <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
-    </svg>
-  </div>
-
+  <script src="webapps.js"></script>
 </body>
+
 </html>
