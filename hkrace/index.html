@@ -8,7 +8,6 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <title>HK Race Control</title>
-  <!--link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.css"/-->
   <link rel="stylesheet" href="themes/Bootstrap.min.css">
   <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
   <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
@@ -20,9 +19,8 @@
 <body>
   <div data-role="page" id="main-page" data-theme="a" data-url="main-page">
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>HKRace 1.1</h1>
+      <h1>HKRace 1.2</h1>
       <button id="routine-btn" data-icon="grid" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Routine</button>
-      <!--a href="#" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</a-->
       <button id="refresh-btn" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Refresh</button>
     </div>
     <!-- /header -->
@@ -102,7 +100,7 @@
 		  </div>
 		  <div class="ui-block-b">
 			<div data-role="fieldcontain">
-				<legend>Test Mode</legend>
+				<legend>Test Server</legend>
 				<select name="test-mode" id="test-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
 				  <option selected value="off">Off</option>
 				  <option value="on">On</option>
@@ -122,14 +120,6 @@
         <li><prt func="deleteTimeTriggers"><h4>Delete Time Triggers</h4></prt></li> 
         <li><prq func="getPastRaceDates"><h4>Bet Query</h4></prq></li>
       </ul>
-	  <div data-role="collapsible"  data-inset="true" 
-		   data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
-        <h2>Under Development</h2>
-		<ul data-role="listview">
-		  <li><h4>Item 1</h4></li>
-		  <li><h4>Item 2</h4></li> 
-		</ul>
-	  </div>
     </div>
     <!-- /right-panel -->
   </div>
@@ -162,12 +152,6 @@
 			<p style="color:red;text-align:center">Loading...</p>
 		  </div>
 		</div>
-		<!--div class="ui-grid-a">
-		  <div class="ui-block-a">
-		  </div>
-		  <div class="ui-block-b">
-		  </div>
-		</div-->
 		<div class="ui-grid-a">
 		  <div class="ui-block-a">
 			<button type="button" onclick="window.history.back();" data-mini="true" data-theme="b">Cancel</button>
@@ -211,20 +195,6 @@
 		$("#filterTable-input").textinput();
 	});
 	
-	/* catch ajax network error not catched by error callback 
-	$(document).on("ajaxError", function( event, request, settings ) {
-        //When XHR Status code is 0 there is no connection with the server
-		console.log("***ajaxError function called!!!");
-		console.log(request.status);
-        if (request.status == 0){ 
-            $("#sys-msg").text("Network error!!");
-			// enable start-btn etc. to allow retry, if applicable 
-			$("#start-btn").removeAttr("disabled");  //enable dialog start btn
-			$.mobile.loading( "hide" );  //hide loader; only 1 pending routine func allowed
-			$("#del-trigger-btn").removeAttr("disabled");  //enable delete btn
-        } 
-    });
-	*/	
 	$("#refresh-btn").on("click", refreshMsgLog);
 	
 	$("#routine-btn").on("click", function() {
@@ -336,12 +306,6 @@
 		} else
 			clearTimeout(refreshMsgLogTimer);
 	});
-	
-	/*
-	$("#sys-msg").on("click", function() {
-		console.log("***sys-msg clicked!!!");
-		$("#sys-msg").css("animation","flash 2s");
-	}); */
 	
 	$("#refresh-btn").trigger( "click" );
   });
