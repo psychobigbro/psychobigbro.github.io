@@ -752,14 +752,11 @@
 	/*********************/
 	$("#change-course-btn").on("click", function() {
 		$("#select-dialog").popup("close");
-		//console.log ($("#select-RC").val(),$("#select-track").val(),$("#select-course").val(),
-		//$("#select-distance").val());
 		let activePage = $.mobile.activePage.attr("id");
 		console.log (activePage);
 		let raceNum = $("#"+activePage+" h1").text().replace(/\D+/g,"");
-		//console.log ("raceNo",raceNo,"#predict-page a:nth-child("+raceNo+")");
 		if (raceNum)
-			$("#"+activePage+" a:nth-child("+raceNum+")").trigger( "click" );
+			$("#"+activePage+" div.scrollmenu a:nth-child("+raceNum+")").trigger( "click" );
 	});
 	
 	$('#select-RC').change(function(){
