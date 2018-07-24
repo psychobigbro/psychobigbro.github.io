@@ -281,9 +281,9 @@ String.prototype.toHyphenatedDate = function () {
   return this.substr(6,2) + '-' + this.substr(4,2)
           + '-' + this.substr(0,4);
 }
-function toDateObj (dd-mm-yyyy) {
+function toDateObj (ddhmmhyyyy) {
 	/* convert  dd-mm-yyyy string to Date object */
-	let parts = dd-mm-yyyy.split("-");
+	let parts = ddhmmhyyyy.split("-");
 	return (!parts || parts.length != 3) ? null :
 		new Date(parts[2], parts[1] - 1, parts[0]); // month is 0-based
 }
