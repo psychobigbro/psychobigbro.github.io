@@ -53,9 +53,9 @@ function updateHorsesStorePromise (horsesObj) {
 					obj.raceDate = raceDate;
 					obj.horseNo = horses[i].horseNo;
 					store.add(obj);
-					if (j % 100 == 0) console.log ('...finished record',j);
 				}
 			store.add({horseNo:"ZZZZ",yyyymmdd:"00000000",RCC:"",track:"",distance:0,course:"",raceDate:raceDate});
+			console.log ('...finished all horses');
 			return tx.complete;
 		})
 	})
