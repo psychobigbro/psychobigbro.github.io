@@ -743,7 +743,7 @@
 	/*******************/
 	$("#online-mode-switch").change ( () => cacheSettings()) ;
 	$("#ai-mode-switch").change ( () => cacheSettings()) ;
-	$("#horse-file").change ( () => cacheSettings()) ;
+	$("#horses-file").change ( () => cacheSettings()) ;
 
 	/*********************/
 	/* change-course-btn */
