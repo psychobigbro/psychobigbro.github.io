@@ -500,7 +500,7 @@
 			return;
 		//dataLoading (true); //moved inside loadDataAndRefreshDom
 		let raceNo = Number($("#predict-page h1").text().replace(/\D+/g,""));
-		if (!isNaN(raceNo && Event)) //starters cache and HKJCracecard use numeric raceNo
+		if (!isNaN(raceNo) && Event)//starters cache and HKJCracecard use numeric raceNo
 			loadDataAndRefreshDom (Event, true, raceNo);  //re-load data bypassCache
 	});
 	

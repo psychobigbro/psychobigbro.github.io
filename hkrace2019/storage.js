@@ -29,6 +29,42 @@ function downloadGCSFilePromise (fileName) {
 /* return a promise to create iDB horses store from GCS horses file
  * resolve to number of horses put to store
  */
+ function createHorsesStorePromise (horsesObj) {
+	let horses = horsesObj.horses;
+	let raceDate = horsesObj.raceDate;
+	let storeName = 'horses';
+	let numHorses = 0;
+	return new Promise (async function (resolve, reject) => {
+	try {
+		let db = await IDbPromise;
+		let tx = db.transaction(storeName, "readwrite");
+		await tx.objectStore(storeName).clear(); 
+		await tx.complete;
+		console.log ("iDB store",storeName, "cleared!!");
+		tx = db.transaction(storeName, "readwrite");
+		let store = tx.objectStore(storeName);
+		for (let i=0; i<horses.length; i++, numHorses++)
+			for (let j=0; j<horses[i].records.length; j++) {
+				let obj = horses[i].records[j];
+				obj.raceDate = raceDate;
+				obj.horseNo = horses[i].horseNo;
+				await store.add(obj);
+			}
+		await store.add({horseNo:"ZZZZ",yyyymmdd:"00000000",RCC:"",track:"",distance:0,course:"",raceDate:raceDate});
+		console.log ('...finished all horses');
+		await tx.complete;
+		console.log ("iDB store", storeName, "of", raceDate,"updated!!");
+		HorsesOSRaceDate = raceDate;
+		cacheRaceInfo ();
+		resolve (numHorses);
+		}
+	catch (error) {
+		console.log ("update iDB horses:",error);
+		reject ("update iDB horses:"+JSON.stringify(error));
+		}
+	})
+}
+ 
 function updateHorsesStorePromise (horsesObj) {
 	let horses = horsesObj.horses;
 	let raceDate = horsesObj.raceDate;
