@@ -612,7 +612,7 @@
 			return;
 		}
 		let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
-		if (isNaN(raceNum) return;  //page has no raceNo
+		if (isNaN(raceNum)) return;  //page has no raceNo
 		let r = Number(raceNum) - 1;
 		let betNos = [];
 		for (let n=0; n<Bet.tbl[r].length; n++) {
