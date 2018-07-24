@@ -42,7 +42,7 @@ function updateHorsesStorePromise (horsesObj) {
 		return tx.complete;
 	})
 	.then( () => {
-		//console.log ("iDB store",storeName, "cleared!!");
+		console.log ("iDB store",storeName, "cleared!!");
 		return IDbPromise
 		.then (db => {
 			let tx = db.transaction(storeName, "readwrite");
@@ -53,13 +53,14 @@ function updateHorsesStorePromise (horsesObj) {
 					obj.raceDate = raceDate;
 					obj.horseNo = horses[i].horseNo;
 					store.add(obj);
+					if (j % 100 == 0) console.log ('...finished record',j);
 				}
 			store.add({horseNo:"ZZZZ",yyyymmdd:"00000000",RCC:"",track:"",distance:0,course:"",raceDate:raceDate});
 			return tx.complete;
 		})
 	})
 	.then( () => {
-		//console.log ("iDB store", storeName, "of", raceDate,"updated!!");
+		console.log ("iDB store", storeName, "of", raceDate,"updated!!");
 		HorsesOSRaceDate = raceDate;
 		cacheRaceInfo ();
 		resolve (numHorses);
