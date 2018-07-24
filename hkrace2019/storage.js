@@ -34,7 +34,7 @@ function downloadGCSFilePromise (fileName) {
 	let raceDate = horsesObj.raceDate;
 	let storeName = 'horses';
 	let numHorses = 0;
-	return new Promise (async function (resolve, reject) => {
+	return new Promise (async function (resolve, reject) {
 	try {
 		let db = await IDbPromise;
 		let tx = db.transaction(storeName, "readwrite");
