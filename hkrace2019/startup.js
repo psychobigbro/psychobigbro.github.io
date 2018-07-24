@@ -3,7 +3,7 @@
   var Season = "";
   var RaceDate = "";  //global to hold current raceDate AS OBTAINED FROM last online Starters, dd-mm-yyyy
   var MaxRaceNo = 0;  //global to hold max. race no corr. to Event
-  var Event = [];     //global object for current race event AS OBTAINED FROM getRaceInfo [yyyymmdd','RC']
+  var Event = null;     //global object for current race event AS OBTAINED FROM getRaceInfo [yyyymmdd','RC']
 								  // or set by Event datebacking; this is changed before RaceDate which is starter based
   var HorsesOSRaceDate = "";	//raceDate of downloaded iDB horses store
   var HistoryOSRaceDate = "";	//raceDate of downloaded iDB history store
