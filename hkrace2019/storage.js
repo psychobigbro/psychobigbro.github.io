@@ -35,17 +35,15 @@ function updateHorsesStorePromise (horsesObj) {
 	let storeName = 'horses';
 	let numHorses = 0;
 	return new Promise ((resolve, reject) => {
-		IDbPromise
-	/*
+	IDbPromise
 	.then( db => {
 		let tx = db.transaction(storeName, "readwrite");
 		tx.objectStore(storeName).clear(); 
 		return tx.complete;
 	})
-	
 	.then( () => {
 		//console.log ("iDB store",storeName, "cleared!!");
-		return IDbPromise */
+		return IDbPromise
 		.then (db => {
 			let tx = db.transaction(storeName, "readwrite");
 			let store = tx.objectStore(storeName);
@@ -54,22 +52,22 @@ function updateHorsesStorePromise (horsesObj) {
 					let obj = horses[i].records[j];
 					obj.raceDate = raceDate;
 					obj.horseNo = horses[i].horseNo;
-					store.put(obj);
+					store.add(obj);
 				}
-			store.put({horseNo:"ZZZZ",yyyymmdd:"00000000",RCC:"",track:"",distance:0,course:"",raceDate:raceDate});
+			store.add({horseNo:"ZZZZ",yyyymmdd:"00000000",RCC:"",track:"",distance:0,course:"",raceDate:raceDate});
 			return tx.complete;
-	//})
 		})
-		.then( () => {
-			//console.log ("iDB store", storeName, "of", raceDate,"updated!!");
-			HorsesOSRaceDate = raceDate;
-			cacheRaceInfo ();
-			resolve (numHorses);
-		})
-		.catch( error => {
-			console.log ("update iDB horses:",error);
-			reject ("update iDB horses:"+JSON.stringify(error));
-		})
+	})
+	.then( () => {
+		//console.log ("iDB store", storeName, "of", raceDate,"updated!!");
+		HorsesOSRaceDate = raceDate;
+		cacheRaceInfo ();
+		resolve (numHorses);
+	})
+	.catch( error => {
+		console.log ("update iDB horses:",error);
+		reject ("update iDB horses:"+JSON.stringify(error));
+	})
 	})
 }
 
