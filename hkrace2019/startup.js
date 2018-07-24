@@ -499,9 +499,9 @@
 		if (this.hasAttribute("disabled"))
 			return;
 		//dataLoading (true); //moved inside loadDataAndRefreshDom
-		let raceNo = Number($("#predict-page h1").text().replace(/\D+/g,""));
-		if (!isNaN(raceNo) && Event)//starters cache and HKJCOnline use numeric raceNo
-			loadDataAndRefreshDom (Event, true, raceNo);  //re-load data bypassCache
+		let raceNum = $("#predict-page h1").text().replace(/\D+/g,"");
+		if (raceNum && Event)//starters cache and HKJCOnline use numeric raceNo
+			loadDataAndRefreshDom (Event, true, Number(raceNum));  //re-load data bypassCache
 	});
 	
 	$("#left-panel a.exec-func")
@@ -612,7 +612,7 @@
 			return;
 		}
 		let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
-		if (isNaN(raceNum)) return;  //page has no raceNo
+		if (!raceNum) return;  //page has no raceNo
 		let r = Number(raceNum) - 1;
 		let betNos = [];
 		for (let n=0; n<Bet.tbl[r].length; n++) {
@@ -646,7 +646,7 @@
         }
 
 		let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
-		if (isNaN(raceNum)) return;  //page has no raceNo
+		if (!raceNum) return;  //page has no raceNo
 		dataLoading (true); //disable button to avoided repeated calls
 		if ( $("#online-mode-switch").val() == "off" ) {  //return cache in offline mode
 			getFromCache ("winOdds", Number(raceNum), RaceDate)
@@ -754,10 +754,10 @@
 		$("#select-dialog").popup("close");
 		//console.log ($("#select-RC").val(),$("#select-track").val(),$("#select-course").val(),
 		//$("#select-distance").val());
-		let raceNo = $("#predict-page h1").text().replace(/\D+/g,"");
+		let raceNum = $("#predict-page h1").text().replace(/\D+/g,"");
 		//console.log ("raceNo",raceNo,"#predict-page a:nth-child("+raceNo+")");
-		if (!isNaN(raceNo))
-			$("#predict-page a:nth-child("+raceNo+")").trigger( "click" );
+		if (raceNum)
+			$("#predict-page a:nth-child("+raceNum+")").trigger( "click" );
 	});
 	
 	$('#select-RC').change(function(){
