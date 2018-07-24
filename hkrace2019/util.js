@@ -262,9 +262,9 @@ function cacheRaceInfo () {
  * i.e. RaceDate (starter date) > horses and history iDB store raceDates (last download files' raceDate)
  */
 function downloadGCSRequired () {
-	let dateOfRaceDate = new Date (RaceDate);
-	let dateOfHorsesOSRaceDate = new Date (HorsesOSRaceDate);
-	let dateOfHistoryOSRaceDate = new Date (HistoryOSRaceDate);
+	let dateOfRaceDate = toDateObj (RaceDate);
+	let dateOfHorsesOSRaceDate = toDateObj (HorsesOSRaceDate);
+	let dateOfHistoryOSRaceDate = toDateObj (HistoryOSRaceDate);
 	return !RaceDate || !HorsesOSRaceDate || HistoryOSRaceDate || dateOfRaceDate > dateOfHorsesOSRaceDate || 
 			dateOfRaceDate > dateOfHistoryOSRaceDate;
 }
@@ -281,8 +281,15 @@ String.prototype.toHyphenatedDate = function () {
   return this.substr(6,2) + '-' + this.substr(4,2)
           + '-' + this.substr(0,4);
 }
+function toDateObj (dd-mm-yyyy) {
+	/* convert  dd-mm-yyyy string to Date object */
+	let parts = dd-mm-yyyy.split("-");
+	return (!parts || parts.length != 3) ? null :
+		new Date(parts[2], parts[1] - 1, parts[0]); // month is 0-based
+}
+
 /*
-async function sleep(msec) {
+function sleep(msec) {
     return new Promise(resolve => setTimeout(resolve, msec));
 }
 */

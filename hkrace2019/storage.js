@@ -36,14 +36,9 @@ function downloadGCSFilePromise (fileName) {
 	let numHorses = 0;
 	return new Promise (async function (resolve, reject) {
 	try {
+		await clearHorsesStore ();
 		let db = await IDbPromise;
-		/*
 		let tx = db.transaction(storeName, "readwrite");
-		await tx.objectStore(storeName).clear(); 
-		await tx.complete;
-		console.log ("iDB store",storeName, "cleared!!");
-		*/
-		tx = db.transaction(storeName, "readwrite");
 		let store = tx.objectStore(storeName);
 		for (let i=0; i<horses.length; i++, numHorses++)
 			for (let j=0; j<horses[i].records.length; j++) {
