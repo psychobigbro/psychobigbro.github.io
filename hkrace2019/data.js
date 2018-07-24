@@ -293,8 +293,8 @@ function queryInPlaceRemarks (byPassCache, raceDate, RCC, track, course, distanc
 		.then( db => {
 			let tx = db.transaction(storeName, "readonly");
 			let store = tx.objectStore(storeName);
-			//let index = store.index("H");
-			return store.getAll(range);
+			let index = store.index("HY");
+			return index.getAll(range);
 		})
 		.then ( function(recs) {
 			let remarks = {weight:false, distance:false, course:false, distKing:false};

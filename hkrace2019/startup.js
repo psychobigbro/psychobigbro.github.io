@@ -225,8 +225,8 @@
 		  upgradeDb.createObjectStore('trump', {keyPath: 'key'});
 		};
 		if (!upgradeDb.objectStoreNames.contains('horses')) {
-		  let horsesOS = upgradeDb.createObjectStore('horses', {keyPath:['horseNo','yyyymmdd']});
-		  //horsesOS.createIndex('H', 'horseNo', {unique: false});
+		  let horsesOS = upgradeDb.createObjectStore('horses', {autoIncrement:true});
+		  horsesOS.createIndex('HY', ['horseNo','yyyymmdd'], {unique: true});
 		  horsesOS.createIndex('HSY', ['horseNo','season','yyyymmdd'], {unique: true});
 		  horsesOS.createIndex('HRTDY', ['horseNo','RCC','track','distance','yyyymmdd'], {unique: true});
 		  horsesOS.createIndex('HRTDCY', ['horseNo','RCC','track','distance','course','yyyymmdd'], {unique: true});
