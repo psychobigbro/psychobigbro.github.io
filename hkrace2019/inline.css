@@ -1,0 +1,184 @@
+/* Swipe works with mouse as well but often causes text selection. */
+
+#race-page *, #predict-page *, #summary-page * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+* {
+	font-family: 'Noto Sans TC', sans-serif;
+}
+
+#content-container { background-color:Ivory; }
+
+/* outline:none trying to disable highlight glow around anchors, not working yet */
+a:link {
+    text-decoration: none;
+}
+a:visited {
+    text-decoration: none;
+	outline:none;
+}
+a:hover {
+    text-decoration: none;
+	outline:none;
+}
+a:active {
+    text-decoration: none;
+	outline:none;
+}
+/* Add alternating row stripes */
+.table-stripe tbody tr:nth-child(odd) td,
+.table-stripe tbody tr:nth-child(odd) th {
+  background-color: rgba(0,0,0,0.06);
+}
+
+.ui-table td, .ui-table th{
+	font-size: 100%;
+	margin: 0px;
+	padding: 0px 4px 0px 0px;
+}
+.ui-table th {
+	font-weight: normal;
+	color: tomato;
+}
+.ui-table td a {
+	font-weight: normal;
+	color: DarkBlue;
+}
+
+.ui-table div.scrollable {
+	width: 77px;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.ui-table tbody tr td.win {
+	background-color: #f99;
+}
+.ui-table tbody tr td.pla {
+	background-color: #9f3;
+}
+.ui-table tbody tr td.win-pla {
+	background-color: #fc9;
+}
+
+.ui-content {
+	padding: 0.7em;
+}
+
+#summary-page td.seqno {
+	color: DarkBlue;
+}
+
+#summary-page div.scroll-table {
+	width: 100%;
+	overflow: auto;
+    white-space: nowrap;
+}
+/* to spin a icon button anchor */
+a.rotate {
+	background-color:transparent !important;
+	border:0 !important;
+	outline:0 !important;
+	margin:0 !important;
+    animation: spin 6s linear infinite;
+
+}
+@keyframes spin {
+    100% {transform: rotate(360deg);}
+}
+
+@keyframes flash {
+  0%, 49% {
+    background-color: red;
+  }
+  50%, 100% {
+    background-color: green;
+  }
+}
+
+div.scrollmenu {
+    background-color: #444;
+    overflow: auto;
+    white-space: nowrap;
+}
+div.scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 1em 1.5em 1em 1.5em;
+    text-decoration: none;
+	margin: 0;
+	border: 0;
+}
+
+div.scrollmenu a.active-race { 
+    background-color: #c00;
+	color:white;
+}
+
+div.race-info {
+	font-size:16px;
+	font-weight:700;
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+div.race-info:active {
+    overflow: visible;
+	white-space: normal;
+}
+
+/*** -webkit-touch-callout:none stop taphold popup on iOS for the specific anchors */
+/*** others trying to disable highlight around icon when anchors are selected NOT WORKING YET FOR ANDOID */
+a.reload-btn, div.scrollmenu a, a.racecourse {
+    -webkit-touch-callout: none !important;
+	-webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+	-webkit-tap-highlight-color: transparent !important;
+	outline: none !important;
+}
+/* hide race-page columntoggle btn (columnToggle:none would stop auto toggle upon width change) */
+#race-page .ui-table-columntoggle-btn {
+    display: none !important;
+}
+
+#predict-page .ui-table-columntoggle-btn {
+    display: none !important;
+}
+
+#popup-message {
+	text-align: center;
+	color : white;
+	animation: flash 1s linear infinite;
+}
+
+#left-panel {
+	width:auto;
+	font-size:100%;
+}
+
+td.fixed-column {
+	color : DarkBlue !important;
+	font-size : 80% !important;
+}
+
+#jockey-page table.dataTable th, #trainer-page table.dataTable th, #jockey-page table.dataTable td,
+#trainer-page table.dataTable td {
+    font-size: 60%;
+}
+
+#jockey-page table.dataTable thead tr th:first-child,  #trainer-page table.dataTable thead tr th:first-child {
+    font-size: 80%;
+	color: white;
+	background-color: rgb(0,68,204);
+}
+
+#result-page table.dataTable tbody tr.race-begin td {
+  border-top: 2px solid Darkblue;
+#border-collapse: collapse;
+}

@@ -1,0 +1,13 @@
+{
+  "short_name": "HKRace2019",
+  "name": "HK Race Expert App 2019",
+  "start_url": "index.html?launcher=true",
+  "background_color": "#555",
+  "icons": [
+    {
+    "src": "HKRace.ico",
+	"sizes": "48x48 256x256"
+    }
+  ],
+  "gcm_sender_id": "103953800507"
+}

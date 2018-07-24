@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=0.5, user-scalable=1"-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>HK Race 2019</title>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css" />
+  <link rel="stylesheet" href="themes/Bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+  <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+  <!--script src="/__/firebase/5.3.0/firebase-app.js"></script>
+  <script src="/__/firebase/5.3.0/firebase-auth.js"></script>
+  <script src="/__/firebase/5.3.0/firebase-firestore.js"></script>
+  <script src="/__/firebase/5.3.0/firebase-storage.js"></script-->
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-storage.js"></script>
+  <script src="idb.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/fc-3.2.4/fh-3.1.3/sc-1.4.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/fc-3.2.4/fh-3.1.3/sc-1.4.4/datatables.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="inline.css"/>
+  <!-- Load TensorFlow.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.0"> </script>
+
+</head>
+
+<body>
+  <div data-role="page" id="race-page" data-theme="a" >
+    <div data-role="header" data-theme="b" data-position="fixed">
+      <h1>第 1 場</h1>
+	  <div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+	    <a href="#left-panel" data-role="button" data-icon="gear" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
+			class="ui-nodisc-icon">menu</a>
+	    <a href="#" data-role="button" data-shadow="false" class="winodds-btn">賠率</a>
+		<!--a href="#" data-role="button" data-icon="recycle" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
+			class="ui-nodisc-icon winodds-btn">獨贏</a-->
+	  </div>
+	  <div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+	    <a href="#select-dialog" data-role="button" data-rel="popup" data-position-to="window" data-shadow="false" class="racecourse">??</a>
+		<a href="#" data-role="button" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon reload-btn">Reload</a>
+		<span class="columntogglePlaceholder"></span>
+	  </div>
+	</div>
+	<div class="scrollmenu">
+		<a href="#" raceNo="1">1</a>
+		<a href="#" raceNo="2">2</a>
+		<a href="#" raceNo="3">3</a>
+		<a href="#" raceNo="4">4</a>
+		<a href="#" raceNo="5">5</a>
+		<a href="#" raceNo="6">6</a>
+		<a href="#" raceNo="7">7</a>
+		<a href="#" raceNo="8">8</a>
+		<a href="#" raceNo="9">9</a>
+		<a href="#" raceNo="10">10</a>
+		<a href="#" raceNo="11">11</a>
+	</div>
+	<div role="main" class="ui-content" >
+	  <div class="race-info">
+	  </div>
+	  <div class="scroll-table">
+	  <table data-role="table" id="race-table" data-mode="columntoggle"
+			data-column-btn-text="&#9870" data-column-popup-theme="a" data-column-btn-theme="b"
+			class="ui-body-d ui-shadow ui-responsive table-stripe">
+		<!--thead contents defined as Global in startup.js for race-table and here for summary-table -->
+		<thead><tr>
+		<th>編</th>
+		<th data-priority="1">馬</th>
+		<th data-priority="1">騎</th>
+		<th data-priority="1">練</th>
+		<th data-priority="1" colspan="2">排位</th>
+		<th data-priority="1">今場</th>
+		<th data-priority="1">預測</th>
+		<th data-priority="1">參考</th>
+		<th data-priority="1">參考</th>
+		<th data-priority="1">騎練</th>
+		<th data-priority="1">皇牌</th>
+		<th data-priority="1" colspan="5">注意事項</th>
+		<th data-priority="1">獨贏</th>
+		<th data-priority="1">位置</th>
+		<th data-priority="1">AI</th>
+		</tr></thead>
+		<thead><tr>
+		<th>號</th><th>名</th><th>師</th><th>馬</th>
+		<th>檔</th><th>負磅</th>
+		<th>記錄</th><th>預測時間</th><th>記錄</th><th>參考時間</th>
+		<th>上位</th><th>上位</th>
+		<th>試</th><th>失</th><th>重</th><th>程</th><th>道</th>
+		<th>賠率</th>
+		<th>賠率</th>
+		<th>Score</th>
+		</tr></thead>
+		<tbody></tbody>
+      </table>
+	  </div>
+	</div>
+	<div data-role="footer" data-theme="b" data-position="fixed"> 
+	  <div data-role="navbar" class="page-tab">
+		<ul>
+		  <li><a href="#race-page">排位</a></li>
+		  <li><a href="#predict-page">往績</a></li>
+		  <li><a href="#summary-page">綜合</a></li>
+		  <li><a href="#trainer-page">練馬</a></li>
+		  <li><a href="#jockey-page">騎師</a></li>
+		</ul>
+	  </div>
+	</div>
+  </div>  
+  <!-- /race-page -->
+  <div data-role="page" id="trainer-page" data-theme="a" >
+	<div role="main" class="ui-content" >
+	  <table id="trainer-table" class="stripe nowrap cell-border compact" style="width:100%">
+		<thead><tr>
+		<th>練馬師</th><th>第一場</th><th>第二場</th><th>第三場</th>
+		<th>第四場</th><th>第五場</th><th>第六場</th><th>第七場</th>
+		<th>第八場</th><th>第九場</th><th>第十場</th><th>第士場</th>
+		</tr></thead>
+      </table>
+	</div>
+  </div>
+  <!-- /trainer-page -->
+  <div data-role="page" id="jockey-page" data-theme="a" >
+	<div role="main" class="ui-content" >
+	  <table id="jockey-table" class="stripe nowrap cell-border compact" style="width:100%">
+		<thead><tr>
+		<th>騎師</th><th>第一場</th><th>第二場</th><th>第三場</th>
+		<th>第四場</th><th>第五場</th><th>第六場</th><th>第七場</th>
+		<th>第八場</th><th>第九場</th><th>第十場</th><th>第士場</th>
+		</tr></thead>
+      </table>
+	</div>
+  </div>
+  <!-- /jockey-page -->
+  <div data-role="page" id="about-page" data-theme="a" >
+    <div data-role="header" data-theme="b" data-position="fixed">
+      <h1>About</h1>
+	  <a href="#race-page" data-role="button" data-rel="back" data-icon="arrow-l" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
+		class="ui-nodisc-icon">back</a>
+	</div>
+    <div role="main" class="ui-content" >
+	  <h3>HKRace-2019 Rev 1.0</h3>
+	  <div style="text-indent: 10%">
+		<p>Firebase 4.13.0</p>
+		<p>Datatables 1.10.16</p>
+		<p>JQuery 1.11.1</p>
+		<p>JQueryMobile 1.4.5</p>
+		<p>TensorFlow.js 0.12.0</p>
+		<p>User:<span id="user-email">&nbsp;</span></p>
+		<p><img id="user-photo" src="whoami.png" alt="User Photo" width="42" height="42"></p>
+	  </div>
+	</div>
+  </div>
+  <!-- /about-page -->
+  <div data-role="page" id="result-page" data-theme="a" >
+    <div data-role="header" data-theme="b" data-position="fixed">
+      <h1>賽果.派彩</h1>
+	  <a href="#race-page" data-role="button" date-rel="back" data-icon="arrow-l" data-iconpos="notext" data-shadow="false"
+	    data-iconshadow="false" class="ui-nodisc-icon">back</a>
+	  <a href="#" data-role="button" data-icon="recycle" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
+		class="ui-nodisc-icon result-btn">result</a>
+	</div>
+    <div role="main" class="ui-content" >
+	  <div class="result-msg"></div>
+	  <div>顯示/屏蔽 :<a class="toggle-vis" data-column="1,2,3">獨贏</a>--<a class="toggle-vis" data-column="4,5,6">連贏</a>
+	  --<a class="toggle-vis" data-column="7,8,9">位置</a>--<a class="toggle-vis" data-column="10,11,12">位置Q</a>
+	  >><a class="toggle-vis" data-column="1,4,7,10">投注</a>--<a class="toggle-vis" data-column="2,5,8,11">賽果</a>
+	  --<a class="toggle-vis" data-column="3,6,9,12">彩金</a>
+	  </div>
+	  <table id="result-table" class="stripe nowrap cell-border compact" style="width:100%">
+	  	<thead><tr>
+		<th rowspan="2">場</th><th colspan="3">獨贏</th><th colspan="3">連贏</th><th colspan="3">位置</th><th colspan="3">位置Q</th>
+		</tr><tr>
+		<th>投注</th><th>賽果:派彩</th><th>彩金</th><th>投注</th><th>賽果:派彩</th><th>彩金</th>
+		<th>投注</th><th>賽果:派彩</th><th>彩金</th><th>投注</th><th>賽果:派彩</th><th>彩金</th>
+		</tr></thead>
+      </table>
+	</div>
+  </div>
+  <!-- /result-page -->
+  <div data-role="panel" id="left-panel" data-position="left" data-display="overlay" data-theme="b" >
+	<ul data-role="listview">
+		<li data-icon="back"><a href="#" data-rel="close"><h3>關閉</h3></a></li>
+		<!--li data-icon="arrow-r"><a href="#trainer-page" data-rel="close"><h3>練馬師分場表</h3></a></li>
+		<li data-icon="arrow-r"><a href="#jockey-page" data-rel="close"><h3>騎師分場表</h3></a></li-->
+		<li data-icon="arrow-r"><a href="#result-page" data-rel="close"><h3>賽果.派彩</h3></a></li>		
+		<li data-role="list-divider"><h3>例程</h3></li>
+	  	<li data-icon="arrow-d"><a class="download-all"><h3>下載最新數據</h3></a></li>
+		<li data-icon="recycle"><a class="exec-func" func="updateTrainerJockeyTables"><h3>更新分場表</h3></a></li>
+		<li> <select name="online-mode" id="online-mode-switch" data-role="slider" data-mini="false" data-track-theme="c" data-theme="a">
+				<option value="off">離綫</option>
+				<option selected value="on">連綫</option>
+			</select>
+		</li>
+		<!--li data-role="list-divider"><h3>系統</h3></li-->
+		<li data-icon="user"><a class="exec-func" func="signInOut"><h3>更改用戶</h3></a></li>
+		<li data-icon="delete"><a class="exec-func" func="clearCache"><h3>清除Cache</h3></a></li>
+		<li data-icon="delete"><a class="exec-func" func="deleteCacheDb"><h3>清除IndexedDB</h3></a></li>
+		<li class="super"> <select name="ai-mode" id="ai-mode-switch" data-role="slider" data-mini="false" data-track-theme="c" data-theme="a">
+				<option selected value="off">AI Off</option>
+				<option value="on">AI On</option>
+			</select>
+		</li>
+		<li data-icon="star" class="super"><a class="exec-func" func="changeEvent"><h3>Change Event</h3></a></li>
+		<li data-icon="star" class="super"><a class="exec-func" func="betOnStrategy"><h3>Bet On Strategy</h3></a></li>
+		<li data-icon="delete" class="super"><a class="exec-func" func="clearBetTbl"><h3>Clear Bets</h3></a></li>
+		<!--li data-icon="lock"><a class="exec-func" func="googleAuthorization"><h3>Google授權</h3></a></li-->
+		<!-- above not working for iphone, tried location.href, etc. -->
+		<li data-icon="lock"><a href="https://script.google.com/macros/s/AKfycbycwkuTZbAuOLNyA4gHKrjv422WYNDeAAPg1xLSg-KL0prwETA/exec?">
+			<h3>Google授權</h3></a>
+		</li>
+		<li data-icon="info"><a href="#about-page"><h3>About</h3></a>
+		</li>
+    </ul>
+  </div>
+  <!-- /left-panel -->
+  <div data-role="popup" id="popup-message" data-dismissible="true">
+	<h3>Popup Message</h3>
+  </div>
+  <!-- /popup-message -->
+  <div data-role="popup" id="popup-marker" data-theme="b" style="max-width:50em;">
+  <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+    <h2></h2>
+  	<div role="main" class="ui-content">
+	  <select name="win-amt" id="select-win-amt" data-iconpos="right" data-mini="false">
+      	<option selected value="">獨贏/連贏</option>
+      	<option value=10>獨贏/連贏$10</option>
+      	<option value=20>獨贏/連贏$20</option>
+      	<option value=50>獨贏/連贏$50</option>
+      	<option value=100>獨贏/連贏$100</option>
+	  </select>
+	  <select name="qin-leg" id="select-qin-leg" data-iconpos="right" data-mini="false">
+	    <option selected value="">連贏Q腳</option>
+   	  	<option value=1>連贏搭1</option>
+   	  	<option value=2>連贏搭2</option>
+   	  	<option value=3>連贏搭3</option>
+   	  	<option value=4>連贏搭4</option>
+	  </select>
+	  <select name="pla-amt" id="select-pla-amt" data-iconpos="right" data-mini="false">
+	    <option selected value="">位置/位置Q</option>
+   	  	<option value=10>位置/位置Q$10</option>
+   	  	<option value=20>位置/位置Q$20</option>
+   	  	<option value=50>位置/位置Q$50</option>
+   	  	<option value=100>位置/位置Q$100</option>
+	  </select>
+	  <select name="qpl-leg" id="select-qpl-leg" data-iconpos="right" data-mini="false">
+	    <option selected value="">位置Q腳</option>
+   	  	<option value=1>位置Q搭1</option>
+   	  	<option value=2>位置Q搭2</option>
+   	  	<option value=3>位置Q搭3</option>
+   	  	<option value=4>位置Q搭4</option>
+	  </select>
+	  <button id="mark-bet-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c" >下注</button>
+	</div>
+  </div>
+  <!-- /popup-marker-->
+  <div data-role="popup" id="page-menu" data-theme="b">
+	<ul data-role="listview" data-inset="true" style="min-width:150px;">
+		<li><a href="#race-page">排位表</a></li>
+		<li><a href="#trainer-page">練馬師分場表</a></li>
+		<li><a href="#jockey-page">騎師分場表</a></li>
+		<li><a href="#result-page">賽果派彩</a></li>
+	</ul>
+  </div>
+  <!-- /page-menu -->
+  <div data-role="popup" id="popup-dialog" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:30em;">
+  	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+    <div class="ui-content">
+		<span><h3>Function</h3></span>
+		<button id="confirm-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c" >確認</button>
+	</div>
+  </div>
+  <!-- /popup-dialog -->
+  <div data-role="popup" id="select-dialog" data-overlay-theme="b" data-theme="a" style="max-width:30em;">
+	<!--a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a-->
+	<div class="ui-content">
+    	<select name="RC" id="select-RC" data-iconpos="right" data-mini="false">
+       	  	<option selected value="今">今場</option>
+        	<option value="谷">跑馬地</option>
+        	<option value="田">沙田</option>
+		</select>
+		<select name="track" id="select-track" data-iconpos="right" data-mini="false">
+		    <option selected value="草">草地</option>
+       	  	<option value="全">全天候跑道</option>
+		</select>
+		<select name="course" id="select-course" data-iconpos="right" data-mini="false">
+       	  	<option selected value="A">A</option>
+          	<option value="A+2">A+2</option>
+        	<option value="A+3">A+3</option>
+         	<option value="B">B</option>
+          	<option value="B+2">B+2</option>
+            <option value="B+3">B+3</option>
+           	<option value="C">C</option>
+	        <option value="C+3">C+3</option>
+		</select>
+		<select name="distance" id="select-distance" data-iconpos="right" data-mini="false">
+       		<option value=1000>1000M</option>
+       		<option selected value=1200>1200M</option>
+       		<option value=1400>1400M</option>
+       		<option value=1600>1600M</option>
+       		<option value=1650>1650M</option>
+       		<option value=1800>1800M</option>
+       		<option value=2000>2000M</option>
+      		<option value=2200>2200M</option>
+       		<option value=2400>2400M</option>
+		</select>
+		<legend>負磅率 秒/磅</legend>
+		<select name="weight-rate" id="weight-rate" data-iconpos="right" data-mini="false">
+       		<option value=0>0秒</option>
+       		<option value=0.01>0.01秒</option>
+       		<option value=0.02>0.02秒</option>
+       		<option value=0.03>0.03秒</option>
+       		<option value=0.04>0.04秒</option>
+       		<option value=0.05>0.05秒</option>
+       		<option value=0.06>0.06秒</option>
+      		<option value=0.07>0.07秒</option>
+       		<option value=0.08>0.08秒</option>
+       		<option value=0.09>0.09秒</option>
+       		<option selected value=0.1>0.1秒</option>
+		</select>
+		<legend>檔位率 秒/檔</legend>
+		<select name="dr-rate" id="dr-rate" data-iconpos="right" data-mini="false">
+       		<option value=0>0</option>
+       		<option value=0.01>0.01秒</option>
+       		<option value=0.02>0.02秒</option>
+       		<option value=0.03>0.03秒</option>
+       		<option value=0.04>0.04秒</option>
+       		<option value=0.05>0.05秒</option>
+       		<option value=0.06>0.06秒</option>
+      		<option value=0.07>0.07秒</option>
+       		<option value=0.08>0.08秒</option>
+       		<option value=0.09>0.09秒</option>
+       		<option selected value=0.1>0.1秒</option>
+		</select>
+		<button id="change-course-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c" >更新</button>
+	</div>
+  </div>
+  <!-- /select-dialog -->
+  <div data-role="popup" id="event-dialog" data-overlay-theme="b" data-theme="a" style="max-width:30em;">
+  	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+	<div class="ui-content">
+		<legend>Select Race Date:</legend>
+		<select name="select-event" id="select-event" data-iconpos="right" data-mini="false">
+       		<option value=20170715>20170715 ST</option>
+       		<option value=20170711>20170711 HV</option>
+        	<option selected value=20170708>20170708 ST</option>
+		</select>
+		<button id="change-event-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c" >Change</button>
+	</div>
+  </div>
+  <!-- /select-dialog -->
+  <script src="startup.js"></script>
+  <script src="data.js"></script>
+  <script src="ui.js"></script>
+  <script src="util.js"></script>
+  <script src="bet.js"></script>
+  <script src="ai.js"></script>
+  <script src="storage.js"></script>
+  <script src="tables.js"></script>
+  <!--script src="messaging.js"></script-->
+</body>
+</html>
