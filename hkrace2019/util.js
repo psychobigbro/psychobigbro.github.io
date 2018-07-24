@@ -265,7 +265,7 @@ function downloadGCSRequired () {
 	let dateOfRaceDate = toDateObj (RaceDate);
 	let dateOfHorsesOSRaceDate = toDateObj (HorsesOSRaceDate);
 	let dateOfHistoryOSRaceDate = toDateObj (HistoryOSRaceDate);
-	return !RaceDate || !HorsesOSRaceDate || HistoryOSRaceDate || dateOfRaceDate > dateOfHorsesOSRaceDate || 
+	return !RaceDate || !HorsesOSRaceDate || !HistoryOSRaceDate || dateOfRaceDate > dateOfHorsesOSRaceDate || 
 			dateOfRaceDate > dateOfHistoryOSRaceDate;
 }
 Date.prototype.yyyymmdd = function() {
