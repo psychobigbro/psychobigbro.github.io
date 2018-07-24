@@ -248,6 +248,7 @@ function renewSelect ($select, options, defaultOption) {
 function cacheSettings () {
 	cacheToStore ("cache", {key:"Settings",
 							onlineMode: $("#online-mode-switch").val(),
+							horseFile: $("#horse-file").val(),
 							aiMode: $("#ai-mode-switch").val()});
 }
 

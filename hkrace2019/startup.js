@@ -741,10 +741,7 @@
 	/*******************/
 	/* switches change */
 	/*******************/
-	$("#online-mode-switch").change (function () {
-		cacheSettings();
-	});
-	$("#ai-mode-switch").change (function () {
+	$("#online-mode-switch","#ai-mode-switch","#horse-file").change (function () {
 		cacheSettings();
 	});
 	/*********************/
@@ -916,6 +913,7 @@
 				if (rec) {
 					$('#online-mode-switch').val(rec.onlineMode).slider( "refresh" );
 					$('#ai-mode-switch').val(rec.aiMode).slider( "refresh" );
+					$('#horse-file').val(rec.horseFile).slider( "refresh" );
 				}
 				return;
 			})
