@@ -1,6 +1,6 @@
 function downloadGCSAndAllRaces (event, maxRaceNo) {
 	$.mobile.loading( "show" ); 
-	let fileName = "horses"+event[0]+".json";	//GCS horses file
+	let fileName = $("#horses-file").val()+event[0]+".json";	//GCS horses file
 	let fileName2 = "history"+event[0]+".json";	//GCS history file
 	downloadGCSFilePromise (fileName)
 	.then ( horses => {
