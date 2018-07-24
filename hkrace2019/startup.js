@@ -741,9 +741,10 @@
 	/*******************/
 	/* switches change */
 	/*******************/
-	$("#online-mode-switch","#ai-mode-switch","#horse-file").change (function () {
-		cacheSettings();
-	});
+	$("#online-mode-switch").change ( () => cacheSettings()) ;
+	$("##ai-mode-switch").change ( () => cacheSettings()) ;
+	$("#horse-file").change ( () => cacheSettings()) ;
+
 	/*********************/
 	/* change-course-btn */
 	/*********************/
