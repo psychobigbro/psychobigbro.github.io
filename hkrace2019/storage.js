@@ -37,10 +37,12 @@ function downloadGCSFilePromise (fileName) {
 	return new Promise (async function (resolve, reject) {
 	try {
 		let db = await IDbPromise;
+		/*
 		let tx = db.transaction(storeName, "readwrite");
 		await tx.objectStore(storeName).clear(); 
 		await tx.complete;
 		console.log ("iDB store",storeName, "cleared!!");
+		*/
 		tx = db.transaction(storeName, "readwrite");
 		let store = tx.objectStore(storeName);
 		for (let i=0; i<horses.length; i++, numHorses++)
@@ -59,12 +61,21 @@ function downloadGCSFilePromise (fileName) {
 		resolve (numHorses);
 		}
 	catch (error) {
-		console.log ("update iDB horses:",error);
-		reject ("update iDB horses:"+JSON.stringify(error));
+		console.log ("create iDB horses:",error);
+		reject ("create iDB horses:"+JSON.stringify(error));
 		}
 	})
 }
- 
+
+async function clearHorsesStore () {
+	let storeName = 'horses';
+	let db = await IDbPromise;
+	let tx = db.transaction(storeName, "readwrite");
+	await tx.objectStore(storeName).clear(); 
+	await tx.complete;
+	console.log ("iDB store",storeName, "cleared!!");	
+}
+
 function updateHorsesStorePromise (horsesObj) {
 	let horses = horsesObj.horses;
 	let raceDate = horsesObj.raceDate;
