@@ -2,9 +2,9 @@
 function scrollMenuEventHandler() {
 		if (this.hasAttribute("disabled"))
 			return;
-		dataLoading (true); //disable scrollmenu to avoided repeated calls
+		//dataLoading (true); //moved inside loadDataAndRefreshDom
 		var raceNo = Number(this.getAttribute("raceNo"));
-		if (!isNaN(raceNo)) //starters cache and HKJCracecard use numeric raceNo
+		if (!isNaN(raceNo) && Event) //starters cache and HKJCracecard use numeric raceNo
 			loadDataAndRefreshDom (Event, false, raceNo);  //load data without bypassCache
 };
 

@@ -77,6 +77,7 @@ function loadDataPromise (raceNo) {
 /**** Chaining promises to fetch data and refresh DOM for a specifc raceNo ***/
 /* byPassCache, if true, will skip reading cache to query firestore directly*/ 
 function loadDataAndRefreshDom (event, byPassCache, raceNo) {
+	dataLoading (true); 
 	fetchStarter (event, raceNo)
 	.then ( starter => {
 		/* here we have starter either from cache or racecard, save raceDate as global */

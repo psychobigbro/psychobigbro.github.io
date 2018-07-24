@@ -3,7 +3,7 @@
   var Season = "";
   var RaceDate = "";  //global to hold current raceDate AS OBTAINED FROM last online Starters, dd-mm-yyyy
   var MaxRaceNo = 0;  //global to hold max. race no corr. to Event
-  var Event = ['20180715','ST'];  //global object for current race event AS OBTAINED FROM getRaceInfo [yyyymmdd','RC']
+  var Event = [];     //global object for current race event AS OBTAINED FROM getRaceInfo [yyyymmdd','RC']
 								  // or set by Event datebacking; this is changed before RaceDate which is starter based
   var HorsesOSRaceDate = "";	//raceDate of downloaded iDB horses store
   var HistoryOSRaceDate = "";	//raceDate of downloaded iDB history store
@@ -498,9 +498,9 @@
 	  .on("tap", function() {
 		if (this.hasAttribute("disabled"))
 			return;
-		dataLoading (true); //disable button to avoided repeated calls
+		//dataLoading (true); //moved inside loadDataAndRefreshDom
 		let raceNo = Number($("#predict-page h1").text().replace(/\D+/g,""));
-		if (!isNaN(raceNo)) //starters cache and HKJCracecard use numeric raceNo
+		if (!isNaN(raceNo && Event)) //starters cache and HKJCracecard use numeric raceNo
 			loadDataAndRefreshDom (Event, true, raceNo);  //re-load data bypassCache
 	});
 	
@@ -919,6 +919,7 @@
 				return;
 			})
 			.then (() => {
+				//read starter 1 of any Event (checked in event handler)
 				$("#race-page div.scrollmenu a:nth-child(1)").trigger( "click" );
 			});
 		} else {
