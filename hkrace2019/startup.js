@@ -754,10 +754,12 @@
 		$("#select-dialog").popup("close");
 		//console.log ($("#select-RC").val(),$("#select-track").val(),$("#select-course").val(),
 		//$("#select-distance").val());
-		let raceNum = $("#predict-page h1").text().replace(/\D+/g,"");
+		let activePage = $.mobile.activePage.attr("id");
+		console.log (activePage);
+		let raceNum = $("#"+activePage+" h1").text().replace(/\D+/g,"");
 		//console.log ("raceNo",raceNo,"#predict-page a:nth-child("+raceNo+")");
 		if (raceNum)
-			$("#predict-page a:nth-child("+raceNum+")").trigger( "click" );
+			$("#"+activePage+" a:nth-child("+raceNum+")").trigger( "click" );
 	});
 	
 	$('#select-RC').change(function(){
