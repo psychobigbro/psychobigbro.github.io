@@ -58,12 +58,12 @@ function updateHorsesStorePromise (horsesObj) {
 			console.log ('...finished all horses');
 			return tx.complete;
 		})
-	})
-	.then( () => {
+		.then( () => {
 		console.log ("iDB store", storeName, "of", raceDate,"updated!!");
 		HorsesOSRaceDate = raceDate;
 		cacheRaceInfo ();
 		resolve (numHorses);
+		})
 	})
 	.catch( error => {
 		console.log ("update iDB horses:",error);
