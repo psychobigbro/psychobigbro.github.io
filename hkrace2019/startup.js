@@ -914,7 +914,7 @@
 				if (rec) {
 					$('#online-mode-switch').val(rec.onlineMode).slider( "refresh" );
 					$('#ai-mode-switch').val(rec.aiMode).slider( "refresh" );
-					$('#horses-file').val(rec.horseFile).slider( "refresh" );
+					$('#horses-file').val(rec.horsesFile).slider( "refresh" );
 				}
 				return;
 			})
