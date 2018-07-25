@@ -195,6 +195,9 @@ function refreshPage ($page, thead, starter, pred, stat) {
 	}
 	$tbl.table("rebuild");
 	
+	/* The rest is for SuperUser only */
+	if (!SuperUser) return;
+	
 	//Handle horse num bet marker event and display
 	let $num = $page.find("td.seqno");
 	$num.off().on ("taphold", {raceDate:starter.raceDate,raceNo:starter.raceNo, $num:$num}, function(e){

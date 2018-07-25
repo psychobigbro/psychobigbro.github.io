@@ -1,6 +1,7 @@
   /*** Startup ***/
   /* Globals */
   var Season = "";
+  var SuperUser = false;
   var RaceDate = "";  //global to hold current raceDate AS OBTAINED FROM last online Starters, dd-mm-yyyy
   var MaxRaceNo = 0;  //global to hold max. race no corr. to Event
   var Event = null;     //global object for current race event AS OBTAINED FROM getRaceInfo [yyyymmdd','RC']
@@ -557,7 +558,7 @@
 			}).append($("<ul/>", {
 				"data-role": "listview",
                 "data-inset": true
-			}).append($("<li/>").text("查詢場次數目 ..."))).append($("<a/>", {
+			}).append($("<li/>").text("查詢下期賽事 ..."))).append($("<a/>", {
 				"data-role": "button",
                 "data-theme": "c",
 				id: "start-dl-btn"
@@ -570,13 +571,14 @@
 		let $btn = $("#start-dl-btn");
 		// check button state to ensure no download in progress
 		if ($btn[0].hasAttribute("disabled") == false) { //download not in progress
-			$btn.text("工作中 ...")
+			$btn.text("工作中，請稍候 ...");
+			$("#dialog li:first-child").text("查詢下期賽事 ...");
 			execGoogleAppPromise ("getRaceDayInfo")
 			.then ( info => {
 				if (info) {
 					if ( info.raceDate && info.maxRaceNo > 5) { //racecard of upcoming raceDate ready??
 						$("#dialog li:first-child")
-						.text(info.raceDate + (info.event[1]=="ST" ? " 沙田":" 跑馬地") + " 共" + info.maxRaceNo + "場賽事");
+						.text("下期賽事："info.raceDate + (info.event[1]=="ST" ? " 沙田":" 跑馬地") + " 共" + info.maxRaceNo + "場");
 						if (info.raceDate == info.GCSHistoryRaceDate && info.raceDate == info.GCSHorsesRaceDate) {
 							let reminder = "有數據須下載。";
 							if (HorsesOSRaceDate == info.GCSHorsesRaceDate &&
@@ -877,11 +879,12 @@
 				//console.log("  Photo URL: " + profile.photoURL);
 				$('#user-photo').attr("src",profile.photoURL);
 				$('#user-email').text(profile.email);
-				if (profile.email != 'psychobigbro@gmail.com')
-					$(".super").hide();
-				else
+				SuperUser = (profile.email == 'psychobigbro@gmail.com');
+				if (SuperUser)
 					$(".super").show();
-				popupMsg ("You have signed in as " + profile.email, 3500);
+				else
+					$(".super").hide();
+				popupMsg ("You have signed in as a " + (SuperUser ? "super user":"normal user:") + profile.email, 3500);
 			});
 			getFromCache ("cache", "RaceInfo")
 			.then (rec => {
