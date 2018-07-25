@@ -25,7 +25,7 @@ function downloadGCSAndAllRaces (event, maxRaceNo) {
 		$.mobile.loading( "hide" );
 		$("#start-dl-btn").text("停止！操作失敗："+error);
 		console.log (error);
-		popupMsg (error);
+		popupMsg (JSON.stringify(error));
 	})
 }
 

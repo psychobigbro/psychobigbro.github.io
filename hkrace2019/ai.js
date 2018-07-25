@@ -144,7 +144,7 @@ function updateScoresFromFeatures (wins, raceNo, raceDate) {
 	})
 	.catch (error => {
 		console.log (error);
-		popupMsg (error);
+		popupMsg (JSON.stringify(error));
 	})
 	
 	function getFeaturesPromise (raceNo, raceDate) {

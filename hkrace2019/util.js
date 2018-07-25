@@ -25,7 +25,7 @@ function changeEvent () {
 			throw "can't getPastEventsInfo";
 	})
 	.catch ( error => {
-		popupMsg("changeEvent " + error.toString());
+		popupMsg("changeEvent " + JSON.stringify(error));
 		console.log (error);
 	});
 }
@@ -48,7 +48,7 @@ function updateRaceInfo() { /***** THIS MAY NOT BE REQUIRED !!!!!****/
 			throw "Can't getRaceDayInfo";
 	})
 	.catch ( error => {
-		popupMsg("updateRaceInfo " + error.toString());
+		popupMsg("updateRaceInfo " + JSON.stringify(error));
 		console.log (error);
 	});
 }
@@ -171,7 +171,7 @@ function clearCache () {
 	IDbPromise
 	.then(function(db) {
 		let tx = db.transaction(["predictedTime","JTInPlace","remarks","testHorse",
-								'columnToggle','winOdds','cache','trump','horses','history'], "readwrite");
+								'columnToggle','winOdds','cache','trump','history'], "readwrite");
 		tx.objectStore("testHorse").clear(); 
 		tx.objectStore("remarks").clear(); 
 		tx.objectStore("predictedTime").clear();
@@ -180,7 +180,6 @@ function clearCache () {
 		tx.objectStore("winOdds").clear();
 		tx.objectStore("cache").clear();
 		tx.objectStore("trump").clear();
-		tx.objectStore("horses").clear();
 		tx.objectStore("history").clear();
 		return tx.complete;
 	})
@@ -219,7 +218,7 @@ function deleteAllDbs () {
 	})
 	.catch( error =>{
 		console.log ("deleteAllDb:", error);
-		popupMsg(error);
+		popupMsg(JSON.stringify(error));
 	})
 }
 

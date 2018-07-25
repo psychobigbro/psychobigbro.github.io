@@ -49,7 +49,7 @@ function updateTrainerJockeyTables () {
 		})
 	})
 	.catch ( error => {
-		popupMsg(error.toString());
+		popupMsg(JSON.stringify(error));
 		dataLoading (false);
 		console.log (error);
 	});
