@@ -36,12 +36,11 @@ function downloadGCSFilePromise (fileName) {
 	let numHorses = 0;
 	return new Promise (async function (resolve, reject) {
 	try {
-		let dbOld = await IDbPromise;
-		let oldIDbVersionNo = dbOld.version;
-		/* delete horses store for faster add performance for non ios chrome */
+		let dbOld = await HorsesiDbPromise;
+		let oldVersionNo = dbOld.version;
 		dbOld.close();
-		console.log ("iDB version", oldIDbVersionNo, "closed!!");
-		IDbPromise = idb.open('HKRace', ++oldIDbVersionNo, function (upgradeDb) {
+		console.log ("HKRaceDB version", oldVersionNo, "closed!!");
+		HorsesiDbPromise = idb.open('HKRaceDB', ++oldVersionNo, function (upgradeDb) {
 			console.log ("iDB opening...");
 			if (upgradeDb.objectStoreNames.contains(storeName)) {
 				upgradeDb.deleteObjectStore(storeName);
@@ -54,7 +53,7 @@ function downloadGCSFilePromise (fileName) {
 			horsesOS.createIndex('HRTDCY', ['horseNo','RCC','track','distance','course','yyyymmdd'], {unique: true});
 			console.log ("iDB store",storeName, "indices created");
 		});
-		let db = await IDbPromise;
+		let db = await HorsesiDbPromise;
 		let tx = db.transaction(storeName, "readwrite");
 		let store = tx.objectStore(storeName);
 		for (let i=0; i<horses.length; i++, numHorses++)

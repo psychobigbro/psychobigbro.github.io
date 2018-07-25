@@ -19,6 +19,7 @@
   var StarterCacheTimeoutMinutes = 10;
   var IDbPromise;
   var IDbVersionNo = 1;
+  var HorsesiDbPromise;
   var ScrollLeft = 0; //scrollLeft() of scrollmenu
   var Bet = {};		  //object containing bet table and others
   
@@ -197,6 +198,7 @@
 		console.log('This browser doesn\'t support IndexedDB');
 		return;
 	}
+	HorsesiDbPromise = idb.open('HKRaceDB');
 	IDbPromise = idb.open('HKRace', IDbVersionNo, function(upgradeDb) {
 		if (!upgradeDb.objectStoreNames.contains('starters')) {
 		  upgradeDb.createObjectStore('starters', {keyPath: 'raceNo'});
@@ -225,6 +227,7 @@
 		if (!upgradeDb.objectStoreNames.contains('trump')) {
 		  upgradeDb.createObjectStore('trump', {keyPath: 'key'});
 		};
+		/* Move to new iDB HKRaceDB
 		if (!upgradeDb.objectStoreNames.contains('horses')) {
 		  let horsesOS = upgradeDb.createObjectStore('horses', {autoIncrement:true});
 		  horsesOS.createIndex('HY', ['horseNo','yyyymmdd'], {unique: true});
@@ -232,6 +235,7 @@
 		  horsesOS.createIndex('HRTDY', ['horseNo','RCC','track','distance','yyyymmdd'], {unique: true});
 		  horsesOS.createIndex('HRTDCY', ['horseNo','RCC','track','distance','course','yyyymmdd'], {unique: true});
 		};
+		*/
 		if (!upgradeDb.objectStoreNames.contains('history')) {
 		  let historyOS = upgradeDb.createObjectStore('history', {keyPath: ['raceIdx','horseID']});
 		  historyOS.createIndex('TJ', ['trainer','jockey'], {unique: false});

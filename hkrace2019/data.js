@@ -141,7 +141,7 @@ function getAdjBestTime (byPassCache, raceDate, RCC, track, course, distance, dr
 
 	function _getAdjBestTimeFromIDB (resolve, reject) {
 		let storeName = "horses";
-		IDbPromise
+		HorsesIDbPromise
 		.then( db => {
 			let tx = db.transaction(storeName, "readonly");
 			let store = tx.objectStore(storeName);
@@ -289,7 +289,7 @@ function queryInPlaceRemarks (byPassCache, raceDate, RCC, track, course, distanc
 		let storeName = "horses";
 		let range = IDBKeyRange.bound([horseNo,"00000000"],
 									  [horseNo,Event[0]], false, true);
-		IDbPromise
+		HorsesIDbPromise
 		.then( db => {
 			let tx = db.transaction(storeName, "readonly");
 			let store = tx.objectStore(storeName);
@@ -356,7 +356,7 @@ function queryTestHorse (byPassCache, season, raceDate, horseNo) {
 		let storeName = "horses";
 		range = IDBKeyRange.bound([horseNo,season,"00000000"],
 								  [horseNo,season,Event[0]], false, true);
-		IDbPromise
+		HorsesIDbPromise
 		.then( db => {
 			let tx = db.transaction(storeName, "readonly");
 			let store = tx.objectStore(storeName);
