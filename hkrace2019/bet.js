@@ -26,7 +26,7 @@ function updateResultTable () {
 			// use date/time of last results record
 			let result = results[resultLen-1];
 			if (result.raceDate == RaceDate) {
-				title = result.updateDate + "&nbsp;" + result.updateTime + "&nbsp;"
+				title = result.updateTime + "&nbsp;" + "賽馬日：" + result.raceDate + "&nbsp;" 
 						+ (result.RC=="HV"?"跑馬地":"沙田");
 				$("#result-page div.result-msg").html(title);
 			}

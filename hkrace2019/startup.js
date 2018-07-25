@@ -568,9 +568,9 @@
 		});
 		//$("#dialog").popup().popup("open");
 		let $btn = $("#start-dl-btn");
-		//let $menu = $("div.scrollmenu");
 		// check button state to ensure no download in progress
 		if ($btn[0].hasAttribute("disabled") == false) { //download not in progress
+			$btn.text("工作中 ...")
 			execGoogleAppPromise ("getRaceDayInfo")
 			.then ( info => {
 				if (info) {
@@ -578,7 +578,11 @@
 						$("#dialog li:first-child")
 						.text(info.raceDate + (info.event[1]=="ST" ? " 沙田":" 跑馬地") + " 共" + info.maxRaceNo + "場賽事");
 						if (info.raceDate == info.GCSHistoryRaceDate && info.raceDate == info.GCSHorsesRaceDate) {
-							$btn.text( "點擊開始" );
+							let reminder = "有數據須下載。"；
+							if (HorsesOSRaceDate == info.GCSHorsesRaceDate &&
+								HistoryOSRaceDate == info.GCSHistoryRaceDate)
+								reminder = "數據可再下載。"
+							$btn.text( reminder+"點擊開始" );
 							$btn.on("click", function() {
 								$(this).off();  //adding disable attib can't disable click event, so off here
 								$(this).text("下載開始 ...");
