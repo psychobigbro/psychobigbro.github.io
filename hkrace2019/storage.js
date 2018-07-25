@@ -43,6 +43,7 @@ function downloadGCSFilePromise (fileName) {
 			if (upgradeDb.objectStoreNames.contains(storeName)) {
 				upgradeDb.deleteObjectStore(storeName);
 				console.log ("iDB store",storeName, "deleted!!");
+			}
 		});
 		let db = await IDbPromise;
 		let horsesOS = db.createObjectStore(storeName, {autoIncrement:true});
