@@ -195,21 +195,31 @@ function clearCache () {
 
 }
 
-function deleteCacheDb () {
+function deleteAllDbs () {
 	IDbPromise
-	.then(function(db) {
+	.then( db => {
 		return db.close();
 	})
-	.then (function(db) {
-		idb.delete('HKRace')
-		.then(function() {
-			console.log ("indexedDB HKRace deleted!!");
-			popupMsg ("indexedDB HKRace deleted!! Pls Restart");
-		})
-		.catch(function(error) {
-			console.log ("Fail to delete HKRace", error);
-			popupMsg(JSON.stringify(error));
-		})
+	.then ( () => {
+		return idb.delete('HKRace')
+	})
+	.then( () => {
+		console.log ("indexedDB HKRace deleted!!");
+		return HorsesIDbPromise;
+	})
+	.then( db => {
+		return db.close();
+	})
+	.then ( () => {
+		return idb.delete('HKRaceDB')
+	})
+	.then( () => {
+		console.log ("indexedDB HKRaceDB deleted!!");
+		popupMsg ("All indexedDBs deleted!! Pls Restart");
+	})
+	.catch( error =>{
+		console.log ("deleteAllDb:", error);
+		popupMsg(error);
 	})
 }
 

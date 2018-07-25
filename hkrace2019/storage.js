@@ -36,12 +36,12 @@ function downloadGCSFilePromise (fileName) {
 	let numHorses = 0;
 	return new Promise (async function (resolve, reject) {
 	try {
+		/* delete and recreate HKRaceDB horses store to avoid performance issue for non-ios chrome */
 		let dbOld = await HorsesIDbPromise;
-		let oldVersionNo = dbOld.version;
+		let versionNo = dbOld.version;
 		dbOld.close();
-		console.log ("HKRaceDB version", oldVersionNo, "closed!!");
-		HorsesIDbPromise = idb.open('HKRaceDB', ++oldVersionNo, function (upgradeDb) {
-			console.log ("iDB opening...");
+		//console.log ("HKRaceDB version", versionNo, "closed!!");
+		HorsesIDbPromise = idb.open('HKRaceDB', ++versionNo, function (upgradeDb) {
 			if (upgradeDb.objectStoreNames.contains(storeName)) {
 				upgradeDb.deleteObjectStore(storeName);
 				console.log ("iDB store",storeName, "deleted!!");
@@ -51,7 +51,7 @@ function downloadGCSFilePromise (fileName) {
 			horsesOS.createIndex('HSY', ['horseNo','season','yyyymmdd'], {unique: true});
 			horsesOS.createIndex('HRTDY', ['horseNo','RCC','track','distance','yyyymmdd'], {unique: true});
 			horsesOS.createIndex('HRTDCY', ['horseNo','RCC','track','distance','course','yyyymmdd'], {unique: true});
-			console.log ("iDB store",storeName, "indices created");
+			console.log ("iDB store",storeName, "of HKRaceDB version",versionNo,"created");
 		});
 		let db = await HorsesIDbPromise;
 		let tx = db.transaction(storeName, "readwrite");
@@ -72,12 +72,11 @@ function downloadGCSFilePromise (fileName) {
 		resolve (numHorses);
 		}
 	catch (error) {
-		//console.log ("create iDB horses:",error);
 		reject ("create iDB horses:"+error);
 		}
 	})
 }
-
+/*
 async function clearHorsesStore () {
 	let storeName = 'horses';
 	let db = await IDbPromise;
@@ -129,7 +128,7 @@ function updateHorsesStorePromise (horsesObj) {
 	})
 	})
 }
-
+*/
 /* return a promise to update iDB history store from GCS file
  * resolve to number of records added
  */

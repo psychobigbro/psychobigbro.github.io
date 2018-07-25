@@ -758,7 +758,6 @@
 	$("#change-course-btn").on("click", function() {
 		$("#select-dialog").popup("close");
 		let activePage = $.mobile.activePage.attr("id");
-		console.log (activePage);
 		let raceNum = $("#"+activePage+" h1").text().replace(/\D+/g,"");
 		if (raceNum)
 			$("#"+activePage+" div.scrollmenu a:nth-child("+raceNum+")").trigger( "click" );
