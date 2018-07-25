@@ -39,11 +39,11 @@ function downloadGCSFilePromise (fileName) {
 		let dbOld = await IDbPromise;
 		/* delete horses store for faster add performance for non ios chrome */
 		dbOld.close();
-		IDbPromise = idb.open('HKRace', IDbVersion, async function(upgradeDb) {
+		IDbPromise = idb.open('HKRace', IDbVersion, upgradeDb => {
 			if (upgradeDb.objectStoreNames.contains(storeName)) {
 				upgradeDb.deleteObjectStore(storeName);
 				console.log ("iDB store",storeName, "deleted!!");
-		}
+		});
 		let db = await IDbPromise;
 		let horsesOS = db.createObjectStore(storeName, {autoIncrement:true});
 		horsesOS.createIndex('HY', ['horseNo','yyyymmdd'], {unique: true});
