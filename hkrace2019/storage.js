@@ -38,10 +38,13 @@ function downloadGCSFilePromise (fileName) {
 	try {
 		let db = await IDbPromise;
 		/* delete horses store for faster add performance for non ios chrome */
-		if (db.objectStoreNames.contains(storeName)) {
-			db.deleteObjectStore(storeName);
+		db.close();
+		IDbPromise = idb.open('HKRace', IDbVersion, function(upgradeDb) {
+		if (upgradeDb.objectStoreNames.contains(storeName)) {
+			upgradeDb.deleteObjectStore(storeName);
 			console.log ("iDB store",storeName, "deleted!!");
 		}
+		let db = await IDbPromise;
 		let horsesOS = db.createObjectStore(storeName, {autoIncrement:true});
 		horsesOS.createIndex('HY', ['horseNo','yyyymmdd'], {unique: true});
 		horsesOS.createIndex('HSY', ['horseNo','season','yyyymmdd'], {unique: true});
@@ -67,7 +70,7 @@ function downloadGCSFilePromise (fileName) {
 		}
 	catch (error) {
 		console.log ("create iDB horses:",error);
-		reject ("create iDB horses:"+JSON.stringify(error));
+		reject ("create iDB horses:"+error);
 		}
 	})
 }
