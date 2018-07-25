@@ -18,6 +18,7 @@
   var WgRate = 0.1;
   var StarterCacheTimeoutMinutes = 10;
   var IDbPromise;
+  var IDbVersionNo = 1;
   var ScrollLeft = 0; //scrollLeft() of scrollmenu
   var Bet = {};		  //object containing bet table and others
   
@@ -196,7 +197,7 @@
 		console.log('This browser doesn\'t support IndexedDB');
 		return;
 	}
-	IDbPromise = idb.open('HKRace', 1, function(upgradeDb) {
+	IDbPromise = idb.open('HKRace', IDbVersionNo, function(upgradeDb) {
 		if (!upgradeDb.objectStoreNames.contains('starters')) {
 		  upgradeDb.createObjectStore('starters', {keyPath: 'raceNo'});
 		};

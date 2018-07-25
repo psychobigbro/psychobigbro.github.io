@@ -39,7 +39,7 @@ function downloadGCSFilePromise (fileName) {
 		let dbOld = await IDbPromise;
 		/* delete horses store for faster add performance for non ios chrome */
 		dbOld.close();
-		IDbPromise = idb.open('HKRace', IDbVersion, upgradeDb => {
+		IDbPromise = idb.open('HKRace', IDbVersionNo, function (upgradeDb) {
 			if (upgradeDb.objectStoreNames.contains(storeName)) {
 				upgradeDb.deleteObjectStore(storeName);
 				console.log ("iDB store",storeName, "deleted!!");
@@ -70,7 +70,7 @@ function downloadGCSFilePromise (fileName) {
 		resolve (numHorses);
 		}
 	catch (error) {
-		console.log ("create iDB horses:",error);
+		//console.log ("create iDB horses:",error);
 		reject ("create iDB horses:"+error);
 		}
 	})
