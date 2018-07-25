@@ -35,9 +35,20 @@ function downloadGCSFilePromise (fileName) {
 	let storeName = 'horses';
 	let numHorses = 0;
 	return new Promise (async function (resolve, reject) {
+
+	let db = await IDbPromise;
+	/* delete horses store for faster add performance for non ios chrome */
+	if (db.objectStoreNames.contains(storeName) {
+		db.deleteObjectStore(storeName);
+		console.log ("iDB store",storeName, "deleted!!");
+	}
 	try {
-		await clearHorsesStore ();
-		let db = await IDbPromise;
+		let horsesOS = db.createObjectStore(storeName, {autoIncrement:true});
+		horsesOS.createIndex('HY', ['horseNo','yyyymmdd'], {unique: true});
+		horsesOS.createIndex('HSY', ['horseNo','season','yyyymmdd'], {unique: true});
+		horsesOS.createIndex('HRTDY', ['horseNo','RCC','track','distance','yyyymmdd'], {unique: true});
+		horsesOS.createIndex('HRTDCY', ['horseNo','RCC','track','distance','course','yyyymmdd'], {unique: true});
+		console.log ("iDB store",storeName, "indices created");
 		let tx = db.transaction(storeName, "readwrite");
 		let store = tx.objectStore(storeName);
 		for (let i=0; i<horses.length; i++, numHorses++)
