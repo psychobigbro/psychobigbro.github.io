@@ -36,13 +36,13 @@ function downloadGCSFilePromise (fileName) {
 	let numHorses = 0;
 	return new Promise (async function (resolve, reject) {
 	try {
-		let db = await IDbPromise;
+		let dbOld = await IDbPromise;
 		/* delete horses store for faster add performance for non ios chrome */
-		db.close();
-		IDbPromise = idb.open('HKRace', IDbVersion, function(upgradeDb) {
-		if (upgradeDb.objectStoreNames.contains(storeName)) {
-			upgradeDb.deleteObjectStore(storeName);
-			console.log ("iDB store",storeName, "deleted!!");
+		dbOld.close();
+		IDbPromise = idb.open('HKRace', IDbVersion, async function(upgradeDb) {
+			if (upgradeDb.objectStoreNames.contains(storeName)) {
+				upgradeDb.deleteObjectStore(storeName);
+				console.log ("iDB store",storeName, "deleted!!");
 		}
 		let db = await IDbPromise;
 		let horsesOS = db.createObjectStore(storeName, {autoIncrement:true});
