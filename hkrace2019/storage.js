@@ -44,14 +44,14 @@ function downloadGCSFilePromise (fileName) {
 				upgradeDb.deleteObjectStore(storeName);
 				console.log ("iDB store",storeName, "deleted!!");
 			}
+			let horsesOS = upgradeDb.createObjectStore(storeName, {autoIncrement:true});
+			horsesOS.createIndex('HY', ['horseNo','yyyymmdd'], {unique: true});
+			horsesOS.createIndex('HSY', ['horseNo','season','yyyymmdd'], {unique: true});
+			horsesOS.createIndex('HRTDY', ['horseNo','RCC','track','distance','yyyymmdd'], {unique: true});
+			horsesOS.createIndex('HRTDCY', ['horseNo','RCC','track','distance','course','yyyymmdd'], {unique: true});
+			console.log ("iDB store",storeName, "indices created");
 		});
 		let db = await IDbPromise;
-		let horsesOS = db.createObjectStore(storeName, {autoIncrement:true});
-		horsesOS.createIndex('HY', ['horseNo','yyyymmdd'], {unique: true});
-		horsesOS.createIndex('HSY', ['horseNo','season','yyyymmdd'], {unique: true});
-		horsesOS.createIndex('HRTDY', ['horseNo','RCC','track','distance','yyyymmdd'], {unique: true});
-		horsesOS.createIndex('HRTDCY', ['horseNo','RCC','track','distance','course','yyyymmdd'], {unique: true});
-		console.log ("iDB store",storeName, "indices created");
 		let tx = db.transaction(storeName, "readwrite");
 		let store = tx.objectStore(storeName);
 		for (let i=0; i<horses.length; i++, numHorses++)
