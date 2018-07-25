@@ -578,7 +578,7 @@
 						$("#dialog li:first-child")
 						.text(info.raceDate + (info.event[1]=="ST" ? " 沙田":" 跑馬地") + " 共" + info.maxRaceNo + "場賽事");
 						if (info.raceDate == info.GCSHistoryRaceDate && info.raceDate == info.GCSHorsesRaceDate) {
-							let reminder = "有數據須下載。"；
+							let reminder = "有數據須下載。";
 							if (HorsesOSRaceDate == info.GCSHorsesRaceDate &&
 								HistoryOSRaceDate == info.GCSHistoryRaceDate)
 								reminder = "數據可再下載。"
