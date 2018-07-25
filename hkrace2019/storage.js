@@ -34,12 +34,14 @@ function downloadGCSFilePromise (fileName) {
 	let raceDate = horsesObj.raceDate;
 	let storeName = 'horses';
 	let numHorses = 0;
-	return new Promise (async function (resolve, reject) {
+	return new Promise (function (resolve, reject) {
 	try {
 		let dbOld = await IDbPromise;
 		/* delete horses store for faster add performance for non ios chrome */
 		dbOld.close();
+		console.log ("iDB closed!!");
 		IDbPromise = idb.open('HKRace', IDbVersionNo, function (upgradeDb) {
+			console.log ("iDB opening...");
 			if (upgradeDb.objectStoreNames.contains(storeName)) {
 				upgradeDb.deleteObjectStore(storeName);
 				console.log ("iDB store",storeName, "deleted!!");
