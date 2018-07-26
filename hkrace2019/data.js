@@ -354,15 +354,22 @@ function queryTestHorse (byPassCache, season, raceDate, horseNo) {
 	
 	function _queryTestHorseFromIDB (resolve, reject) {
 		let storeName = "horses";
-		range = IDBKeyRange.bound([horseNo,season,"00000000"],
+		let range = IDBKeyRange.bound([horseNo,season,"00000000"],
 								  [horseNo,season,Event[0]], false, true);
+		let records = [];						  
 		HorsesIDbPromise
 		.then( db => {
 			let tx = db.transaction(storeName, "readonly");
 			let store = tx.objectStore(storeName);
 			let index = store.index("HSY");
-			return index.getAll(range,3);
+			return index.openCursor(range,"prev");
 		})
+		.then(function savRecords(cursor) {
+			if (!cursor || records.length >= 3) {
+				return records;
+				}
+			records.push(cursor.value);
+			return cursor.continue().then(savRecords);
 		.then ( function(recs) {
 			/* first save the lastest race record if any */
 			let lastRecDate = "N/A";
