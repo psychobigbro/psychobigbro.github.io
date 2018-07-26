@@ -364,13 +364,14 @@ function queryTestHorse (byPassCache, season, raceDate, horseNo) {
 			let index = store.index("HSY");
 			return index.openCursor(range,"prev");
 		})
-		.then(function savRecords(cursor) {
+		.then ( function savRecords(cursor) {
 			if (!cursor || records.length >= 3) {
 				return records;
 				}
 			records.push(cursor.value);
 			return cursor.continue().then(savRecords);
-		.then ( function(recs) {
+		})
+		.then ( recs => {
 			/* first save the lastest race record if any */
 			let lastRecDate = "N/A";
 			let lastRec = null;
