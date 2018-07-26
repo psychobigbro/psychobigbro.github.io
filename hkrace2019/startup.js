@@ -578,7 +578,7 @@
 				if (info) {
 					if ( info.raceDate && info.maxRaceNo > 5) { //racecard of upcoming raceDate ready??
 						$("#dialog li:first-child")
-						.text("下期賽事："info.raceDate + (info.event[1]=="ST" ? " 沙田":" 跑馬地") + " 共" + info.maxRaceNo + "場");
+						.text("下期賽事："+info.raceDate+(info.event[1]=="ST" ? " 沙田":" 跑馬地")+" 共"+info.maxRaceNo+ "場");
 						if (info.raceDate == info.GCSHistoryRaceDate && info.raceDate == info.GCSHorsesRaceDate) {
 							let reminder = "有數據須下載。";
 							if (HorsesOSRaceDate == info.GCSHorsesRaceDate &&
