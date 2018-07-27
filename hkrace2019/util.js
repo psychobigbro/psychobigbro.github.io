@@ -7,19 +7,23 @@ function changeEvent () {
 	execGoogleAppPromise ("getPastEventsInfo",JSON.stringify({season:Season}))
 	.then ( info => {
 		if (info) {
-			let raceDates = Object.keys(info);
+			const sortedInfo = {};
+			Object.keys(info).sort().reverse().forEach( key => {
+			sortedInfo[key] = info[key];
+			});
+			let raceDates = Object.keys(sortedInfo);
 			let $select = $("#select-event");
 			let options = {};
 			raceDates.forEach (raceDate => {
 				let date = raceDate.toHyphenatedDate();
-				let event = info[raceDate].event;
+				let event = sortedInfo[raceDate].event;
 				let venue = event[1] == "ST" ? "沙田" : "跑馬地";
-				let maxRaceNo = info[raceDate].maxRaceNo;
+				let maxRaceNo = sortedInfo[raceDate].maxRaceNo;
 				options[date+" "+venue+" 共"+maxRaceNo+"場"] = raceDate;
 			});
 			$select.empty();
 			renewSelect ($select, options, raceDates[0]);
-			$( "#event-dialog" ).data('opener', {pastEventsInfo:info}).popup("open");
+			$( "#event-dialog" ).data('opener', {pastEventsInfo:sortedInfo}).popup("open");
 		}
 		else
 			throw "can't getPastEventsInfo";

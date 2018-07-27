@@ -884,7 +884,7 @@
 					$(".super").show();
 				else
 					$(".super").hide();
-				popupMsg ("You have signed in as a " + (SuperUser ? "super user":"normal user:") + profile.email, 3500);
+				popupMsg ("You have signed in as a " + (SuperUser ? "super user:":"normal user:") + profile.email, 3500);
 			});
 			getFromCache ("cache", "RaceInfo")
 			.then (rec => {

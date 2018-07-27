@@ -363,7 +363,7 @@ function queryTestHorse (byPassCache, season, raceDate, horseNo) {
 			let store = tx.objectStore(storeName);
 			let index = store.index("HSY");
 			return index.openCursor(range,"prev");
-		})
+		}) // user cursor to get rec in descending order
 		.then ( function savRecords(cursor) {
 			if (!cursor || records.length >= 3) {
 				return records;
