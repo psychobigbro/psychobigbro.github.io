@@ -38,7 +38,7 @@ const requestsToBeCached
 		'https://fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff2'
        ];
 	   
-const expectedCaches = ['HKRace2019v2'];
+const expectedCaches = ['HKRace2019v3'];
 const latestCacheVersion = expectedCaches[0];
 
 self.addEventListener ('install', event => {
