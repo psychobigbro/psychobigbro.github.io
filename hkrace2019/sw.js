@@ -39,20 +39,24 @@ const requestsToBeCached
 		'https://fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Bold.woff2',
 		'https://fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff2'
        ];
+	   
+const expectedCaches = ['HKRace2019v1'];
+const latestCacheVersion = expectedCaches[0];
 
-self.addEventListener ('install', function(e) {
-	e.waitUntil(
-		caches.open('HKRace2019v1').then(function(cache) {
-		return cache.addAll(requestsToBeCached);
+self.addEventListener ('install', event => {
+	self.skipWaiting();
+	event.waitUntil(
+		caches.open(latestCacheVersion)
+		.then ( cache => {
+			return cache.addAll(requestsToBeCached);
 		})
 	);
 });
 
 self.addEventListener('fetch', function(event) {
-	//console.log(event.request.url);
 	event.respondWith(
 		caches.match(event.request)
-		.then (function(response) {
+		.then (response => {
 			return response || fetch(event.request);
 			/*
 			.then (function(response) {
@@ -67,19 +71,16 @@ self.addEventListener('fetch', function(event) {
 self.addEventListener ('activate', function(event) {
 	//console.log(event);
 	event.waitUntil(
-		caches.keys().then(function(cacheNames) {
-			return Promise.all(
-			cacheNames
-			.filter(function(cacheName) {
-				// Return true if you want to remove this cache,
-				// but remember that caches are shared across
-				// the whole origin
-				if (cacheName == "HKRace2019v2") return true;
+		caches.keys()
+		.then(keys => Promise.all(
+			keys.map(key => {
+				if (!expectedCaches.includes(key)) {
+					return caches.delete(key);
+				}
 			})
-			.map(function(cacheName) {
-				return caches.delete(cacheName);
-			})
-		);
+		))
+		.then(() => {
+			console.log(expectedCaches,'available upon service worker activation');
 		})
 	);
 });
