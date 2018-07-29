@@ -1,10 +1,11 @@
-const requestsToBeCached
-	 = ['/',
+const requestsToBeCached  /* must use relative path to cater for both https://psychobigbro.github.io/hkrace2019/& localhost: */
+	 = ['/',			  /* localhost can respond /index.html but github.io/hkrace2019/ can't, must use ..hkrace2019/index.html
 		'ai.js',
 		'bet.js',
 		'data.js',
 		'idb.js',
 		'index.html',
+		'index.html?launcher=true',
 		'inline.css',
 		'startup.js',
 		'storage.js',
