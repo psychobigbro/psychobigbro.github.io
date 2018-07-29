@@ -5,7 +5,7 @@ const requestsToBeCached  /* must use relative path to cater for both https://ps
 		'data.js',
 		'idb.js',
 		'index.html',
-		//'index.html?launcher=true',
+		'index.html?launcher=true',
 		'inline.css',
 		'startup.js',
 		'storage.js',
@@ -39,7 +39,7 @@ const requestsToBeCached  /* must use relative path to cater for both https://ps
 		'https://fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff2'
        ];
 	   
-const expectedCaches = ['HKRace2019v5'];
+const expectedCaches = ['HKRace2019v6'];
 const latestCacheVersion = expectedCaches[0];
 
 self.addEventListener ('install', event => {
