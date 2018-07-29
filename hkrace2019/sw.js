@@ -39,7 +39,7 @@ const requestsToBeCached  /* must use relative path to cater for both https://ps
 		'https://fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff2'
        ];
 	   
-const expectedCaches = ['HKRace2019v3'];
+const expectedCaches = ['HKRace2019v4'];
 const latestCacheVersion = expectedCaches[0];
 
 self.addEventListener ('install', event => {
