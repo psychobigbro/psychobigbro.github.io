@@ -164,6 +164,11 @@
   /* Initialize Firebase & Firestore */
   (function () {
 	'use strict';
+	if ('serviceWorker' in navigator) {
+	navigator.serviceWorker
+             .register('sw.js')
+             .then(function() { console.log("Service Worker Registered"); });
+	}
 	let config = {
 		apiKey: "AIzaSyA4O_NJXXFT7jFrk08GWRME17Cl2PQnNzc",
 		authDomain: "hkrace-2018.firebaseapp.com",
