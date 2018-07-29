@@ -5,12 +5,12 @@
 	$.getJSON( "model/scale_.json", function( scale_ ) {
 		Tfjs.tensorS = tf.tensor1d(scale_);	//for either StandardScaler or MinMaxScaler
 		Tfjs.tensorS.print();
-	});
+	}); /* uncomment if minMaxScaler is used
 	$.getJSON( "model/min_.json", function( min_ ) {
 		Tfjs.tensorM = tf.tensor1d(min_);	//for MinMaxScaler
 		Tfjs.tensorM.print();
 		Tfjs.scalerTransform = minMaxScaler;
-	});
+	}); */
 	$.getJSON( "model/mean_.json", function( mean_ ) {
 		Tfjs.tensorM = tf.tensor1d(mean_);	//for StandardScaler
 		Tfjs.tensorM.print();

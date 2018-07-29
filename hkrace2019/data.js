@@ -376,8 +376,8 @@ function queryTestHorse (byPassCache, season, raceDate, horseNo) {
 			let lastRecDate = "N/A";
 			let lastRec = null;
 			if (recs && recs.length > 0) {
-				let lastrec = recs[0];
-				lastRecDate = lastrec.yyyymmdd;
+				lastRec = recs[0];
+				lastRecDate = lastRec.yyyymmdd;
 			}
 			/* embed last race record of current season in remarks object for convinience */
 			let remarks = {testHorse:false, testHorseFail:false, lastRecDate: lastRecDate, lastRec:lastRec};

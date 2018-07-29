@@ -16,16 +16,13 @@
   <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-  <!--script src="/__/firebase/5.3.0/firebase-app.js"></script>
-  <script src="/__/firebase/5.3.0/firebase-auth.js"></script>
-  <script src="/__/firebase/5.3.0/firebase-firestore.js"></script>
-  <script src="/__/firebase/5.3.0/firebase-storage.js"></script-->
-  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-storage.js"></script>
+  <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+  <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@5.3.0/firebase-app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@5.3.0/firebase-auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@5.3.0/firebase-storage.js"></script>
   <script src="idb.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/fc-3.2.4/fh-3.1.3/sc-1.4.4/datatables.min.css"/>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/fc-3.2.4/fh-3.1.3/sc-1.4.4/datatables.min.js"></script>
+  <!-- NOTE: sw.js can't download datatables and firebase from orginal cdn, so DL from local server and jsdelivr.net instead -->
   <link rel="stylesheet" type="text/css" href="inline.css"/>
   <!-- Load TensorFlow.js -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.0"> </script>
@@ -145,10 +142,10 @@
 		class="ui-nodisc-icon">back</a>
 	</div>
     <div role="main" class="ui-content" >
-	  <h3>HKRace-2019 Rev Beta 0.01</h3>
+	  <h3>HKRace-2019 Rev Beta 0.02</h3>
 	  <div style="text-indent: 10%">
 		<p>Firebase 5.3.0</p>
-		<p>Datatables 1.10.16</p>
+		<p>Datatables 1.10.18</p>
 		<p>JQuery 1.11.1</p>
 		<p>JQueryMobile 1.4.5</p>
 		<p>TensorFlow.js 0.12.0</p>

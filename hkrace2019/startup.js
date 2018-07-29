@@ -165,9 +165,15 @@
   (function () {
 	'use strict';
 	if ('serviceWorker' in navigator) {
-	navigator.serviceWorker
-             .register('sw.js')
-             .then(function() { console.log("Service Worker Registered"); });
+		navigator.serviceWorker
+		.register('sw.js')
+		.then( registration => {
+			console.log ("Service Worker Registered");
+			//registration.update();  //uncomment if force update on each reload
+		})
+		.catch( error => {
+			console.log ('Service Worker Registration failed:',error);
+		});
 	}
 	let config = {
 		apiKey: "AIzaSyA4O_NJXXFT7jFrk08GWRME17Cl2PQnNzc",
@@ -401,7 +407,7 @@
 		});
 	});
 	$("a.result-btn").on("click", function() {
-		if (this.hasAttribute("disabled"))
+		if (this.hasAttribute("disabled")  || $("#online-mode-switch").val() == "off")
 			return;
 		updateResultTable();
 	});	
