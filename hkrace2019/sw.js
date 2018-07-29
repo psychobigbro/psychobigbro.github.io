@@ -11,11 +11,9 @@ const requestsToBeCached
 		'/tables.js',
 		'/ui.js',
 		'/util.js',
-		'/themes/',
 		'/themes/Bootstrap.min.css',
 		'/themes/jquery.mobile.icons.min.css',
 		'/themes/images/ajax-loader.gif',
-		'/model/',
 		'/model/group1-shard1of1',
 		'/model/group2-shard1of1',
 		'/model/group3-shard1of1',
@@ -40,7 +38,7 @@ const requestsToBeCached
 		'https://fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff2'
        ];
 	   
-const expectedCaches = ['HKRace2019v1'];
+const expectedCaches = ['HKRace2019v2'];
 const latestCacheVersion = expectedCaches[0];
 
 self.addEventListener ('install', event => {
