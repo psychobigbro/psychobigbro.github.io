@@ -1,7 +1,7 @@
 {
   "short_name": "HKRace2019",
   "name": "HK Race Expert App 2019",
-  "start_url": "index.html?launcher=true",
+  "start_url": "index.html",
   "background_color": "#555",
   "icons": [
     {

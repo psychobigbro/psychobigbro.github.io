@@ -5,7 +5,7 @@ const requestsToBeCached  /* must use relative path to cater for both https://ps
 		'data.js',
 		'idb.js',
 		'index.html',
-		'index.html?launcher=true',
+		//'index.html?launcher=true', //required for Android Chrome launcher
 		'inline.css',
 		'startup.js',
 		'storage.js',
