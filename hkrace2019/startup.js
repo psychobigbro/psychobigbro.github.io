@@ -771,7 +771,7 @@
 		if ( $("#online-mode-switch").val() == "off" )
 			$("h1[role='heading']").css("color","pink");
 		else
-			$("h1[role='heading").css("color","white");
+			$("h1[role='heading']").removeAttr("style");
 	}) ;
 	$("#ai-mode-switch").change ( () => cacheSettings()) ;
 	$("#horses-file").change ( () => cacheSettings()) ;
