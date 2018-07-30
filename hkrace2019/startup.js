@@ -944,6 +944,8 @@
 			.then (rec => {
 				if (rec) {
 					$('#online-mode-switch').val(rec.onlineMode).slider( "refresh" );
+					if ( $("#online-mode-switch").val() == "off" )
+						$("h1[role='heading']").css("textDecoration","underline");
 					$('#ai-mode-switch').val(rec.aiMode).slider( "refresh" );
 					$('#horses-file').val(rec.horsesFile).slider( "refresh" );
 				}
