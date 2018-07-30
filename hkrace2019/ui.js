@@ -84,6 +84,10 @@ function refreshPage ($page, thead, starter, pred, stat) {
 			stat.push([0,0,0,0]);
 		}
 	};
+	//if ( $("#online-mode-switch").val() == "off" )
+	//	$page.find("h1").css('textDecoration','underline').text ("第 " + starter.raceNo + " 場");
+	//else
+	//	$page.find("h1").css('textDecoration','').text ("第 " + starter.raceNo + " 場");
 	$page.find("h1").text ("第 " + starter.raceNo + " 場");
 	let raceTime = starter.raceTime; //.substr(0,2) + ":" + starter.raceTime.substr(2);
 	$page.find("div.scrollmenu a").removeClass("active-race");

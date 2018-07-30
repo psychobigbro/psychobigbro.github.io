@@ -765,7 +765,14 @@
 	/*******************/
 	/* switches change */
 	/*******************/
-	$("#online-mode-switch").change ( () => cacheSettings()) ;
+	$("#online-mode-switch").change ( () => {
+		cacheSettings();
+		// underline page title as indication if switched to offline mode
+		if ( $("#online-mode-switch").val() == "off" )
+			$("h1[role='heading']").css("textDecoration","underline");
+		else
+			$("h1[role='heading").css("textDecoration","");
+	}) ;
 	$("#ai-mode-switch").change ( () => cacheSettings()) ;
 	$("#horses-file").change ( () => cacheSettings()) ;
 
