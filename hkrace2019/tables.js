@@ -9,21 +9,6 @@ function updateTrainerJockeyTables () {
 		return;
 	}
 	dataLoading (true); 
-	// get maxRaceNo
-	/*
-	execGoogleAppPromise ("getRaceDayInfo",JSON.stringify({event:Event}))
-	.then ( info => {
-		if (!info)
-			throw "Can't getRaceDayInfo";
-		else if (info.maxRaceNo < 6) //cant read racecard
-			throw "賽事有待更新，請稍後再試";
-		} else if (info.raceDate != info.GCSHistoryRaceDate && info.raceDate != info.GCSHorsesRaceDate) {
-			throw "數據有待更新，請稍後再試";
-		} else
-			return info; //cont at next .then
-	})
-	.then ( info => {
-		*/
 	let allPromises = [];
 	for (let raceNo = 1; raceNo <= MaxRaceNo; raceNo++)
 		allPromises.push(fetchStarter (Event, raceNo));

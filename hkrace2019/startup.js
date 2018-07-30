@@ -277,8 +277,8 @@
   /***********************************/
   /* on various pageinit, pagecreate */
   /***********************************/
-  $(document).on("pageinit", "#trainer-page", function () {
-	getFromCache ("cache", "TrainerEntries")
+  $(document).on("pageinit", "#trainer-page", async function () {
+	await getFromCache ("cache", "TrainerEntries")
 	.then ((rec) => {
 		let data = (rec && rec.data) ? rec.data : null;
 		let table = $("#trainer-table").DataTable( {
@@ -304,8 +304,8 @@
 		});
 	});	
   });
-  $(document).on("pageinit", "#jockey-page", function () {
-	getFromCache ("cache", "JockeyRides")
+  $(document).on("pageinit", "#jockey-page", async function () {
+	await getFromCache ("cache", "JockeyRides")
 	.then ((rec) => {
 		let data = (rec && rec.data) ? rec.data : null;
 		let table = $("#jockey-table").DataTable( {
@@ -332,11 +332,16 @@
 	});	
   });
 
-  $(document).on("pageinit", "#result-page", function () {
-	getFromCache ("cache", "Results")
-	.then ((rec) => {
-		let data = (rec && rec.data) ? rec.data.contents : null;
-		let title = (rec && rec.data) ? rec.data.title : null;
+  $(document).on("pageinit", "#result-page", async function () {
+	await Promise.all ([getFromCache ("cache", "Results"),
+				  getFromCache ("cache", "ResTblColVisStates")])
+	.then ((recs) => {
+		let data = (recs[0] && recs[0].data) ? recs[0].data.contents : null;
+		const title = (recs[0] && recs[0].data) ? recs[0].data.title : null;
+		const visibles = (recs[1] && recs[1].data && recs[1].data.length == 13) ? recs[1].data
+				: [true,false,true,false,false,true,false,false,true,false,false,true,false];
+		let colOptions = [];  //array of objects for DataTable column options
+		visibles.forEach ( bool => colOptions.push({"visible":bool}));
 		let table = $("#result-table").DataTable( {
 			data: data,
 			paging: false,
@@ -346,15 +351,7 @@
 			scrollX: true,
 			scrollY: "80vh",  //% of viewport height
 			scrollCollapse: true,
-			columns: [ null,null,null,null,
-			{ "visible": false },
-			{ "visible": false },
-			{ "visible": false },
-			null, null,null,
-			{ "visible": false },
-			{ "visible": false },
-			{ "visible": false }
-			],
+			columns: colOptions,
 			fixedColumns: true,
 			fixedHeader: false,
 			createdRow: function( row, data, dataIndex ) {
@@ -404,6 +401,12 @@
 				else
 					columns.forEach (column => column.visible(true));	
 			}
+			let colVisStates = [];  //.visible() only array like, need to transform
+			$.each (table.columns().visible(), function (idx, visible) {
+				colVisStates[idx] = visible;
+			});
+			cacheToStore ('cache', {key:'ResTblColVisStates',data:colVisStates});
+			//console.log (colVisStates);
 		});
 	});
 	$("a.result-btn").on("click", function() {

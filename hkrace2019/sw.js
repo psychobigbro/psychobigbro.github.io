@@ -5,7 +5,6 @@ const requestsToBeCached  /* must use relative path to cater for both https://ps
 		'data.js',
 		'idb.js',
 		'index.html',
-		//'index.html?launcher=true', //required for Android Chrome launcher
 		'inline.css',
 		'startup.js',
 		'storage.js',
@@ -74,12 +73,13 @@ self.addEventListener ('activate', function(event) {
 		.then(keys => Promise.all(
 			keys.map(key => {
 				if (!expectedCaches.includes(key)) {
+					console.log ('Cache '+key+' to be deleted ...');
 					return caches.delete(key);
 				}
 			})
 		))
 		.then(() => {
-			console.log(expectedCaches,'available upon service worker activation');
+			console.log('Caches other than '+expectedCaches.toString()+' deleted upon service worker activation');
 		})
 	);
 });
