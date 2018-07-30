@@ -769,9 +769,9 @@
 		cacheSettings();
 		// underline page title as indication if switched to offline mode
 		if ( $("#online-mode-switch").val() == "off" )
-			$("h1[role='heading']").css("textDecoration","underline");
+			$("h1[role='heading']").css("border-bottom","3px");
 		else
-			$("h1[role='heading").css("textDecoration","");
+			$("h1[role='heading").css("border-bottom","");
 	}) ;
 	$("#ai-mode-switch").change ( () => cacheSettings()) ;
 	$("#horses-file").change ( () => cacheSettings()) ;
@@ -945,7 +945,7 @@
 				if (rec) {
 					$('#online-mode-switch').val(rec.onlineMode).slider( "refresh" );
 					if ( $("#online-mode-switch").val() == "off" )
-						$("h1[role='heading']").css("textDecoration","underline");
+						$("h1[role='heading']").css("border-bottom","3px");
 					$('#ai-mode-switch').val(rec.aiMode).slider( "refresh" );
 					$('#horses-file').val(rec.horsesFile).slider( "refresh" );
 				}
