@@ -17,7 +17,7 @@
   //var RC = '';		//racecourse of current race, use whatever starter return
   var DrRate = 0.1;
   var WgRate = 0.1;
-  var StarterCacheTimeoutMinutes = 10;
+  var StarterCacheTimeoutMinutes = 5;
   var IDbPromise;
   var IDbVersionNo = 1;
   var HorsesIDbPromise;

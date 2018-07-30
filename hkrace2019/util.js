@@ -89,6 +89,7 @@ function getStarterFromCache (raceNo, raceDate) {
 		})
 		.then(function(starter) {
 			if (starter) {  //something read
+				starter.fromCache = true;
 				let now = new Date();
 				let ageInMinutes = (now.getTime() - starter.created.getTime())/(60*1000);
 				console.log('starter ', starter.raceNo, ' of ',ageInMinutes,'min. old dated',

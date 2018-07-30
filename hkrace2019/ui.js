@@ -85,11 +85,15 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		}
 	};
 	$page.find("h1").text ("第 " + starter.raceNo + " 場");
-	let raceTime = starter.raceTime; //.substr(0,2) + ":" + starter.raceTime.substr(2);
+	let raceTime = starter.raceTime; 
 	$page.find("div.scrollmenu a").removeClass("active-race");
 	$page.find("div.scrollmenu a:nth-child("+starter.raceNo+")").addClass("active-race");
-	$page.find("div.race-info").text( //starter.raceIdx + " " + 
-		starter.raceDate + " " + raceTime + " "
+	let $info = $page.find("div.race-info");
+	if (starter.fromCache)
+		$info.css("color","grey");
+	else
+		$info.removeAttr("style");
+	$info.text(	starter.raceDate + " " + raceTime + " "
 		+ starter.classC + " " + starter.RCC	+ starter.track + " " + starter.course + " " + starter.distance + " "
 		+ (starter.going == '(Null)' ? '':starter.going+' ') + starter.raceName);
 	//update first thead for RCC/track/course/distance selected
