@@ -769,7 +769,7 @@
 		cacheSettings();
 		// underline page title as indication if switched to offline mode
 		if ( $("#online-mode-switch").val() == "off" )
-			$("h1[role='heading']").css("textDecoration","underline");
+			$("h1[role='heading']").css("color","pink");
 		else
 			$("h1[role='heading").removeAttr("style");
 	}) ;
@@ -945,7 +945,7 @@
 				if (rec) {
 					$('#online-mode-switch').val(rec.onlineMode).slider( "refresh" );
 					if ( $("#online-mode-switch").val() == "off" )
-						$("h1[role='heading']").css("textDecoration","underline");
+						$("h1[role='heading']").css("color","pink");
 					$('#ai-mode-switch').val(rec.aiMode).slider( "refresh" );
 					$('#horses-file').val(rec.horsesFile).slider( "refresh" );
 				}
