@@ -528,25 +528,6 @@ function execGoogleAppPromise  (func,
 			//console.log (xhr, status);
 			reject(error);  	 //let promise .catch display ajax err incl. timeout
 		})
-		/*
-		let request = $.ajax({
-			crossDomain: true,
-			url: url + encodeURIComponent(param),
-			method: "GET",  //"POST" will become "GET" for jsonp!!
-			dataType: "jsonp",
-			success:function(result,status,xhr) {
-						if (result.status == "ACK")  
-							resolve(result.response);  //let caller do further check of response (may be null)
-						else 				
-							reject(result);  //NAK, let promise .catch display app returned error
-					},
-			error:  function (xhr,status,error) {
-						//console.log (xhr, status);
-						reject(error);  	 //let promise .catch display ajax err incl. timeout
-					},
-			timeout:respTimeout
-		});
-		*/
 	})
 }
 
