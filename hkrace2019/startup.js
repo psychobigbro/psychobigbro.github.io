@@ -515,7 +515,7 @@
 	/* reload-btn */
 	/**************/
 	$("div a.reload-btn")
-	  .on("tap", function() {
+	.on("tap", function() {
 		if (this.hasAttribute("disabled"))
 			return;
 		//dataLoading (true); //moved inside loadDataAndRefreshDom
@@ -523,7 +523,7 @@
 		if (raceNum && Event)//starters cache and HKJCOnline use numeric raceNo
 			loadDataAndRefreshDom (Event, true, Number(raceNum));  //re-load data bypassCache
 	})
-	  .on("taphold", function (e) {
+	.on("taphold", function (e) {
 		e.preventDefault();
 		popupMsg ("taphold");
 	});
@@ -633,38 +633,7 @@
 	/* winodds-btn */
 	/***************/
 	$("a.winodds-btn")
-	.on("taphold", function (e) {
-		e.preventDefault();
-		$(this).data("longTapRegistered", true);  //so that click event fired after knows
-		if (Bet.raceDate != RaceDate) {
-			popupMsg ("No current Bet Table",1000);
-			return;
-		}
-		let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
-		if (!raceNum) return;  //page has no raceNo
-		let r = Number(raceNum) - 1;
-		let betNos = [];
-		for (let n=0; n<Bet.tbl[r].length; n++) {
-			let cell = Bet.tbl[r][n];
-			if (cell && cell.plaAmt)
-				betNos.push (n+1);
-		}
-		if (betNos.length != 3) {
-			popupMsg ("Cant find 3 bets on Place for race "+raceNum,1000);
-			return;
-		}
-		let trioBet = betNos.join('-');
-		popupMsg ("Fetching Odds for Trio " + trioBet);
-		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNum});
-		execGoogleAppPromise ("fetchTriOdds", param)
-		.then (obj => {
-			if (obj && obj.tris) {
-				popupMsg ('單T ' + trioBet + ' 賠率: ' + obj.tris[trioBet]);
-			} else
-				popupMsg ('Trio odds not available',1000);
-		});
-	})
-	.on("click", function(e) {
+	.on("tap", function(e) {
 		if (this.hasAttribute("disabled"))
 			return;
 		let $this = $(this);
@@ -673,7 +642,6 @@
 			$this.removeData("longTapRegistered");
 			return;
         }
-
 		let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
 		if (!raceNum) return;  //page has no raceNo
 		dataLoading (true); //disable button to avoided repeated calls
@@ -710,6 +678,37 @@
 			dataLoading (false);
 			console.log (error);
 			popupMsg ("fetchWinPlaOdds:"+JSON.stringify(error));
+		});
+	})
+	.on("taphold", function (e) {
+		e.preventDefault();
+		$(this).data("longTapRegistered", true);  //so that click event fired after knows
+		if (Bet.raceDate != RaceDate) {
+			popupMsg ("No current Bet Table",1000);
+			return;
+		}
+		let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
+		if (!raceNum) return;  //page has no raceNo
+		let r = Number(raceNum) - 1;
+		let betNos = [];
+		for (let n=0; n<Bet.tbl[r].length; n++) {
+			let cell = Bet.tbl[r][n];
+			if (cell && cell.plaAmt)
+				betNos.push (n+1);
+		}
+		if (betNos.length != 3) {
+			popupMsg ("Cant find 3 bets on Place for race "+raceNum,1000);
+			return;
+		}
+		let trioBet = betNos.join('-');
+		popupMsg ("Fetching Odds for Trio " + trioBet);
+		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNum});
+		execGoogleAppPromise ("fetchTriOdds", param)
+		.then (obj => {
+			if (obj && obj.tris) {
+				popupMsg ('單T ' + trioBet + ' 賠率: ' + obj.tris[trioBet]);
+			} else
+				popupMsg ('Trio odds not available',1000);
 		});
 	});
 	/****************/
