@@ -504,7 +504,7 @@
 			loadDataAndRefreshDom (Event, true, Number(raceNum));  //re-load data bypassCache
 	})
 	.on("taphold", function (e) {
-		e.preventDefault();
+		e.preventDefault();  // need also -webkit-touch-callout:none in css to stop ios taphold default!!
 		popupMsg ("function to be implemented",5000);
 	});
 	
@@ -615,12 +615,12 @@
 	.on("tap", function(e) {
 		if (this.hasAttribute("disabled"))
 			return;
-		let $this = $(this);
-        if (e.type == "click" && $this.data("longTapRegistered")) {
-            e.preventDefault();
-			$this.removeData("longTapRegistered");
-			return;
-        }
+		//let $this = $(this);
+        //if (e.type == "click" && $this.data("longTapRegistered")) {
+        //    e.preventDefault();
+		//	$this.removeData("longTapRegistered");
+		//	return;
+        //}
 		let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
 		if (!raceNum) return;  //page has no raceNo
 		dataLoading (true); //disable button to avoided repeated calls
@@ -660,10 +660,8 @@
 		});
 	})
 	.on("taphold", function (e) {
-		e.preventDefault();
-		popupMsg ("function to be implemented",5000);
-		return;
-		$(this).data("longTapRegistered", true);  //so that click event fired after knows
+		e.preventDefault();  // need also -webkit-touch-callout:none in css to stop ios taphold default!!
+		//$(this).data("longTapRegistered", true);  //so that click event fired after knows
 		if (Bet.raceDate != RaceDate) {
 			popupMsg ("No current Bet Table",1000);
 			return;
