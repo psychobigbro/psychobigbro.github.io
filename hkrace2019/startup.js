@@ -183,27 +183,7 @@
 		storageBucket: "hkrace-2018.appspot.com",
 		messagingSenderId: "443501722512"
 	};
-	firebase.initializeApp(config);
-	//const settings = {/* your settings... */ timestampsInSnapshots: true};
-	//firebase.firestore().settings(settings);
-	//firebase.firestore().enablePersistence()
-	//  .then(function() {
-      // Initialize Cloud Firestore through firebase
-		//Db = firebase.firestore();
-		//console.log("Cloud Firestore Initialised!");
-		//const settings = {/* as per Firestore (4.13.0): use Firebase Timestamp objects  */ timestampsInSnapshots: true};
-		//Db.settings(settings);
-	//  })
-	//  .catch(function(err) {
-	//	if (err.code == 'failed-precondition') {
-    //      console.log ("Multiple tabs open, persistence can only be enabled in one tab at a a time!");
-    //      // ...
-	//	} else if (err.code == 'unimplemented') {
-    //      console.log ("The current browser does not support all of the features required to enable persistence!");
-          // ...
-	//	}
-	//  });
-	  
+	firebase.initializeApp(config);	  
 	/* Lastly, Initialize indexedDB */
 	//check for support
 	if (!('indexedDB' in window)) {
@@ -681,6 +661,8 @@
 	})
 	.on("taphold", function (e) {
 		e.preventDefault();
+		popupMsg ("function to be implemented",5000);
+		return;
 		$(this).data("longTapRegistered", true);  //so that click event fired after knows
 		if (Bet.raceDate != RaceDate) {
 			popupMsg ("No current Bet Table",1000);

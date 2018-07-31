@@ -198,6 +198,7 @@ function clearCache () {
 
 /*** Delete all indexDBs and RESTART ***/
 function deleteAllDbs () {
+	idb.delete('firebaseLocalStorageDb');  //this will not be resolved until restart!!
 	IDbPromise
 	.then( db => {
 		return db.close();
@@ -217,12 +218,12 @@ function deleteAllDbs () {
 	})
 	.then( async () => {
 		console.log ("indexedDB HKRaceDB deleted!!");
-		popupMsg ("All indexedDBs deleted!! Restarting ...",4000);
+		popupMsg ("All indexedDBs deleted!! Restarting ...",4500);
 		await sleep (5000);
-		location.reload(true);
+		location.reload(true);  //reload current page from server
 	})
 	.catch( error =>{
-		console.log ("deleteAllDb:", error);
+		console.log ("deleteAllDbs:", error);
 		popupMsg(JSON.stringify(error));
 	})
 }
