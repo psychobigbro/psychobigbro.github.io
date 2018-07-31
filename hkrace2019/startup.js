@@ -525,7 +525,7 @@
 	})
 	.on("taphold", function (e) {
 		e.preventDefault();
-		popupMsg ("function to be implemented",5);
+		popupMsg ("function to be implemented",5000);
 	});
 	
 	$("#left-panel a.exec-func")
@@ -614,8 +614,7 @@
 								Event = info.event; /** Update to next raceDate HERE !!! **/
 								cacheRaceInfo ();
 								//let maxRaceNo = $("#race-page div.scrollmenu").children().length;
-								downloadGCSAndAllRaces (Event, MaxRaceNo)
-								//dlData (1, MaxRaceNo); //download start from 1 to maxRaceNo; dataLoading set inside
+								downloadGCSFiles (Event, MaxRaceNo);
 							});
 						} else
 							$btn.text( "數據有待更新，請稍後再試" );

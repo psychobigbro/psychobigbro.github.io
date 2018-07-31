@@ -3,7 +3,7 @@
  */
 function updateTrainerJockeyTables () {
 	if ($("a.reload-btn")[0].hasAttribute("disabled"))
-		return;		//avoid repeated operation
+		return;		//avoid repeated operation as reload-btn is disabled by dataloading(true)
 	if (!(Event && MaxRaceNo)) {
 		popupMsg ("No active Event!!");
 		return;

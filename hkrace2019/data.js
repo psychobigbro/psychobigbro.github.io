@@ -1,4 +1,4 @@
-function downloadGCSAndAllRaces (event, maxRaceNo) {
+function downloadGCSFiles (event, maxRaceNo) {
 	$.mobile.loading( "show" ); 
 	let fileName = $("#horses-file").val()+event[0]+".json";	//GCS horses file
 	let fileName2 = "history"+event[0]+".json";	//GCS history file
@@ -16,10 +16,15 @@ function downloadGCSAndAllRaces (event, maxRaceNo) {
 		$("#start-dl-btn").text("已下載" + fileName2 +"。更新中...");
 		return updateHistoryStorePromise (history);
 	})
-	.then ((result) => {
+	.then (async(result) => {
 		$.mobile.loading( "hide" );
 		$("#start-dl-btn").text("載入記錄共" + result.numRecAdded + "筆至場次"+result.lastRaceIdx+"。完成!");
-		//dlData (1, maxRaceNo); //download start from 1 to maxRaceNo; dataLoading set inside; NO NEED!!!
+		updateTrainerJockeyTables();  //that also download all starters
+		popupMsg ("正下載排位表及更新分場表...");
+		await sleep(5000);
+		$.mobile.changePage("#race-page", {
+			transition: "fade"
+		});
 	})
 	.catch (error => {
 		$.mobile.loading( "hide" );

@@ -196,6 +196,7 @@ function clearCache () {
 
 }
 
+/*** Delete all indexDBs and RESTART ***/
 function deleteAllDbs () {
 	IDbPromise
 	.then( db => {
@@ -214,9 +215,11 @@ function deleteAllDbs () {
 	.then ( () => {
 		return idb.delete('HKRaceDB')
 	})
-	.then( () => {
+	.then( async () => {
 		console.log ("indexedDB HKRaceDB deleted!!");
-		popupMsg ("All indexedDBs deleted!! Pls Restart");
+		popupMsg ("All indexedDBs deleted!! Restarting ...",4000);
+		await sleep (5000);
+		location.reload(true);
 	})
 	.catch( error =>{
 		console.log ("deleteAllDb:", error);
@@ -299,8 +302,7 @@ function toDateObj (ddhmmhyyyy) {
 		new Date(parts[2], parts[1] - 1, parts[0]); // month is 0-based
 }
 
-/*
+/* Await this promise to get sleep effecxt */
 function sleep(msec) {
     return new Promise(resolve => setTimeout(resolve, msec));
 }
-*/
