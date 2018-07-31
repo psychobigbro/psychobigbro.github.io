@@ -632,7 +632,7 @@
 	/***************/
 	/* winodds-btn */
 	/***************/
-	$("a.winodds-btn")
+	$("div a.winodds-btn")
 	.on("tap", function(e) {
 		if (this.hasAttribute("disabled"))
 			return;
