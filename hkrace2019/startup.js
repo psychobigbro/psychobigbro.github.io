@@ -525,7 +525,7 @@
 	})
 	.on("taphold", function (e) {
 		e.preventDefault();
-		popupMsg ("taphold");
+		popupMsg ("function to be implemented",5);
 	});
 	
 	$("#left-panel a.exec-func")
@@ -633,17 +633,83 @@
 	/* winodds-btn */
 	/***************/
 	$("div a.winodds-btn") 
-	.on("tap", function() {
+	.on("tap", function(e) {
 		if (this.hasAttribute("disabled"))
 			return;
-		//dataLoading (true); //moved inside loadDataAndRefreshDom
-		let raceNum = $("#predict-page h1").text().replace(/\D+/g,"");
-		if (raceNum && Event)//starters cache and HKJCOnline use numeric raceNo
-			loadDataAndRefreshDom (Event, true, Number(raceNum));  //re-load data bypassCache
+		let $this = $(this);
+        if (e.type == "click" && $this.data("longTapRegistered")) {
+            e.preventDefault();
+			$this.removeData("longTapRegistered");
+			return;
+        }
+		let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
+		if (!raceNum) return;  //page has no raceNo
+		dataLoading (true); //disable button to avoided repeated calls
+		if ( $("#online-mode-switch").val() == "off" ) {  //return cache in offline mode
+			getFromCache ("winOdds", Number(raceNum), RaceDate)
+			.then ( rec => {
+				dataLoading (false);
+				if (rec) {
+					refreshWinOdds (rec.obj);
+					/* also predict AI score and refresh */
+					updateScoresFromFeatures (rec.obj.wins, Number(raceNum), RaceDate);
+				}
+				//else
+				//	popupMsg ("No winOdds cache for race "+raceNum+" in offline mode", 2000);
+			});
+			return;
+		};
+		// get winOdds online
+		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNum});
+		execGoogleAppPromise ("fetchWinPlaOdds", param)
+		.then (obj => {
+			dataLoading (false);
+			if (obj && obj.wins) {
+				refreshWinOdds (obj);
+			    /* also predict AI score using winOdds and refresh */
+				updateScoresFromFeatures (obj.wins, obj.raceNo, obj.raceDate);
+				/* cache winOdds for offline access */
+				cacheToStore ("winOdds", {key:obj.raceNo, raceDate:obj.raceDate, obj:obj});
+			}
+			else
+				console.log ("No WinOdds for race", raceNum);
+		})
+		.catch (error => {
+			dataLoading (false);
+			console.log (error);
+			popupMsg ("fetchWinPlaOdds:"+JSON.stringify(error));
+		});
 	})
 	.on("taphold", function (e) {
 		e.preventDefault();
-		popupMsg ("taphold");
+		$(this).data("longTapRegistered", true);  //so that click event fired after knows
+		if (Bet.raceDate != RaceDate) {
+			popupMsg ("No current Bet Table",1000);
+			return;
+		}
+		let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
+		if (!raceNum) return;  //page has no raceNo
+		let r = Number(raceNum) - 1;
+		let betNos = [];
+		for (let n=0; n<Bet.tbl[r].length; n++) {
+			let cell = Bet.tbl[r][n];
+			if (cell && cell.plaAmt)
+				betNos.push (n+1);
+		}
+		if (betNos.length != 3) {
+			popupMsg ("Cant find 3 bets on Place for race "+raceNum,1000);
+			return;
+		}
+		let trioBet = betNos.join('-');
+		popupMsg ("Fetching Odds for Trio " + trioBet);
+		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNum});
+		execGoogleAppPromise ("fetchTriOdds", param)
+		.then (obj => {
+			if (obj && obj.tris) {
+				popupMsg ('單T ' + trioBet + ' 賠率: ' + obj.tris[trioBet]);
+			} else
+				popupMsg ('Trio odds not available',1000);
+		});
 	});
 	/****************/
 	/* mark-bet-btn */

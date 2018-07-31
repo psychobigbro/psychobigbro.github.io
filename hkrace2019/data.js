@@ -106,7 +106,7 @@ function loadDataAndRefreshDom (event, byPassCache, raceNo) {
 				Features = getFeaturesForRace (starter, predictRec, statRec);
 				if ( timeFromNow (starter.raceDate) < 86400000 )   	//tigger winOdds fetch if less than 1 day ahead
 					//&& $("#online-mode-switch").val() == "on") 	//and online
-					$("#summary-page a.winodds-btn").trigger( "click" );
+					$("#summary-page a.winodds-btn").trigger( "tap" );
 			});
 		});				
 	})
