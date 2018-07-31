@@ -522,6 +522,10 @@
 		let raceNum = $("#predict-page h1").text().replace(/\D+/g,"");
 		if (raceNum && Event)//starters cache and HKJCOnline use numeric raceNo
 			loadDataAndRefreshDom (Event, true, Number(raceNum));  //re-load data bypassCache
+	})
+	  .on("taphold", function (e) {
+		e.preventDefault();
+		popupMsg ("taphold");
 	});
 	
 	$("#left-panel a.exec-func")
