@@ -136,7 +136,7 @@ div.race-info:active {
 
 /*** -webkit-touch-callout:none stop taphold popup on iOS for the specific anchors */
 /*** others trying to disable highlight around icon when anchors are selected NOT WORKING YET FOR ANDOID */
-a.reload-btn, a.winodds-btn div.scrollmenu a, a.racecourse {
+a.reload-btn, a.winodds-btn, div.scrollmenu a, a.racecourse {
     -webkit-touch-callout: none !important;
 	-webkit-tap-highlight-color: rgba(0,0,0,0) !important;
 	-webkit-tap-highlight-color: transparent !important;
