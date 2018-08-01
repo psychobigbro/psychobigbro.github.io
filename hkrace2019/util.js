@@ -240,6 +240,16 @@ function signInOut () {
 	}
 }
 
+function toggleOnlineDebug () {
+	execGoogleAppPromise ("toggleDebug")
+	.then ( debug => {
+		let state = (debug == "0") ? "off" : "on";
+		popupMsg ("HKJCOnline debug mode is: "+state);
+	})
+	.catch ( error => {
+		popupMsg (JSON.stringify(error));
+	})
+}
 function timeFromNow (date) {   //date is dd-mm-yyyy
 	let now = new Date();
 	let yyyymmdd = date.substr(6,4)+ "-" +date.substr(3,2)+ "-" + date.substr(0,2);
