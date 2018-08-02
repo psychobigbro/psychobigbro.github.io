@@ -496,7 +496,7 @@
 	/**************/
 	$("div a.reload-btn")
 	.on("tap", function() {
-		if (this.hasAttribute("disabled"))
+		if (this.hasAttribute("disabled") || !SuperUser)  //only superuser can do reload!!
 			return;
 		//dataLoading (true); //moved inside loadDataAndRefreshDom
 		let raceNum = $("#predict-page h1").text().replace(/\D+/g,"");

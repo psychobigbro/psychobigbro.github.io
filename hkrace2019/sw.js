@@ -32,7 +32,9 @@ const requestsToBeCached  /* must use relative path to cater for both https://ps
 		'DataTables/datatables.min.css',
 		'DataTables/datatables.min.js',
 		'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.0',
-		'whoami.png',
+		'png/whoami.png',
+		'png/money.png',
+		'png/cloud-download.png',		
 		/* below are not specified explicitly in index.html, but required on demand by notosanstc.css */
 		'https://fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Bold.woff2',
 		'https://fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff2'

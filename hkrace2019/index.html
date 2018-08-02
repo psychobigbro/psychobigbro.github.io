@@ -10,6 +10,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <title>HK Race 2019</title>
   <link rel="manifest" href="manifest.json"/>
+  <!--link rel="stylesheet" type="text/css" href="jqm-icon-pack-fa.css" /-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css" />
   <link rel="stylesheet" href="themes/Bootstrap.min.css"/>
   <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
@@ -141,7 +142,7 @@
 		class="ui-nodisc-icon">back</a>
 	</div>
     <div role="main" class="ui-content" >
-	  <h3>HKRace-2019 Rev Beta 0.05 20180802</h3>
+	  <h3>HKRace-2019 Rev Beta 0.06 20180802</h3>
 	  <div style="text-indent: 10%">
 		<p>Firebase 5.3.0</p>
 		<p>Datatables 1.10.18</p>
@@ -149,7 +150,7 @@
 		<p>JQueryMobile 1.4.5</p>
 		<p>TensorFlow.js 0.12.0</p>
 		<p>Firebase User:<span id="user-email">&nbsp;</span></p>
-		<p><img id="user-photo" src="whoami.png" alt="User Photo" width="42" height="42"></p>
+		<p><img id="user-photo" src="png/whoami.png" alt="User Photo" width="42" height="42"></p>
 	  </div>
 	</div>
   </div>
@@ -186,9 +187,9 @@
 		<!--li data-icon="arrow-r"><a href="#trainer-page" data-rel="close"><h3>練馬師分場表</h3></a></li>
 		<li data-icon="arrow-r"><a href="#jockey-page" data-rel="close"><h3>騎師分場表</h3></a></li-->		
 		<!--li data-role="list-divider"><h3>例程</h3></li-->
-	  	<li data-icon="arrow-d"><a class="download-all"><h3>下載最新數據</h3></a></li>
+	  	<li data-icon="cloud-download"><a class="download-all"><h3>下載最新數據</h3></a></li>
 		<li data-icon="recycle"><a class="exec-func" func="updateTrainerJockeyTables"><h3>更新分場表</h3></a></li>
-		<li data-icon="arrow-r"><a href="#result-page" data-rel="close"><h3>賽果.派彩</h3></a></li>
+		<li data-icon="money"><a href="#result-page" data-rel="close"><h3>賽果.派彩</h3></a></li>
 		<li> <select name="online-mode" id="online-mode-switch" data-role="slider" data-track-theme="c" data-theme="a">
 				<option value="off">離綫</option>
 				<option selected value="on">連綫</option>
@@ -198,7 +199,7 @@
 		<li data-icon="user"><a class="exec-func" func="signInOut"><h3>更改用戶</h3></a></li>
 		<li data-icon="delete" class="super"><a class="exec-func" func="clearCache"><h3>清除Cache</h3></a></li>
 		<!--li data-icon="delete"><a class="exec-func" func="clearHorsesStore"><h3>清除horses</h3></a></li-->
-		<li data-icon="delete"><a class="exec-func" func="deleteAllDbs"><h3>重設！</h3></a></li>
+		<li data-icon="power"><a class="exec-func" func="deleteAllDbs"><h3>App重設！！</h3></a></li>
 		<li class="super"> <select name="ai-mode" id="ai-mode-switch" data-role="slider" data-track-theme="c" data-theme="a">
 				<option value="on">AI On</option>
 				<option selected value="off">AI Off</option>
