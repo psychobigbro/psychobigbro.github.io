@@ -183,14 +183,14 @@
   <!-- /result-page -->
   <div data-role="panel" id="left-panel" data-position="left" data-display="overlay" data-theme="b" >
 	<ul data-role="listview">
-		<li data-icon="back"><a href="#" data-rel="close"><h3>關閉</h3></a></li>
+		<li data-icon="back"><a href="#" data-rel="close"><h3>退出</h3></a></li>
 		<!--li data-icon="arrow-r"><a href="#trainer-page" data-rel="close"><h3>練馬師分場表</h3></a></li>
 		<li data-icon="arrow-r"><a href="#jockey-page" data-rel="close"><h3>騎師分場表</h3></a></li-->		
 		<!--li data-role="list-divider"><h3>例程</h3></li-->
 	  	<li data-icon="cloud-download"><a class="download-all"><h3>下載最新數據</h3></a></li>
 		<li data-icon="recycle"><a class="exec-func" func="updateTrainerJockeyTables"><h3>更新分場表</h3></a></li>
 		<li data-icon="money"><a href="#result-page" data-rel="close"><h3>賽果.派彩</h3></a></li>
-		<li> <select name="online-mode" id="online-mode-switch" data-role="slider" data-track-theme="c" data-theme="a">
+		<li> <select name="online-mode" id="online-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
 				<option value="off">離綫</option>
 				<option selected value="on">連綫</option>
 			</select>
@@ -200,24 +200,24 @@
 		<li data-icon="delete" class="super"><a class="exec-func" func="clearCache"><h3>清除Cache</h3></a></li>
 		<!--li data-icon="delete"><a class="exec-func" func="clearHorsesStore"><h3>清除horses</h3></a></li-->
 		<li data-icon="power"><a class="exec-func" func="deleteAllDbs"><h3>App重設！！</h3></a></li>
-		<li class="super"> <select name="ai-mode" id="ai-mode-switch" data-role="slider" data-track-theme="c" data-theme="a">
+		<li class="super"> <select name="ai-mode" id="ai-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
 				<option value="on">AI On</option>
 				<option selected value="off">AI Off</option>
 			</select>
 		</li>
-		<li class="super"> <select name="horses-file" id="horses-file" data-role="slider" data-track-theme="c" data-theme="a">
+		<li class="super"> <select name="horses-file" id="horses-file" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
 				<option value="allHorses">allHorses</option>
 				<option selected value="horses">horses</option>
 			</select>
 		</li>
-		<li data-icon="star" class="super"><a class="exec-func" func="changeEvent"><h3>Change Event</h3></a></li>
-		<li data-icon="star" class="super"><a class="exec-func" func="betOnStrategy"><h3>Bet On Strategy</h3></a></li>
-		<li data-icon="delete" class="super"><a class="exec-func" func="clearBetTbl"><h3>Clear Bets</h3></a></li>
-		<li data-icon="delete" class="super"><a class="exec-func" func="toggleOnlineDebug"><h3>Toggle Online Debug</h3></a></li>
+		<li data-icon="calendar" class="super"><a class="exec-func" func="changeEvent"><h3>Change Event</h3></a></li>
+		<li data-icon="usd" class="super"><a class="exec-func" func="betOnStrategy"><h3>Bet On Strategy</h3></a></li>
+		<li data-icon="eraser" class="super"><a class="exec-func" func="clearBetTbl"><h3>Clear Bets</h3></a></li>
+		<li data-icon="bug" class="super"><a class="exec-func" func="toggleOnlineDebug"><h3>Toggle Debug</h3></a></li>
 		<!--li data-icon="lock"><a class="exec-func" func="googleAuthorization"><h3>Google授權</h3></a></li-->
 		<!-- above not working for iphone, tried location.href, etc. -->
-		<li data-icon="lock"><a href="https://script.google.com/macros/s/AKfycbycwkuTZbAuOLNyA4gHKrjv422WYNDeAAPg1xLSg-KL0prwETA/exec?">
-			<h3>Google授權</h3></a>
+		<li data-icon="google-plus"><a href="https://script.google.com/macros/s/AKfycbycwkuTZbAuOLNyA4gHKrjv422WYNDeAAPg1xLSg-KL0prwETA/exec?">
+			<h3>Google 授權</h3></a>
 		</li>
 		<li data-icon="info"><a href="#about-page"><h3>About</h3></a>
 		</li>
