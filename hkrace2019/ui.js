@@ -95,7 +95,8 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		$info.removeAttr("style");
 	$info.text(	starter.raceDate + " " + raceTime + " "
 		+ starter.classC + " " + starter.RCC	+ starter.track + " " + starter.course + " " + starter.distance + " "
-		+ (starter.going == '(Null)' ? '':starter.going+' ') + starter.raceName);
+		+ (starter.going == '(Null)' ? '':starter.going+' ') + starter.raceName
+		+ " " + starter.created.toLocaleTimeString() + "更新");
 	//update first thead for RCC/track/course/distance selected
 	let RCC, track, course, distance;
 	if ($("#select-RC").val() == "今") {

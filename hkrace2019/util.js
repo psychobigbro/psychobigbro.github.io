@@ -232,7 +232,6 @@ function signInOut () {
 	if (firebase.auth().currentUser)
 		firebase.auth().signOut();
 	else {
-		firebase.auth().signOut();
 		// No user is signed in.
 		let provider = new firebase.auth.GoogleAuthProvider();
 		// To apply the default browser preference instead of explicitly setting it.
