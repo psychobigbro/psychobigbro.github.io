@@ -15,8 +15,8 @@
   var ReqFunc = ""; //global to hold webapp or window function being requested
   var Executor =""; //global to hold executor (window or google app) of the function
   //var RC = '';		//racecourse of current race, use whatever starter return
-  var DrRate = 0.1;
-  var WgRate = 0.1;
+  const DrRate = "0.1";
+  const WgRate = "0.1";
   var StarterCacheTimeoutMinutes = 5;
   var IDbPromise;
   var IDbVersionNo = 2;
@@ -777,7 +777,8 @@
 		if (raceNum) {
 			let obj = {raceNo: Number(raceNum), raceDate:RaceDate, RCC:$('#select-RC').val(),
 					   course:$("#select-course").val(), track:$("#select-track").val(),
-					   distance:$("#select-distance").val()};
+					   distance:$("#select-distance").val(), wgRate:$('#weight-rate').val(),
+					   drRate:$('#dr-rate').val()};
 			await cacheToStore ("courseSelect", obj); //no matter successful or not, handled by getFromCache later
 			$("#"+activePage+" div.scrollmenu a:nth-child("+raceNum+")").trigger( "click" );
 		}
@@ -872,7 +873,7 @@
 		if (Object.values(courseOptions).indexOf(courseSaved) > -1)
 			$cs.val(courseSaved);
 		$cs.selectmenu( "refresh" );		
-    });
+    }); /* these rates will changed with courseTrackDist and cached in courseSelect
 	$('#weight-rate').change(function(){
 		WgRate  = Number($(this).val());
 		cacheToStore ("cache", {key:"WgRate", wgRate:WgRate});
@@ -880,7 +881,7 @@
 	$('#dr-rate').change(function(){
 		DrRate  = Number($(this).val());
 		cacheToStore ("cache", {key:"DrRate", drRate:DrRate});
-	});
+	}); */
 
 	// Handle google sign in, which should have refreshed apps upon success, hence reload cache etc.
 	firebase.auth().onAuthStateChanged(function(user) {
@@ -922,7 +923,7 @@
 				else {
 					Bet.tbl = Array(11).fill(null).map(() => Array(14).fill(null));
 					Bet.raceDate = "";
-				}
+				} /* cache moved to courseSelect
 				return getFromCache ("cache", "DrRate");
 			})
 			.then (rec => {
@@ -934,7 +935,7 @@
 			.then (rec => {
 				if (rec)
 					WgRate = rec.wgRate ? rec.wgRate : 0.1;
-				$('#weight-rate').val(WgRate).selectmenu( "refresh" );
+				$('#weight-rate').val(WgRate).selectmenu( "refresh" ); */
 				return getFromCache ("cache", "Settings");
 			})
 			.then (rec => {

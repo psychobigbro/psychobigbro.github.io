@@ -110,6 +110,13 @@ function loadDataAndRefreshDom (event, byPassCache, raceNo) {
 			$("#select-track").val(starter.track).selectmenu( "refresh" );
 			$("#select-distance").val(starter.distance).selectmenu( "refresh" );
 		}
+		if (selectRec) {
+			$('#weight-rate').val(selectRec.wgRate).selectmenu( "refresh" );
+			$('#dr-rate').val(selectRec.drRate).selectmenu( "refresh" );
+		} else {
+			$('#weight-rate').val(WgRate).selectmenu( "refresh" );
+			$('#dr-rate').val(DrRate).selectmenu( "refresh" );			
+		}
 		//nesting promise.then to keep starter in scope for later use
 		//use "return" to pass any reject error back upper level promise's catch function
 		return startFireStoreQueriesForPredictions (byPassCache, starter)
@@ -144,7 +151,7 @@ function getAdjBestTime (byPassCache, raceDate, RCC, track, course, distance, dr
 			// attempt to get it from iDb predictedTime
 			getFromCache ('predictedTime', horseNo+RCC+track+course+distance, raceDate)
 			.then (function (rec) {
-				if (rec && rec.drRate == DrRate && rec.wgRate == WgRate)
+				if (rec && rec.drRate == Number($('#dr-rate').val()) && rec.wgRate == Number($('#weight-rate').val()))
 					resolve(rec.timeRec);
 				// offline mode no longer relevant to iDB
 				//else if ( $("#online-mode-switch").val() == "off" )
@@ -187,11 +194,14 @@ function getAdjBestTime (byPassCache, raceDate, RCC, track, course, distance, dr
 			let adjRecTime = MaxSeconds;
 			let recWeight = 0;
 			let recClass = 0;
+			let drRate = Number($('#dr-rate').val());
+			let wgRate = Number($('#weight-rate').val());
 			recs.forEach(function(rec) {
+
 				let normalTime = adjustedTime (1, rec.finTime, rec.RCC, rec.track, rec.distance,
-												rec.dr, rec.actWeight, DrRate, WgRate);
+												rec.dr, rec.actWeight, drRate, wgRate);
 				let predictedTime = adjustedTime (-1, normalTime, RCC, track, distance,
-													dr, weight, DrRate, WgRate);
+													dr, weight, drRate, wgRate);
 				if (predictedTime < bestTime) {
 					bestTime = predictedTime;
 					dateMade = rec.yyyymmdd;
@@ -208,7 +218,7 @@ function getAdjBestTime (byPassCache, raceDate, RCC, track, course, distance, dr
 					   predTime:bestTime, horseWeight:recWeight, class:recClass};
 			cacheToStore ("predictedTime",{key:horseNo+RCC+track+course+distance,  //* for all courses
 										raceDate:raceDate, timeRec:obj,
-										drRate:DrRate, wgRate:WgRate});
+										drRate:drRate, wgRate:wgRate});
 			resolve (obj);
 		}) 
 		.catch(function(error) {

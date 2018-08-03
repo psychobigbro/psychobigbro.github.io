@@ -265,7 +265,7 @@ function timeFromNow (date) {   //date is dd-mm-yyyy
 /* redirect to google app url, any needed user authorization will then be handled by */
 /* HTML, and google script will finally return a default HTML page for manual goback */
 function googleAuthorization () {
-	location.href = HKJCXmlExec;
+	location.href = HKJCOnlineExec;
 }
 
 function renewSelect ($select, options, defaultOption) {
