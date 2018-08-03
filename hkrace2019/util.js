@@ -145,25 +145,30 @@ function getFromCache (storeName, key, raceDate) {
 	})
 }
 /* General routine to cache obj to IndexedDB store */
+/* Caller may or may not await promise */
 function cacheToStore (storeName, obj) {
-	IDbPromise
-	.then(function(db) {
-		let tx = db.transaction(storeName, 'readwrite');
-		let store = tx.objectStore(storeName);
-		obj.created = new Date();
-		store.put(obj);
-		return tx.complete;
-	})
-	.then(function() {
-		if (storeName == "starters") {
-			console.log(storeName, obj.raceNo,'in iDb updated!');
-		}
-		else
-			console.log(storeName, obj.key,'in iDb updated!');
-	})
-	.catch(function(error) {
-		console.log ("Fail to put iDb", storeName, obj, error);
-		popupMsg ("Fail to put iDb " + storeName + ":" + JSON.stringify(error));
+	return new Promise (function (resolve, reject) {
+		IDbPromise
+		.then(function(db) {
+			let tx = db.transaction(storeName, 'readwrite');
+			let store = tx.objectStore(storeName);
+			obj.created = new Date();
+			store.put(obj);
+			return tx.complete;
+		})
+		.then(function() {
+			if (storeName == "starters") {
+				console.log(storeName, obj.raceNo,'in iDb updated!');
+			}
+			else
+				console.log(storeName, obj.key,'in iDb updated!');
+			resolve ();
+		})
+		.catch(function(error) {
+			console.log ("Fail to put iDb", storeName, obj, error);
+			popupMsg ("Fail to put iDb " + storeName + ":" + JSON.stringify(error));
+			reject (error);
+		})
 	})
 }
 

@@ -82,9 +82,9 @@ function loadDataPromise (raceNo) {
 /**** Chaining promises to fetch data and refresh DOM for a specifc raceNo ***/
 /* byPassCache, if true, will skip reading cache to query firestore directly*/ 
 function loadDataAndRefreshDom (event, byPassCache, raceNo) {
-	dataLoading (true); 
+	dataLoading (true);
 	fetchStarter (event, raceNo)
-	.then ( starter => {
+	.then ( async starter => {
 		/* here we have starter either from cache or racecard, save raceDate as global */
 		//race-page init triggered race 1 fetch to ensure actual RaceDate change (new starter read) is detected here!!
 		if (RaceDate != starter.raceDate) {
@@ -96,6 +96,19 @@ function loadDataAndRefreshDom (event, byPassCache, raceNo) {
 		if (downloadGCSRequired ()) { 
 			dataLoading (false); 
 			return;
+		}
+		// init change course selection fields from cache before prediction queries
+		let selectRec = await getFromCache ("courseSelect", raceNo, starter.raceDate);
+		if (selectRec && selectRec.RCC != "今") {
+			$('#select-RC').val(selectRec.RCC).selectmenu( "refresh" );
+			$("#select-course").val(selectRec.course).selectmenu( "refresh" );
+			$("#select-track").val(selectRec.track).selectmenu( "refresh" );
+			$("#select-distance").val(selectRec.distance).selectmenu( "refresh" );
+		} else {
+			$('#select-RC').val("今").selectmenu( "refresh" );
+			$("#select-course").val(starter.course).selectmenu( "refresh" );
+			$("#select-track").val(starter.track).selectmenu( "refresh" );
+			$("#select-distance").val(starter.distance).selectmenu( "refresh" );
 		}
 		//nesting promise.then to keep starter in scope for later use
 		//use "return" to pass any reject error back upper level promise's catch function
@@ -513,9 +526,7 @@ function execGoogleAppPromise  (func,
 	return new Promise (function (resolve, reject) {
 		if (param === undefined) param = "";
 		if (respTimeout === undefined) respTimeout = 30 * 1000;  //default to 30 seconds			
-		let url =  HKJCXmlExec + "func=" + func + "&param=";	
-		//if ( $("#test-mode-switch").val() == "on" )
-		//	url =  JSONPTestExec + "func=" + func + "&param=";
+		let url =  HKJCOnlineExec + "func=" + func + "&param=";	
 		$.ajax({
 			crossDomain: true,
 			url: url + encodeURIComponent(param),

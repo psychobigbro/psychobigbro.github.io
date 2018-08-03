@@ -19,7 +19,7 @@
   var WgRate = 0.1;
   var StarterCacheTimeoutMinutes = 5;
   var IDbPromise;
-  var IDbVersionNo = 1;
+  var IDbVersionNo = 2;
   var HorsesIDbPromise;
   var ScrollLeft = 0; //scrollLeft() of scrollmenu
   var Bet = {};		  //object containing bet table and others
@@ -42,9 +42,7 @@
 */
   const MaxSeconds = 9999.99;  //indicate no horse finish time is available for comparison
   const HKJCHorseUrl = "http://www.hkjc.com/chinese/racing/horse.asp?HorseNo=";
-  const HKJCXmlExec = "https://script.google.com/macros/s/AKfycbycwkuTZbAuOLNyA4gHKrjv422WYNDeAAPg1xLSg-KL0prwETA/exec?";
-  const HKRaceExec = "https://script.google.com/macros/s/AKfycbxLQFYtxgPdUH8QzOsVgW__vZ_5qC6ObmmktSZyGmGYevOShLfU/exec?";
-  const JSONPTestExec = "https://script.google.com/macros/s/AKfycbzxidFb5mOppsZOuoPWvddsFnL_pfBh_BTIXR2nQe_PQedz-chq/exec?";
+  const HKJCOnlineExec = "https://script.google.com/macros/s/AKfycbycwkuTZbAuOLNyA4gHKrjv422WYNDeAAPg1xLSg-KL0prwETA/exec?";
   const ShatinTurf={"1000M": "1000",
 					"1200M": "1200",
 					"1400M": "1400",
@@ -218,6 +216,9 @@
 		};
 		if (!upgradeDb.objectStoreNames.contains('trump')) {
 		  upgradeDb.createObjectStore('trump', {keyPath: 'key'});
+		};
+		if (!upgradeDb.objectStoreNames.contains('courseSelect')) {
+		  upgradeDb.createObjectStore('courseSelect', {keyPath: 'raceNo'});
 		};
 		/* Move to new iDB HKRaceDB
 		if (!upgradeDb.objectStoreNames.contains('horses')) {
@@ -393,7 +394,12 @@
 		if (this.hasAttribute("disabled")  || $("#online-mode-switch").val() == "off")
 			return;
 		updateResultTable();
-	});	
+	});
+	// color page title as indication if switched to offline mode, as result-page may not have been created when switched
+	if ( $("#online-mode-switch").val() == "off" )
+		$("h1[role='heading']").css("color","pink");
+	else
+		$("h1[role='heading']").removeAttr("style");
   });
   
   $(document).on("pagebeforecreate", "#summary-page", function () {
@@ -752,7 +758,7 @@
 	/*******************/
 	$("#online-mode-switch").change ( () => {
 		cacheSettings();
-		// underline page title as indication if switched to offline mode
+		// color page title as indication if switched to offline mode
 		if ( $("#online-mode-switch").val() == "off" )
 			$("h1[role='heading']").css("color","pink");
 		else
@@ -764,12 +770,17 @@
 	/*********************/
 	/* change-course-btn */
 	/*********************/
-	$("#change-course-btn").on("click", function() {
+	$("#change-course-btn").on("click", async function() {
 		$("#select-dialog").popup("close");
 		let activePage = $.mobile.activePage.attr("id");
 		let raceNum = $("#"+activePage+" h1").text().replace(/\D+/g,"");
-		if (raceNum)
+		if (raceNum) {
+			let obj = {raceNo: Number(raceNum), raceDate:RaceDate, RCC:$('#select-RC').val(),
+					   course:$("#select-course").val(), track:$("#select-track").val(),
+					   distance:$("#select-distance").val()};
+			await cacheToStore ("courseSelect", obj); //no matter successful or not, handled by getFromCache later
 			$("#"+activePage+" div.scrollmenu a:nth-child("+raceNum+")").trigger( "click" );
+		}
 	});
 	
 	$('#select-RC').change(function(){
