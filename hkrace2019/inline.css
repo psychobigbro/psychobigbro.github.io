@@ -70,6 +70,11 @@ a:active {
 	padding: 0.7em;
 }
 
+/* hide AI column */
+.ui-table-priority-6 {
+	display: none;
+}
+
 #summary-page td.seqno {
 	color: DarkBlue;
 }

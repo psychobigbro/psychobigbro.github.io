@@ -95,7 +95,7 @@
 	'<th>編</th>' +
 	'<th data-priority="2">馬</th>' +
 	'<th data-priority="3">騎</th>' +
-	'<th data-priority="4">練</th>' +
+	'<th data-priority="3">練</th>' +
 	'<th data-priority="2" colspan="2">排位</th>' +
 	'<th data-priority="1" colspan="2">預測時間</th>' +
 	'<th data-priority="1" colspan="2">參考時間</th>' +
@@ -117,7 +117,7 @@
 	'<th>Score</th>'+
 	'</tr></thead>';
   /* for race-table */
-  const Thead2 = '<thead><tr>' +
+  const Thead2 = /*'<thead><tr>' +
 	'<th>編</th>' +
 	'<th data-priority="1">馬</th>' +
 	'<th data-priority="2">騎</th>' +
@@ -131,16 +131,17 @@
 	'<th data-priority="1">獨贏</th>'+
 	'<th data-priority="1">位置</th>'+
 	'<th data-priority="2">AI</th>'+
-	'</tr></thead>'+
+	'</tr></thead>'+ */
 	'<thead><tr>'+
-	'<th>號</th><th>名</th><th>師</th><th>馬</th>'+
-	'<th>檔</th><th>負磅</th>'+
-	'<th>記錄</th><th>預測時間</th><th>記錄</th><th>參考時間</th>'+
-	'<th>上位</th>'+ '<th>上位</th>' +
-	'<th>試</th><th>失</th><th>重</th><th>程</th><th>道</th>'+
-	'<th>賠率</th>'+
-	'<th>賠率</th>'+
-	'<th>Score</th>'+
+	'<th>號</th><th data-priority="1">馬名</th><th data-priority="2">騎師</th><th data-priority="4">練馬師</th>'+
+	'<th data-priority="1">檔</th><th data-priority="1">負磅</th>'+
+	'<th data-priority="2">記錄</th><th data-priority="2">預測時間</th>'+
+	'<th data-priority="4">記錄</th><th data-priority="4">參考時間</th>'+
+	'<th data-priority="3">騎練</th>'+ '<th data-priority="5">皇牌</th>' +
+	'<th data-priority="5">試</th><th data-priority="5">失</th><th data-priority="5">重</th><th data-priority="5">程</th><th data-priority="5">道</th>'+
+	'<th data-priority="1">W</th>'+
+	'<th data-priority="1">P</th>'+
+	'<th data-priority="1">AI</th>'+
 	'</tr></thead>';
   var StdTimes = [];	/* HKJC standard race time for each RCC/Track/Distance/class */
   StdTimes["田草1000"] = [55.80,55.80,55.95,56.50,56.75];
@@ -943,8 +944,8 @@
 					$('#online-mode-switch').val(rec.onlineMode).slider( "refresh" );
 					if ( $("#online-mode-switch").val() == "off" )
 						$("h1[role='heading']").css("color","pink");
-					$('#ai-mode-switch').val(rec.aiMode).slider( "refresh" );
-					$('#horses-file').val(rec.horsesFile).slider( "refresh" );
+					$("#ai-mode-switch").val(rec.aiMode).slider( "refresh" );
+					$("#horses-file").val(rec.horsesFile).slider( "refresh" );
 				}
 				return;
 			})
