@@ -103,6 +103,8 @@ function refreshAIScores (raceDate, raceNo, scores) {
 
 /* perform predictons from cached features and passed-in winOdds and refresh col in tables */
 function updateScoresFromFeatures (wins, raceNo, raceDate) {
+	if ( $("#ai-mode-switch").val() != "on" )
+		return;  //turned off by ai-mode-switch
 	getFeaturesPromise (raceNo, raceDate)
 	.then (allFeats => {
 		if (wins.length != allFeats.length-1)  //features array start with nHorses

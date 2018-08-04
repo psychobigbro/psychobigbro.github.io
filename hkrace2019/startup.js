@@ -91,7 +91,7 @@
   const TimeRankColors = ["#ff0","#e6e600","#cc0","#990"];
   const ColdWinColors = ["#0ff","#00d8d8","#0cc"];
   /* for predict-table */
-  const Thead1 = '<thead><tr>' +
+  const Thead1 = /* '<thead><tr>' +
 	'<th>編</th>' +
 	'<th data-priority="2">馬</th>' +
 	'<th data-priority="3">騎</th>' +
@@ -105,16 +105,16 @@
 	'<th data-priority="4">獨贏</th>'+
 	'<th data-priority="4">位置</th>'+
 	'<th data-priority="4">AI</th>'+
-	'</tr></thead>'+
+	'</tr></thead>'+ */
 	'<thead><tr>'+
-	'<th>號</th><th>名</th><th>師</th><th>馬</th>'+
-	'<th>檔</th><th>負磅</th>'+
-	'<th>記錄</th><th>預測時間</th><th>記錄</th><th>參考時間</th>'+
-	'<th>上位</th>'+ '<th>上位</th>' +
-	'<th>試</th><th>失</th><th>重</th><th>程</th><th>道</th>'+
-	'<th>賠率</th>'+
-	'<th>賠率</th>'+
-	'<th>Score</th>'+
+	'<th>號</th><th data-priority="2">馬名</th><th data-priority="3">騎師</th><th data-priority="3">練馬師</th>'+
+	'<th data-priority="2">檔</th><th data-priority="2">負磅</th>'+
+	'<th data-priority="1">記錄</th><th data-priority="1">預測時間</th><th data-priority="1">記錄</th><th data-priority="1">參考時間</th>'+
+	'<th data-priority="5">上位</th>'+ '<th data-priority="5">上位</th>' +
+	'<th data-priority="5">試</th><th data-priority="5">失</th><th data-priority="5">重</th><th data-priority="5">程</th><th data-priority="5">道</th>'+
+	'<th data-priority="4">W</th>'+
+	'<th data-priority="4">P</th>'+
+	'<th data-priority="4">AI</th>'+
 	'</tr></thead>';
   /* for race-table */
   const Thead2 = /*'<thead><tr>' +
@@ -455,6 +455,9 @@
 		//if (ui.toPage.prop("id") == "page2")
 		console.log (ui);
 	}); */
+	/* copy version no. to about-page */
+	$("#version").text($("#race-page").find("h1").text());
+	
 	/*** scrollmenu click events handler ***/
 	$("div.scrollmenu a").on("click", scrollMenuEventHandler);
 	

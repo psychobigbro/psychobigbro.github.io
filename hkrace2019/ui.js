@@ -118,19 +118,23 @@ function refreshPage ($page, thead, starter, pred, stat) {
 	if ($tbl.prop("id") != "summary-table") {
 		$tbl.find("thead").remove();
 		$tbl.append(thead);
-		if ($tbl.prop("id") == "race-table") {
+	}
+		//if ($tbl.prop("id") == "race-table") {
 			$tbl.find("thead:first-child th:nth-child(7)").text(starter.RCC+starter.track+starter.distance);
 			$tbl.find("thead:first-child th:nth-child(9)").text(RCC+track+distance+" "+course);
-		} else {
-			$tbl.find("thead:first-child th:nth-child(6)").text(starter.RCC+starter.track+starter.distance);
-			$tbl.find("thead:first-child th:nth-child(7)").text(RCC+track+distance+" "+course);
-		}
-	} else {
-		$tbl.find("thead:first-child th:nth-child(7)").text(starter.RCC+starter.track+starter.distance);
-		$tbl.find("thead:first-child th:nth-child(9)").text(RCC+track+distance+" "+course);
-	}
+		//} else {
+		//	$tbl.find("thead:first-child th:nth-child(6)").text(starter.RCC+starter.track+starter.distance);
+		//	$tbl.find("thead:first-child th:nth-child(7)").text(RCC+track+distance+" "+course);
+		//}
+	//} else {
+		//$tbl.find("thead:first-child th:nth-child(7)").text(starter.RCC+starter.track+starter.distance);
+		//$tbl.find("thead:first-child th:nth-child(9)").text(RCC+track+distance+" "+course);
+	//}
 	if (!ai)
-		$tbl.find("thead:first-child th:nth-child(20)").attr("data-priority","6");
+		if ($tbl.prop("id") == "summary-table")
+			$tbl.find("thead:first-child th:nth-child(15)").attr("data-priority","6");
+		else
+			$tbl.find("thead:first-child th:nth-child(20)").attr("data-priority","6");
 	
 	let tblContent = "<tbody>";
 	//s index to stat, p index to pred
