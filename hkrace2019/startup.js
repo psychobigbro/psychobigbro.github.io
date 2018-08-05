@@ -19,7 +19,7 @@
   const WgRate = "0.1";
   var StarterCacheTimeoutMinutes = 5;
   var IDbPromise;
-  var IDbVersionNo = 2;
+  var IDbVersionNo = 1;
   var HorsesIDbPromise;
   var ScrollLeft = 0; //scrollLeft() of scrollmenu
   var Bet = {};		  //object containing bet table and others
@@ -509,9 +509,10 @@
 		if (this.hasAttribute("disabled") || !SuperUser)  //only superuser can do reload!!
 			return;
 		//dataLoading (true); //moved inside loadDataAndRefreshDom
-		let raceNum = $("#predict-page h1").text().replace(/\D+/g,"");
-		if (raceNum && Event)//starters cache and HKJCOnline use numeric raceNo
-			loadDataAndRefreshDom (Event, true, Number(raceNum));  //re-load data bypassCache
+		//let raceNum = $("#predict-page h1").text().replace(/\D+/g,"");
+		let raceNo = getActiveRaceNo ();
+		if (raceNo && Event)//starters cache and HKJCOnline use numeric raceNo
+			loadDataAndRefreshDom (Event, true, raceNo);  //re-load data bypassCache
 	})
 	.on("taphold", function (e) {
 		e.preventDefault();  // need also -webkit-touch-callout:none in css to stop ios taphold default!!
@@ -631,25 +632,24 @@
 		//	$this.removeData("longTapRegistered");
 		//	return;
         //}
-		let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
-		if (!raceNum) return;  //page has no raceNo
+		//let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
+		let raceNo = getActiveRaceNo ();
+		if (!raceNo) return;  //page has no raceNo
 		dataLoading (true); //disable button to avoided repeated calls
 		if ( $("#online-mode-switch").val() == "off" ) {  //return cache in offline mode
-			getFromCache ("winOdds", Number(raceNum), RaceDate)
+			getFromCache ("winOdds", raceNo, RaceDate)
 			.then ( rec => {
 				dataLoading (false);
 				if (rec) {
 					refreshWinOdds (rec.obj);
 					/* also predict AI score and refresh */
-					updateScoresFromFeatures (rec.obj.wins, Number(raceNum), RaceDate);
+					updateScoresFromFeatures (rec.obj.wins, raceNo, RaceDate);
 				}
-				//else
-				//	popupMsg ("No winOdds cache for race "+raceNum+" in offline mode", 2000);
 			});
 			return;
 		};
 		// get winOdds online
-		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNum});
+		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNo});
 		execGoogleAppPromise ("fetchWinPlaOdds", param)
 		.then (obj => {
 			dataLoading (false);
@@ -661,7 +661,7 @@
 				cacheToStore ("winOdds", {key:obj.raceNo, raceDate:obj.raceDate, obj:obj});
 			}
 			else
-				console.log ("No WinOdds for race", raceNum);
+				console.log ("No WinOdds for race", raceNo);
 		})
 		.catch (error => {
 			dataLoading (false);
@@ -676,9 +676,10 @@
 			popupMsg ("No current Bet Table",1000);
 			return;
 		}
-		let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
-		if (!raceNum) return;  //page has no raceNo
-		let r = Number(raceNum) - 1;
+		//let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
+		let raceNo = getActiveRaceNo ();
+		if (!raceNo) return;  //page has no raceNo
+		let r = raceNo - 1;
 		let betNos = [];
 		for (let n=0; n<Bet.tbl[r].length; n++) {
 			let cell = Bet.tbl[r][n];
@@ -686,12 +687,12 @@
 				betNos.push (n+1);
 		}
 		if (betNos.length != 3) {
-			popupMsg ("Cant find 3 bets on Place for race "+raceNum,1000);
+			popupMsg ("Cant find 3 bets on Place for race "+raceNo,1000);
 			return;
 		}
 		let trioBet = betNos.join('-');
 		popupMsg ("Fetching Odds for Trio " + trioBet);
-		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNum});
+		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNo});
 		execGoogleAppPromise ("fetchTriOdds", param)
 		.then (obj => {
 			if (obj && obj.tris) {
@@ -777,14 +778,15 @@
 	$("#change-course-btn").on("click", async function() {
 		$("#select-dialog").popup("close");
 		let activePage = $.mobile.activePage.attr("id");
-		let raceNum = $("#"+activePage+" h1").text().replace(/\D+/g,"");
-		if (raceNum) {
-			let obj = {raceNo: Number(raceNum), raceDate:RaceDate, RCC:$('#select-RC').val(),
+		//let raceNum = $("#"+activePage+" h1").text().replace(/\D+/g,"");
+		let raceNo = getActiveRaceNo ();
+		if (raceNo) {
+			let obj = {raceNo: raceNo, raceDate:RaceDate, RCC:$('#select-RC').val(),
 					   course:$("#select-course").val(), track:$("#select-track").val(),
 					   distance:$("#select-distance").val(), wgRate:$('#weight-rate').val(),
 					   drRate:$('#dr-rate').val()};
 			await cacheToStore ("courseSelect", obj); //no matter successful or not, handled by getFromCache later
-			$("#"+activePage+" div.scrollmenu a:nth-child("+raceNum+")").trigger( "click" );
+			$("#"+activePage+" div.scrollmenu a:nth-child("+raceNo+")").trigger( "click" );
 		}
 	});
 	

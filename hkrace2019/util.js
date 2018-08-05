@@ -322,3 +322,10 @@ function toDateObj (ddhmmhyyyy) {
 function sleep(msec) {
     return new Promise(resolve => setTimeout(resolve, msec));
 }
+
+/* Return the raceNo (Number) from the h1 header of current active page */
+function getActiveRaceNo () {
+	let activePage = $.mobile.activePage.attr("id");
+	let raceNo = Number($("#"+activePage+" h1").text().replace(/\D+/g,""));
+	return ((raceNo < 1 || raceNo > 11) ? 0 : raceNo);
+}
