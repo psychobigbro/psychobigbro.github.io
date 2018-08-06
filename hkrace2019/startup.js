@@ -442,7 +442,7 @@
 		$.mobile.loadPage( "#summary-page" );
 		//move column toggle button to header
 		$("#summary-page a.ui-table-columntoggle-btn").appendTo("#summary-page .columntogglePlaceholder");
-		$("#summary-page a.ui-table-columntoggle-btn").addClass("ui-icon-bullets")
+		$("#summary-page a.ui-table-columntoggle-btn").addClass("ui-icon-columns")
 													  .addClass("ui-btn-icon-notext")
 													  .addClass("ui-nodisc-icon");
 	};
