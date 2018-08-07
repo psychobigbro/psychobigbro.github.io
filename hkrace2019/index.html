@@ -37,12 +37,14 @@
 	  <div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 	    <a href="#left-panel" data-role="button" data-icon="gear" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
 			class="ui-nodisc-icon">menu</a>
-		<a href="#" data-role="button" data-shadow="false" class="winodds-btn">賠率</a>
+		<!--a href="#" data-role="button" data-shadow="false" class="winodds-btn">賠率</a-->
+		<a href="#" data-role="button" data-icon="money" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
+			class="ui-nodisc-icon winodds-btn">賠率</a>
+		<span class="columntogglePlaceholder"></span>
 	  </div>
 	  <div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 	    <a href="#select-dialog" data-role="button" data-rel="popup" data-position-to="window" data-shadow="false" class="racecourse">??</a>
 		<a href="#" data-role="button" data-icon="refresh" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon reload-btn">Reload</a>
-		<span class="columntogglePlaceholder"></span>
 	  </div>
 	</div>
 	<div class="scrollmenu">
@@ -182,23 +184,20 @@
   <!-- /result-page -->
   <div data-role="panel" id="left-panel" data-position="left" data-display="overlay" data-theme="b" >
 	<ul data-role="listview">
-		<li data-icon="back"><a href="#" data-rel="close"><h3>退出</h3></a></li>
+		<li data-icon="back"><a href="#" data-rel="close" class="ui-nodisc-icon"><h3>退出</h3></a></li>
 		<!--li data-icon="arrow-r"><a href="#trainer-page" data-rel="close"><h3>練馬師分場表</h3></a></li>
 		<li data-icon="arrow-r"><a href="#jockey-page" data-rel="close"><h3>騎師分場表</h3></a></li-->		
 		<!--li data-role="list-divider"><h3>例程</h3></li-->
-	  	<li data-icon="cloud-download"><a class="download-all"><h3>下載最新數據</h3></a></li>
-		<li data-icon="recycle"><a class="exec-func" func="updateTrainerJockeyTables"><h3>更新分場表</h3></a></li>
-		<li data-icon="money"><a href="#result-page" data-rel="close"><h3>賽果.派彩</h3></a></li>
+	  	<li data-icon="cloud-download"><a class="download-all ui-nodisc-icon"><h3>下載最新數據</h3></a></li>
+		<li data-icon="recycle"><a class="exec-func ui-nodisc-icon" func="updateTrainerJockeyTables"><h3>更新分場表</h3></a></li>
+		<li data-icon="flag-checkered"><a href="#result-page" data-rel="close" class="ui-nodisc-icon"><h3>賽果.派彩</h3></a></li>
 		<li> <select name="online-mode" id="online-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
 				<option value="off">離綫</option>
 				<option selected value="on">連綫</option>
 			</select>
 		</li>
-		<!--li data-role="list-divider"><h3>系統</h3></li-->
-		<li data-icon="user"><a class="exec-func" func="signInOut"><h3>更改用戶</h3></a></li>
-		<li data-icon="delete" class="super"><a class="exec-func" func="clearCache"><h3>Clear Cache</h3></a></li>
-		<!--li data-icon="delete"><a class="exec-func" func="clearHorsesStore"><h3>清除horses</h3></a></li-->
-		<li data-icon="power"><a class="exec-func" func="deleteAllDbs"><h3>App重設！！</h3></a></li>
+		<li data-icon="user"><a class="exec-func ui-nodisc-icon" func="signInOut"><h3>更改用戶</h3></a></li>
+		<li data-icon="power"><a class="exec-func ui-nodisc-icon" func="deleteAllDbs"><h3>App重設！！</h3></a></li>
 		<li class="super"> <select name="ai-mode" id="ai-mode-switch" data-role="slider" data-mini="true" data-track-theme="c" data-theme="a">
 				<option value="on">AI On</option>
 				<option selected value="off">AI Off</option>
@@ -212,18 +211,19 @@
 		<li data-icon="calendar" class="super"><a class="exec-func" func="changeEvent"><h3>Change Event</h3></a></li>
 		<li data-icon="usd" class="super"><a class="exec-func" func="betOnStrategy"><h3>Bet On Strategy</h3></a></li>
 		<li data-icon="eraser" class="super"><a class="exec-func" func="clearBetTbl"><h3>Clear Bets</h3></a></li>
+		<li data-icon="delete" class="super"><a class="exec-func" func="clearCache"><h3>Clear Cache</h3></a></li>
 		<li data-icon="bug" class="super"><a class="exec-func" func="toggleOnlineDebug"><h3>Toggle Debug</h3></a></li>
 		<!--li data-icon="lock"><a class="exec-func" func="googleAuthorization"><h3>Google授權</h3></a></li-->
 		<!-- above not working for iphone, tried location.href, etc. -->
-		<li data-icon="google-plus"><a href="https://script.google.com/macros/s/AKfycbycwkuTZbAuOLNyA4gHKrjv422WYNDeAAPg1xLSg-KL0prwETA/exec?">
+		<li data-icon="google-plus"><a class="ui-nodisc-icon" href="https://script.google.com/macros/s/AKfycbycwkuTZbAuOLNyA4gHKrjv422WYNDeAAPg1xLSg-KL0prwETA/exec?">
 			<h3>Google 授權</h3></a>
 		</li>
-		<li data-icon="info"><a href="#about-page"><h3>About</h3></a>
+		<li data-icon="info"><a class="ui-nodisc-icon" href="#about-page"><h3>About</h3></a>
 		</li>
     </ul>
   </div>
   <!-- /left-panel -->
-  <div data-role="popup" id="popup-message" data-dismissible="true">
+  <div data-role="popup" id="popup-message" >
 	<h3>Popup Message</h3>
   </div>
   <!-- /popup-message -->
@@ -280,8 +280,8 @@
 	</div>
   </div>
   <!-- /popup-dialog -->
-  <div data-role="popup" id="select-dialog" data-overlay-theme="b" data-theme="a" style="max-width:30em;">
-	<!--a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a-->
+  <div data-role="popup" id="select-dialog" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:35em;">
+	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	<div class="ui-content">
     	<select name="RC" id="select-RC" data-iconpos="right" data-mini="false">
        	  	<option selected value="今">今場</option>
@@ -313,33 +313,33 @@
       		<option value=2200>2200M</option>
        		<option value=2400>2400M</option>
 		</select>
-		<legend>負磅率 秒/磅</legend>
+		<legend>負磅調速率：</legend>
 		<select name="weight-rate" id="weight-rate" data-iconpos="right" data-mini="false">
-       		<option value=0>0秒</option>
-       		<option value=0.01>0.01秒</option>
-       		<option value=0.02>0.02秒</option>
-       		<option value=0.03>0.03秒</option>
-       		<option value=0.04>0.04秒</option>
-       		<option value=0.05>0.05秒</option>
-       		<option value=0.06>0.06秒</option>
-      		<option value=0.07>0.07秒</option>
-       		<option value=0.08>0.08秒</option>
-       		<option value=0.09>0.09秒</option>
-       		<option selected value=0.1>0.1秒</option>
+       		<option value=0>0秒/磅</option>
+       		<option value=0.01>0.01秒/磅</option>
+       		<option value=0.02>0.02秒/磅</option>
+       		<option value=0.03>0.03秒/磅</option>
+       		<option value=0.04>0.04秒/磅</option>
+       		<option value=0.05>0.05秒/磅</option>
+       		<option value=0.06>0.06秒/磅</option>
+      		<option value=0.07>0.07秒/磅</option>
+       		<option value=0.08>0.08秒/磅</option>
+       		<option value=0.09>0.09秒/磅</option>
+       		<option selected value=0.1>0.1秒/磅</option>
 		</select>
-		<legend>檔位率 秒/檔</legend>
+		<legend>檔位調速率：</legend>
 		<select name="dr-rate" id="dr-rate" data-iconpos="right" data-mini="false">
-       		<option value=0>0秒</option>
-       		<option value=0.01>0.01秒</option>
-       		<option value=0.02>0.02秒</option>
-       		<option value=0.03>0.03秒</option>
-       		<option value=0.04>0.04秒</option>
-       		<option value=0.05>0.05秒</option>
-       		<option value=0.06>0.06秒</option>
-      		<option value=0.07>0.07秒</option>
-       		<option value=0.08>0.08秒</option>
-       		<option value=0.09>0.09秒</option>
-       		<option selected value=0.1>0.1秒</option>
+       		<option value=0>0秒/檔</option>
+       		<option value=0.01>0.01秒/檔</option>
+       		<option value=0.02>0.02秒/檔</option>
+       		<option value=0.03>0.03秒/檔</option>
+       		<option value=0.04>0.04秒/檔</option>
+       		<option value=0.05>0.05秒/檔</option>
+       		<option value=0.06>0.06秒/檔</option>
+      		<option value=0.07>0.07秒/檔</option>
+       		<option value=0.08>0.08秒/檔</option>
+       		<option value=0.09>0.09秒/檔</option>
+       		<option selected value=0.1>0.1秒/檔</option>
 		</select>
 		<button id="change-course-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c" >更新</button>
 	</div>

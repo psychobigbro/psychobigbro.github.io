@@ -39,13 +39,14 @@ const requestsToBeCached  /* must use relative path to cater for both https://ps
 		'png/money.png',
 		'png/usd.png',
 		'png/whoami.png',
+		'png/flag-checkered.png',
 		'png/cloud-download.png',		
 		/* below are not specified explicitly in index.html, but required on demand by notosanstc.css */
 		'https://fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Bold.woff2',
 		'https://fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff2'
        ];
 	   
-const expectedCaches = ['HKRace2019v0.10'];
+const expectedCaches = ['HKRace2019v0.11'];
 const latestCacheVersion = expectedCaches[0];
 
 self.addEventListener ('install', event => {

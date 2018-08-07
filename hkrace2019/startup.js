@@ -426,7 +426,6 @@
 		let newPage = $("#race-page").clone();
 		newPage.prop("id", "predict-page");
 		newPage.find("#race-table").prop("id", "predict-table");
-		//newPage.find("a.racecourse").prop("href","#select-dialog");
 		newPage.find("div.page-tab li:nth-child(2) a").css("backgroundColor", "#c00");
 		newPage.find("table").attr("data-mode","columntoggle");
 		newPage.appendTo($.mobile.pageContainer);
@@ -437,14 +436,15 @@
 		newPage3.prop("id", "summary-page");
 		newPage3.find("#race-table").prop("id", "summary-table");
 		newPage3.find("div.page-tab li:nth-child(3) a").css("backgroundColor", "#c00");
-		//newPage3.find("table").attr("data-mode","columntoggle");
 		newPage3.appendTo($.mobile.pageContainer);
 		$.mobile.loadPage( "#summary-page" );
 		//move column toggle button to header
-		$("#summary-page a.ui-table-columntoggle-btn").appendTo("#summary-page .columntogglePlaceholder");
+		//$("#summary-page a.ui-table-columntoggle-btn").appendTo("#summary-page .columntogglePlaceholder");
+		$("#summary-page .columntogglePlaceholder").replaceWith($("#summary-page a.ui-table-columntoggle-btn"));
 		$("#summary-page a.ui-table-columntoggle-btn").addClass("ui-icon-columns")
 													  .addClass("ui-btn-icon-notext")
 													  .addClass("ui-nodisc-icon");
+		//$("#summary-page div[data-role='controlgroup']").enhanceWithin();										  
 	};
 	$("#race-page div.page-tab li:first-child a").css("backgroundColor", "#c00");
   });
