@@ -7,8 +7,8 @@ function downloadGCSFiles (event, maxRaceNo) {
 		$("#start-dl-btn").text("已下載" + fileName +"。更新中...");
 		return createHorsesStorePromise (horses);
 	})
-	.then ((numHorses) => {
-		$("#start-dl-btn").text("載入馬共" + numHorses + "匹。下載中...");
+	.then ((numHorseRecs) => {
+		$("#start-dl-btn").text("載入馬匹記錄共" + numHorseRecs + "筆。下載中...");
 
 		return downloadGCSFilePromise (fileName2);
 	})
