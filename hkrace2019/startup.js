@@ -1,6 +1,6 @@
   /*** Startup ***/
   /* Globals */
-  var Season = "";
+  var Season = 0;
   var SuperUser = false;
   var RaceDate = "";  //global to hold current raceDate AS OBTAINED FROM last online Starters, dd-mm-yyyy
   var MaxRaceNo = 0;  //global to hold max. race no corr. to Event
