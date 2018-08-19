@@ -133,7 +133,7 @@
 	'<th data-priority="2">AI</th>'+
 	'</tr></thead>'+ */
 	'<thead><tr>'+
-	'<th>號</th><th data-priority="1">馬名</th><th data-priority="2">騎師</th><th data-priority="4">練馬師</th>'+
+	'<th>號</th><th data-priority="1">馬名</th><th data-priority="1">騎師</th><th data-priority="4">練馬師</th>'+
 	'<th data-priority="1">檔</th><th data-priority="1">負磅</th>'+
 	'<th data-priority="2">記錄</th><th data-priority="2">預測時間</th>'+
 	'<th data-priority="4">記錄</th><th data-priority="4">參考時間</th>'+
@@ -141,10 +141,10 @@
 	'<th data-priority="5">試</th><th data-priority="5">失</th><th data-priority="5">重</th><th data-priority="5">程</th><th data-priority="5">道</th>'+
 	'<th data-priority="1">W</th>'+
 	'<th data-priority="1">P</th>'+
-	'<th data-priority="1">AI</th>'+
+	'<th data-priority="2">AI</th>'+
 	'</tr></thead>';
   var StdTimes = [];	/* HKJC standard race time for each RCC/Track/Distance/class */
-  StdTimes["田草1000"] = [55.80,55.80,55.95,56.50,56.75];
+  StdTimes["田草1000"] = [55.80,55.95,56.50,56.75,57.05];
   StdTimes["田草1200"] = [68.75,68.95,69.35,69.60,69.75];
   StdTimes["田草1400"] = [81.50,81.65,81.80,82.35,82.60];
   StdTimes["田草1600"] = [94.10,94.25,94.65,95.30,95.45];

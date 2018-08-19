@@ -80,7 +80,7 @@ function refreshAIScores (raceDate, raceNo, scores) {
 		let rowIdx = i+1;
 		let $cell = $tblBody.find("tr:nth-child(" + rowIdx + ")")
 							.find("td:nth-last-child(1)");
-		$cell.text((scores[i]*100).toFixed(2));
+		$cell.text((scores[i]).toFixed(2));
 		if (ai)
 			Bet.tbl[raceNo-1][i] = null; //first clear any previous bet before update below
 	}
@@ -119,10 +119,10 @@ function updateScoresFromFeatures (wins, raceNo, raceDate) {
 			}
 			let key = f.RCC + f.track + f.distance;
 			let bestSpd = (f.bestTime >= MaxSeconds || f.bestClass <= 0)
-						   ? 0 : f.bestTime / StdTimes[key][f.bestClass-1];
+						   ? 0 : f.bestTime / StdTimes[key][f.bestClass-1] * 100;
 			key = f.lastRCC + f.lastTrack + f.lastDist;
 			let lastSpd = (f.lastTime >= MaxSeconds || f.lastClass <= 0)
-						   ? 0 : f.lastTime / StdTimes[key][f.lastClass-1];
+						   ? 0 : f.lastTime / StdTimes[key][f.lastClass-1] * 100;
 			let winOdds = wins[i].winOdds;
 			if (isNaN(winOdds))
 				winOdds = 9999;
