@@ -485,6 +485,13 @@ function queryTestHorse (byPassCache, season, raceDate, horseNo) {
 	}
 }
 
+function fetchAllStarters (event, maxRaceNo) {
+	let allPromises = [];
+	for (let raceNo = 1; raceNo <= maxRaceNo; raceNo++)
+		allPromises.push(fetchStarter (event, raceNo));
+	return Promise.all (allPromises)
+}
+
 function fetchStarter (event, raceNo) {
 	return new Promise (function (resolve, reject) {
 		let raceDate = event[0].toHyphenatedDate();  //always expect starter dated according to event

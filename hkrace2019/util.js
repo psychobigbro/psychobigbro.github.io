@@ -93,7 +93,7 @@ function getStarterFromCache (raceNo, raceDate) {
 				let now = new Date();
 				let ageInMinutes = (now.getTime() - starter.created.getTime())/(60*1000);
 				console.log('starter ', starter.raceNo, ' of ',ageInMinutes,'min. old dated',
-							raceDate, 'read from iDb');
+							starter.raceDate, 'read from iDb');
 				//if (timeFromNow (raceDate) < -86400000)  // past over 1 day
 				if (starter.raceDate != raceDate) //starter raceDate not what expected
 					reject (null);  //past raceDate starters cannot be used
@@ -330,18 +330,24 @@ function getActiveRaceNo () {
 	return ((raceNo < 1 || raceNo > 11) ? 0 : raceNo);
 }
 
-/* As a final step of event change : Update the winOdds cache by GCS odds storage of Event changed by caller */
-function updateWinOddsCacheFromGCS () {
+/* As a final step of event change : Update the winOdds cache by GCS odds storage of Event changed by caller
+ * and refresh all starters cache for new event
+ */
+async function updateWinOddsAndStartersCaches () {
 	let fileName = "odds"+Event[0]+".json";	//GCS odds file
 	popupMsg ("Downloading "+fileName);
-	downloadGCSFilePromise (fileName)
-	.then ( async function (objs) {
+	let objs = await downloadGCSFilePromise (fileName)
+					.catch(error => {
+						console.log(error);
+					});
+	if (objs)
 		for (let i=0; i<objs.length; i++)
 			await cacheToStore ("winOdds", {key:objs[i].raceNo, raceDate:objs[i].raceDate, obj:objs[i]});
-		popupMsg ("Event changed to:"+Event.toString());
-	})
-	.catch (error => {
-		console.log (error);
-		popupMsg (JSON.stringify(error));
-	})
+	else {
+		popupMsg (fileName+" not available!");
+		await sleep (5000);
+	}		
+	popupMsg ("Downloading "+MaxRaceNo+" races of "+Event[0]);
+	await fetchAllStarters (Event, MaxRaceNo);
+	popupMsg ("Event changed to:"+Event.toString());
 }

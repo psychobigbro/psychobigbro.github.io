@@ -8,11 +8,13 @@ function updateTrainerJockeyTables () {
 		popupMsg ("No active Event!!");
 		return;
 	}
-	dataLoading (true); 
+	dataLoading (true);
+	/*
 	let allPromises = [];
 	for (let raceNo = 1; raceNo <= MaxRaceNo; raceNo++)
 		allPromises.push(fetchStarter (Event, raceNo));
-	Promise.all (allPromises)
+	Promise.all (allPromises) */
+	fetchAllStarters (Event, MaxRaceNo)
 	.then ( starters => { //to carry forward starters, init another thenable function passing in starters
 		return startLoadingDataForTables (starters)
 		.then ( data => {

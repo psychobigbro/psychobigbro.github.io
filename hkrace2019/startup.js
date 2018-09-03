@@ -640,7 +640,7 @@
 			getFromCache ("winOdds", raceNo, RaceDate)
 			.then ( rec => {
 				dataLoading (false);
-				if (rec) {
+				if (rec && rec.obj) {
 					refreshWinOdds (rec.obj);
 					/* also predict AI score and refresh */
 					updateScoresFromFeatures (rec.obj.wins, raceNo, RaceDate);
@@ -651,7 +651,7 @@
 		// get winOdds online
 		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNo});
 		execGoogleAppPromise ("fetchWinPlaOdds", param)
-		.then (obj => {
+		.then (async obj => {
 			dataLoading (false);
 			if (obj && obj.wins) {
 				refreshWinOdds (obj);
@@ -659,9 +659,17 @@
 				updateScoresFromFeatures (obj.wins, obj.raceNo, obj.raceDate);
 				/* cache winOdds for offline access */
 				cacheToStore ("winOdds", {key:obj.raceNo, raceDate:obj.raceDate, obj:obj});
+			} else {
+				/* try any cache */
+				let rec = await getFromCache ("winOdds", raceNo, RaceDate);
+				if (rec && rec.obj) {
+					console.log ("Using WinOdds cache for race", raceNo);
+					refreshWinOdds (rec.obj);
+					/* also predict AI score and refresh */
+					updateScoresFromFeatures (rec.obj.wins, raceNo, RaceDate);					
+				} else
+					console.log ("No WinOdds for race", raceNo);
 			}
-			else
-				console.log ("No WinOdds for race", raceNo);
 		})
 		.catch (error => {
 			dataLoading (false);
@@ -756,7 +764,7 @@
 		}
 		RaceDate = raceDate.toHyphenatedDate();   //=> dd-mm-yyyy, will forceit caches
 		cacheRaceInfo ();
-		updateWinOddsCacheFromGCS (Event);
+		updateWinOddsAndStartersCaches (Event);
 	});
 	/*******************/
 	/* switches change */
