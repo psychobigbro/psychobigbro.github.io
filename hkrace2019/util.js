@@ -329,3 +329,19 @@ function getActiveRaceNo () {
 	let raceNo = Number($("#"+activePage+" h1").text().replace(/\D+/g,""));
 	return ((raceNo < 1 || raceNo > 11) ? 0 : raceNo);
 }
+
+/* As a final step of event change : Update the winOdds cache by GCS odds storage of Event changed by caller */
+function updateWinOddsCacheFromGCS () {
+	let fileName = "odds"+Event[0]+".json";	//GCS odds file
+	popupMsg ("Downloading "+fileName);
+	downloadGCSFilePromise (fileName)
+	.then ( async function (objs) {
+		for (let i=0; i<objs.length; i++)
+			await cacheToStore ("winOdds", {key:objs[i].raceNo, raceDate:objs[i].raceDate, obj:objs[i]});
+		popupMsg ("Event changed to:"+Event.toString());
+	})
+	.catch (error => {
+		console.log (error);
+		popupMsg (JSON.stringify(error));
+	})
+}

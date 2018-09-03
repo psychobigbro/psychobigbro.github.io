@@ -96,8 +96,9 @@ function buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime) {
 			let trainer = runners[h].trainer;
 			let jockey = runners[h].jockey;
 			let horseName = runners[h].horseName;
-			let suffix = runners[h].trumpCard ? "+" :
-						 ((runners[h].priority ? "*":"") + runners[h].preference);
+			let pref = runners[h].preference;
+			let suffix = (runners[h].trumpCard ? "+" : runners[h].priority ? "*" : "") 
+						+ (pref == "0" ? "" : pref);
 			let ratio = '';
 			times[t] = predictedTime[idx].predTime;
 			//let timeInMin = secToMin(times[t]);

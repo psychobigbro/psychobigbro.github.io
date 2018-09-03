@@ -150,13 +150,13 @@ function updateHistoryStorePromise (history) {
 		return store.get([0,'ZZZZ']);
 	})
 	.then( rec => {
-		if (rec && rec.lastRaceIdx) {
+		if (rec && rec.lastRaceIdx && rec.season == season) {
 			recLastRaceIdx = rec.lastRaceIdx;
 			console.log (storeName,"to be appended from lastRaceIdx",rec.lastRaceIdx)
 			return IDbPromise;
 		}
 		return IDbPromise.then ( db => {
-		console.log (storeName,"has no header record");
+		console.log (storeName,"has no header record or of different season");
 		let tx = db.transaction(storeName, "readwrite");
 		tx.objectStore(storeName).clear();
 		console.log ("iDB store",storeName, "to be reset!!");		

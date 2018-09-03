@@ -1,6 +1,6 @@
   /*** Startup ***/
   /* Globals */
-  var Season = 0;
+  var Season = 0;		//season of history store 
   var SuperUser = false;
   var RaceDate = "";  //global to hold current raceDate AS OBTAINED FROM last online Starters, dd-mm-yyyy
   var MaxRaceNo = 0;  //global to hold max. race no corr. to Event
@@ -756,7 +756,7 @@
 		}
 		RaceDate = raceDate.toHyphenatedDate();   //=> dd-mm-yyyy, will forceit caches
 		cacheRaceInfo ();
-		popupMsg ("Event changed to:"+Event.toString());
+		updateWinOddsCacheFromGCS (Event);
 	});
 	/*******************/
 	/* switches change */
