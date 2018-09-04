@@ -1,7 +1,7 @@
 function downloadGCSFiles (event, maxRaceNo) {
 	$.mobile.loading( "show" ); 
-	let fileName = $("#horses-file").val()+event[0]+".json";	//GCS horses file
-	let fileName2 = "history"+event[0]+".json";	//GCS history file
+	let fileName = $("#horses-file").val()+".json";	//GCS horses file
+	let fileName2 = "history.json";	//GCS history file
 	downloadGCSFilePromise (fileName)
 	.then ( horses => {
 		$("#start-dl-btn").text("已下載" + fileName +"。更新中...");
@@ -129,7 +129,7 @@ function loadDataAndRefreshDom (event, byPassCache, raceNo) {
 				refreshRacePage (starter, predictRec, statRec);
 				//get features in global memory, assuming access only in current raceNo
 				Features = getFeaturesForRace (starter, predictRec, statRec);
-				if ( timeFromNow (starter.raceDate) < 86400000 )   	//tigger winOdds fetch if less than 1 day ahead
+				if ( timeFromNow (starter.raceDate) < 43200000 )   	//tigger winOdds fetch if less than 12 hours ahead
 					//&& $("#online-mode-switch").val() == "on") 	//and online
 					$("#summary-page a.winodds-btn").trigger( "tap" );
 			});
