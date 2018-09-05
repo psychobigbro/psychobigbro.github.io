@@ -2,10 +2,9 @@
 function scrollMenuEventHandler() {
 		if (this.hasAttribute("disabled"))
 			return;
-		//dataLoading (true); //moved inside loadDataAndRefreshDom
 		var raceNo = Number(this.getAttribute("raceNo"));
 		if (!isNaN(raceNo) && Event) //starters cache and HKJCracecard use numeric raceNo
-			loadDataAndRefreshDom (Event, false, raceNo);  //load data without bypassCache
+			loadDataAndRefreshDomPromise (Event, false, raceNo);  //load data without bypassCache
 };
 
 /* enable / disable loader, scrollmenu, a.reload-btn and a.racecourse according to boolean busy */
@@ -249,12 +248,14 @@ function refreshPage ($page, thead, starter, pred, stat) {
 				qinLegs["連贏 "+num+"搭"+qinLeg] = qinLeg;
 			renewSelect ($sQinLeg, qinLegs, qinLeg);
 			renewSelect ($sQplLeg, qplLegs, qplLeg);
+			$( "#popup-marker select" ).prop('disabled', true);  //disable all selections
 		}
 		else {
 			if (horseName.indexOf("(退出)") >= 0) {
 				popupMsg (num+"號:已退出",3000)
 				return;   //withdrawn horse bet not allowed but may cancel
 			}
+			$( "#popup-marker select" ).prop('disabled', false);  //enable all selections
 			$( "#popup-marker h2" ).html(num+"號:"+horseName);
 			$( "#mark-bet-btn" ).text("下注");
 			$("#select-win-amt").val("").selectmenu( "refresh" );

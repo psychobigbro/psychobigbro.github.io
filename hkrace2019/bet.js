@@ -21,14 +21,13 @@ function updateResultTable () {
 				resultLen = i+1;
 				break;
 			};
-		var title = "";
+		var title = "賽馬日：" + RaceDate + "&nbsp;" + (Event[1]=="HV"?"跑馬地":"沙田");
 		if (resultLen > 0) {
 			// use date/time of last results record
 			let result = results[resultLen-1];
 			if (result.raceDate == RaceDate) {
 				title = result.updateTime + "&nbsp;" + "賽馬日：" + result.raceDate + "&nbsp;" 
 						+ (result.RC=="HV"?"跑馬地":"沙田");
-				$("#result-page div.result-msg").html(title);
 			}
 			else {
 				popupMsg ("Results for "+result.raceDate+" is outdated",3000);
@@ -37,6 +36,7 @@ function updateResultTable () {
 			}
 		} else
 			popupMsg ("No results for "+RaceDate+" yet",3000);
+		$("#result-page div.result-msg").html(title);
 		let table = $("#result-table").DataTable();
 		const numOfTblCols = table.init().columns.length;
 		let data = [];  //DataTable data

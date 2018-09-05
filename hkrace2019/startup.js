@@ -508,15 +508,16 @@
 	.on("tap", function() {
 		if (this.hasAttribute("disabled") || !SuperUser)  //only superuser can do reload!!
 			return;
-		//dataLoading (true); //moved inside loadDataAndRefreshDom
-		//let raceNum = $("#predict-page h1").text().replace(/\D+/g,"");
 		let raceNo = getActiveRaceNo ();
 		if (raceNo && Event)//starters cache and HKJCOnline use numeric raceNo
-			loadDataAndRefreshDom (Event, true, raceNo);  //re-load data bypassCache
+			loadDataAndRefreshDomPromise (Event, true, raceNo);  //re-load data bypassCache
 	})
 	.on("taphold", function (e) {
 		e.preventDefault();  // need also -webkit-touch-callout:none in css to stop ios taphold default!!
-		popupMsg ("function to be implemented",5000);
+		if (this.hasAttribute("disabled") || !SuperUser)  //only superuser can do reload all!!
+			return;
+		popupMsg ("Reloading "+MaxRaceNo+" races of event "+Event.toString());
+		loadDataAndRefreshDom (Event, 1, MaxRaceNo);
 	});
 	
 	$("#left-panel a.exec-func")
@@ -635,6 +636,8 @@
 		//let raceNum = $("#race-page h1").text().replace(/\D+/g,"");
 		let raceNo = getActiveRaceNo ();
 		if (!raceNo) return;  //page has no raceNo
+		updateOddsAndScores (raceNo);
+		/*
 		dataLoading (true); //disable button to avoided repeated calls
 		if ( $("#online-mode-switch").val() == "off" ) {  //return cache in offline mode
 			getFromCache ("winOdds", raceNo, RaceDate)
@@ -642,7 +645,7 @@
 				dataLoading (false);
 				if (rec && rec.obj) {
 					refreshWinOdds (rec.obj);
-					/* also predict AI score and refresh */
+					// also predict AI score and refresh 
 					updateScoresFromFeatures (rec.obj.wins, raceNo, RaceDate);
 				}
 			});
@@ -655,17 +658,17 @@
 			dataLoading (false);
 			if (obj && obj.wins) {
 				refreshWinOdds (obj);
-			    /* also predict AI score using winOdds and refresh */
+			    // also predict AI score using winOdds and refresh 
 				updateScoresFromFeatures (obj.wins, obj.raceNo, obj.raceDate);
-				/* cache winOdds for offline access */
+				// cache winOdds for offline access 
 				cacheToStore ("winOdds", {key:obj.raceNo, raceDate:obj.raceDate, obj:obj});
 			} else {
-				/* try any cache */
+				// try any cache
 				let rec = await getFromCache ("winOdds", raceNo, RaceDate);
 				if (rec && rec.obj) {
 					console.log ("Using WinOdds cache for race", raceNo);
 					refreshWinOdds (rec.obj);
-					/* also predict AI score and refresh */
+					// also predict AI score and refresh 
 					updateScoresFromFeatures (rec.obj.wins, raceNo, RaceDate);					
 				} else
 					console.log ("No WinOdds for race", raceNo);
@@ -675,7 +678,7 @@
 			dataLoading (false);
 			console.log (error);
 			popupMsg ("fetchWinPlaOdds:"+JSON.stringify(error));
-		});
+		}); */
 	})
 	.on("taphold", function (e) {
 		e.preventDefault();  // need also -webkit-touch-callout:none in css to stop ios taphold default!!
@@ -767,6 +770,7 @@
 		}
 		RaceDate = raceDate.toHyphenatedDate();   //=> dd-mm-yyyy, will forceit caches
 		cacheRaceInfo ();
+		clearBetTbl ();
 		updateWinOddsAndStartersCaches (Event);
 	});
 	/*******************/

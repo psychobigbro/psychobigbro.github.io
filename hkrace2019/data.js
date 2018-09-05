@@ -34,28 +34,21 @@ function downloadGCSFiles (event, maxRaceNo) {
 	})
 }
 
-/**** Recursive function to download data for maxRaceNo races ****
-function dlData (raceNo, maxRaceNo) {
-	if (raceNo <= maxRaceNo) {
-		dataLoading (true);
-		loadDataPromise(raceNo)
-		.then (rec => {
-			$("#start-dl-btn").text("已下載第" + raceNo + "場 ...");
-			raceNo++;
-			dlData (raceNo, maxRaceNo);
+/**** Recursive function to call loadDataAndRefreshDomPromise for maxRaceNo races ****/
+function loadDataAndRefreshDom (event, raceNo, maxRaceNo) {
+	if (raceNo <= maxRaceNo)
+		loadDataAndRefreshDomPromise(event, false, raceNo)
+		.then ( raceNoDone => {
+			popupMsg("已更新第" + raceNoDone + "場 ...");
+			loadDataAndRefreshDom (event, ++raceNo, maxRaceNo);
 		})
-		.catch (error => {
-			console.log (error);
-			$("#start-dl-btn").text("下載第" + raceNo + "場失敗！停止！");
-			dataLoading (false);
+		.catch ( error => {
+			popupMsg("更新第" + raceNo + "場失敗！");
 		});
-	}
-	else {
-		$("#start-dl-btn").text("已完成下載所有" + maxRaceNo + "場賽事！");
-		dataLoading(false);
-	}
+	else
+		popupMsg("完成更新！",3000);	
 }
-*/
+
 /**** Return a promises to fetch data for a specifc raceNo bypassing cache ***
 function loadDataPromise (raceNo) {
 	return new Promise (function (resolve, reject) {
@@ -78,11 +71,14 @@ function loadDataPromise (raceNo) {
 		});
 	});
 }
-*/
-/**** Chaining promises to fetch data and refresh DOM for a specifc raceNo ***/
-/* byPassCache, if true, will skip reading cache to query firestore directly*/ 
-function loadDataAndRefreshDom (event, byPassCache, raceNo) {
+/*
+
+/* Chaining promises to fetch data and refresh DOM for a specifc raceNo  	*/
+/* byPassCache, if true, will skip reading cache to query firestore directly*/
+/* Return a promise to allow awaited call for all raceNo					*/
+function loadDataAndRefreshDomPromise (event, byPassCache, raceNo) {
 	dataLoading (true);
+	return new Promise (function (resolve, reject) {
 	fetchStarter (event, raceNo)
 	.then ( async starter => {
 		/* here we have starter either from cache or racecard, save raceDate as global */
@@ -94,7 +90,8 @@ function loadDataAndRefreshDom (event, byPassCache, raceNo) {
 		refreshRacePage (starter);  //history & horses stores raceDate also checked inside
 		//if history & horses stores not upto starters RaceDate, dont go on or wrong data will be cached!!
 		if (downloadGCSRequired ()) { 
-			dataLoading (false); 
+			dataLoading (false);
+			resolve(raceNo);
 			return;
 		}
 		// init change course selection fields from cache before prediction queries
@@ -123,7 +120,7 @@ function loadDataAndRefreshDom (event, byPassCache, raceNo) {
 		.then (function (predictRec){
 			refreshPredictPage (starter, predictRec);
 			return startFireStoreQueriesForStatistics (byPassCache, starter)
-			.then (function (statRec) {
+			.then (async function (statRec) {
 				dataLoading (false);
 				refreshSummaryPage (starter, predictRec, statRec);
 				refreshRacePage (starter, predictRec, statRec);
@@ -131,7 +128,9 @@ function loadDataAndRefreshDom (event, byPassCache, raceNo) {
 				Features = getFeaturesForRace (starter, predictRec, statRec);
 				if ( timeFromNow (starter.raceDate) < 72000000 )	//tigger winOdds fetch if less than 20 hours ahead (from 08:00 of raceDate)
 					//&& $("#online-mode-switch").val() == "on") 	//and online
-					$("#summary-page a.winodds-btn").trigger( "tap" );
+					//$("#summary-page a.winodds-btn").trigger( "tap" );
+					await updateOddsAndScores (raceNo);
+				resolve(raceNo);
 			});
 		});				
 	})
@@ -139,7 +138,9 @@ function loadDataAndRefreshDom (event, byPassCache, raceNo) {
 		console.log(error);
 		dataLoading(false);
 		popupMsg ("loadDataAndRefresh:"+error);
+		reject(error);
 	});
+	}) //Promise
 }
 
 /* Return a promise to query Firestore Horses\horseNo\Records to calculate adjusted best time */
@@ -719,4 +720,53 @@ function lbwInteger(str) {
 		rVal = Number(str.substring(0,idx));
 	//console.log ("lbwInteger",str,"=>",rVal);
 	return rVal;
+}
+
+function updateOddsAndScores (raceNo) {
+	return new Promise (function (resolve, reject) {
+		dataLoading (true); //disable button to avoided repeated calls
+		if ( $("#online-mode-switch").val() == "off" ) {  //return cache in offline mode
+			getFromCache ("winOdds", raceNo, RaceDate)
+			.then ( rec => {
+				dataLoading (false);
+				if (rec && rec.obj) {
+					refreshWinOdds (rec.obj);
+					/* also predict AI score and refresh */
+					updateScoresFromFeatures (rec.obj.wins, raceNo, RaceDate);
+				}
+				resolve(raceNo);
+			});
+			return;
+		};
+		// get winOdds online
+		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNo});
+		execGoogleAppPromise ("fetchWinPlaOdds", param)
+		.then (async obj => {
+			dataLoading (false);
+			if (obj && obj.wins) {
+				refreshWinOdds (obj);
+			    /* also predict AI score using winOdds and refresh */
+				updateScoresFromFeatures (obj.wins, obj.raceNo, obj.raceDate);
+				/* cache winOdds for offline access */
+				cacheToStore ("winOdds", {key:obj.raceNo, raceDate:obj.raceDate, obj:obj});
+			} else {
+				/* try any cache */
+				let rec = await getFromCache ("winOdds", raceNo, RaceDate);
+				if (rec && rec.obj) {
+					console.log ("Using WinOdds cache for race", raceNo);
+					refreshWinOdds (rec.obj);
+					/* also predict AI score and refresh */
+					updateScoresFromFeatures (rec.obj.wins, raceNo, RaceDate);					
+				} else
+					console.log ("No WinOdds for race", raceNo);
+			};
+			resolve(raceNo);
+		})
+		.catch (error => {
+			dataLoading (false);
+			console.log (error);
+			popupMsg ("fetchWinPlaOdds:"+JSON.stringify(error));
+			reject(error);
+		});
+	})
 }

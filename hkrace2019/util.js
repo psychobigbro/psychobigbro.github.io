@@ -346,8 +346,9 @@ async function updateWinOddsAndStartersCaches () {
 	else {
 		popupMsg (fileName+" not available!");
 		await sleep (5000);
-	}		
-	popupMsg ("Downloading "+MaxRaceNo+" races of "+Event[0]);
-	await fetchAllStarters (Event, MaxRaceNo);
-	popupMsg ("Event changed to:"+Event.toString());
+	}
+	popupMsg ("Reloading "+MaxRaceNo+" races of "+Event[0]);
+	loadDataAndRefreshDom (Event, 1, MaxRaceNo);  //reload all races starting from 1
+	//await fetchAllStarters (Event, MaxRaceNo);
+	//popupMsg ("Event changed to:"+Event.toString());
 }
