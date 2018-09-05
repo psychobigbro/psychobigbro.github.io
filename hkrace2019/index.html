@@ -33,7 +33,7 @@
 <body>
   <div data-role="page" id="race-page" data-theme="a" >
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>v0.25 180904</h1>
+      <h1>v0.26 180905</h1>
 	  <div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 	    <a href="#left-panel" data-role="button" data-icon="gear" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
 			class="ui-nodisc-icon">menu</a>
@@ -233,11 +233,17 @@
     <h2></h2>
   	<div role="main" class="ui-content">
 	  <select name="win-amt" id="select-win-amt" data-iconpos="right" data-mini="false">
-      	<option selected value="">獨贏/連贏</option>
-      	<option value=10>獨贏/連贏$10</option>
-      	<option value=20>獨贏/連贏$20</option>
-      	<option value=50>獨贏/連贏$50</option>
-      	<option value=100>獨贏/連贏$100</option>
+      	<option selected value="">獨贏</option>
+      	<option value=10>獨贏$10</option>
+      	<option value=20>獨贏$20</option>
+      	<option value=50>獨贏$50</option>
+      	<option value=100>獨贏$100</option>
+	  </select>
+	  <select name="qin-amt" id="select-qin-amt" data-iconpos="right" data-mini="false">
+      	<option selected value=10>連贏$10</option>
+      	<option value=20>連贏$20</option>
+      	<option value=50>連贏$50</option>
+      	<option value=100>連贏$100</option>
 	  </select>
 	  <select name="qin-leg" id="select-qin-leg" data-iconpos="right" data-mini="false">
 	    <option selected value="">連贏Q腳</option>
@@ -247,11 +253,17 @@
    	  	<option value=4>連贏搭4</option>
 	  </select>
 	  <select name="pla-amt" id="select-pla-amt" data-iconpos="right" data-mini="false">
-	    <option selected value="">位置/位置Q</option>
-   	  	<option value=10>位置/位置Q$10</option>
-   	  	<option value=20>位置/位置Q$20</option>
-   	  	<option value=50>位置/位置Q$50</option>
-   	  	<option value=100>位置/位置Q$100</option>
+	    <option selected value="">位置</option>
+   	  	<option value=10>位置$10</option>
+   	  	<option value=20>位置$20</option>
+   	  	<option value=50>位置$50</option>
+   	  	<option value=100>位置$100</option>
+	  </select>
+	  <select name="qpl-amt" id="select-qpl-amt" data-iconpos="right" data-mini="false">
+   	  	<option selected value=10>位置Q$10</option>
+   	  	<option value=20>位置Q$20</option>
+   	  	<option value=50>位置Q$50</option>
+   	  	<option value=100>位置Q$100</option>
 	  </select>
 	  <select name="qpl-leg" id="select-qpl-leg" data-iconpos="right" data-mini="false">
 	    <option selected value="">位置Q腳</option>

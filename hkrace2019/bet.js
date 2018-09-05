@@ -150,30 +150,28 @@ function tabulatedBetData () {
 			let cell = Bet.tbl[r][n];
 			if (cell) {
 				if (cell.winAmt) {
-					if (cell.qinLeg) {
-						let numStr = (n+1) < Number(cell.qinLeg) ? (n+1).toString()+","+cell.qinLeg
-																 : cell.qinLeg+","+(n+1).toString();
-						data.qin[r][iQin++] = {num:numStr, numAmt:numStr+"($"+cell.winAmt+")",
-											   amt:Number(cell.winAmt)};
-						data.qinTotBet += Number(cell.winAmt);						
-					} else {
-						data.win[r][iWin++] = {num:(n+1).toString(), numAmt:(n+1).toString()+"($"+cell.winAmt+")",
-											   amt:Number(cell.winAmt)};
-						data.winTotBet += Number(cell.winAmt);
-					};
+					data.win[r][iWin++] = {num:(n+1).toString(), numAmt:(n+1).toString()+"($"+cell.winAmt+")",
+										   amt:Number(cell.winAmt)};
+					data.winTotBet += Number(cell.winAmt);
 				};
+				if (cell.qinLeg && cell.qinAmt) {
+					let numStr = (n+1) < Number(cell.qinLeg) ? (n+1).toString()+","+cell.qinLeg
+															 : cell.qinLeg+","+(n+1).toString();
+					data.qin[r][iQin++] = {num:numStr, numAmt:numStr+"($"+cell.qinAmt+")",
+										   amt:Number(cell.qinAmt)};
+					data.qinTotBet += Number(cell.qinAmt);
+				};					
 				if (cell.plaAmt) {
-					if (cell.qplLeg) {
-						let numStr = (n+1) < Number(cell.qplLeg) ? (n+1).toString()+","+cell.qplLeg
-																 : cell.qplLeg+","+(n+1).toString();
-						data.qpl[r][iQpl++] = {num:numStr, numAmt:numStr+"($"+cell.plaAmt+")",
-											   amt:Number(cell.plaAmt)};
-						data.qplTotBet += Number(cell.plaAmt);						
-					} else {
-						data.pla[r][iPla++] = {num:(n+1).toString(), numAmt:(n+1).toString()+"($"+cell.plaAmt+")",
-											   amt:Number(cell.plaAmt)};
-						data.plaTotBet += Number(cell.plaAmt);
-					};
+					data.pla[r][iPla++] = {num:(n+1).toString(), numAmt:(n+1).toString()+"($"+cell.plaAmt+")",
+										   amt:Number(cell.plaAmt)};
+					data.plaTotBet += Number(cell.plaAmt);
+				};
+				if (cell.qplLeg && cell.qplAmt) {
+					let numStr = (n+1) < Number(cell.qplLeg) ? (n+1).toString()+","+cell.qplLeg
+															 : cell.qplLeg+","+(n+1).toString();
+					data.qpl[r][iQpl++] = {num:numStr, numAmt:numStr+"($"+cell.qplAmt+")",
+										   amt:Number(cell.qplAmt)};
+					data.qplTotBet += Number(cell.qplAmt);						
 				};
 			}
 		}

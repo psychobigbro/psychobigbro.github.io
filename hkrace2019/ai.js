@@ -84,16 +84,17 @@ function refreshAIScores (raceDate, raceNo, scores) {
 		if (ai)
 			Bet.tbl[raceNo-1][i] = null; //first clear any previous bet before update below
 	}
-	let indices = indicesOfSortedArray (scores);
-	let c = 0;
-	for (let i=indices.length-1; i > indices.length-4; i-- ) {
+	let indices = indicesOfSortedArray (scores).reverse();  //descending order
+	for (let i=0; i < 3; i++) {
 		let rowIdx = indices[i] + 1;
-		if (ai)
+		if (ai) {
+			let leg = indices[(i+1) % 3] + 1;
 			//update bet for highest 3 AI scores, but not immediately refreshed!!
-			Bet.tbl[raceNo-1][indices[i]] = {winAmt:"10",qinLeg:"",plaAmt:"10",qplLeg:""};	
+			Bet.tbl[raceNo-1][indices[i]] = {winAmt:"10",qinAmt:"10",qinLeg:leg,plaAmt:"10",qplAmt:"10",qplLeg:leg};
+		}
 		$tblBody.find("tr:nth-child(" + rowIdx + ")")
 					.find("td:nth-last-child(1)")
-					.css("backgroundColor", TimeRankColors[c++]);	
+					.css("backgroundColor", TimeRankColors[i]);	
 	}
 	if (ai) {
 		Bet.raceDate = raceDate;

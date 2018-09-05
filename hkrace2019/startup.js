@@ -720,32 +720,35 @@
 		let numIdx = opener.num - 1;
 		$("#popup-marker").popup("close");
 		if ($(this).text() == "取消下注") {
-			$elm.removeClass("win pla win-pla")
-				.removeAttr("win-amt pla-amt qin-leg qpl-leg");
+			$elm.removeClass("win pla win-pla"); /*
+				.removeAttr("win-amt pla-amt qin-amt qpl-amt qin-leg qpl-leg");*/
 			Bet.tbl[raceNoIdx][numIdx] = {};
-		}
-		else {
+		} else {
 			let winAmt = $("#select-win-amt").val();
 			let plaAmt = $("#select-pla-amt").val();
 			let qinLeg = $("#select-qin-leg").val();
 			let qplLeg = $("#select-qpl-leg").val();
-			if (!winAmt && !plaAmt )
-				return;  //nothing chosen
-			else {
+			if (winAmt || plaAmt || qplLeg || qinLeg) {
+				let qinAmt = qinLeg ? $("#select-qin-amt").val() : "";
+				let qplAmt = qplLeg ? $("#select-qpl-amt").val() : "";
 				let betType = winAmt && plaAmt ? "win-pla" : winAmt ? "win" : "pla";
 				$elm.removeClass("win pla win-pla")  //remove residual not updated by cancellation in another page
-					.addClass(betType).attr("win-amt", winAmt)
+					.addClass(betType); /*.attr("win-amt", winAmt)
 									  .attr("qin-leg", qinLeg)
 									  .attr("qpl-leg", qplLeg)
-									  .attr("pla-amt", plaAmt);
+									  .attr("qin-amt", qinAmt)
+									  .attr("qpl-amt", qplAmt)
+									  .attr("pla-amt", plaAmt);*/
 				if (Bet.raceDate != raceDate) {
 					// create a new Bet.tbl upon raceDate change
 					Bet.raceDate = raceDate;
 					// dont use Array().fill(Array().fill()) which will create reference to entire column upon single cell upd
 					Bet.tbl = Array(11).fill(null).map(() => Array(14).fill(null));
 				}
-				Bet.tbl[raceNoIdx][numIdx] = {winAmt:winAmt, qinLeg:qinLeg, plaAmt:plaAmt, qplLeg:qplLeg};
-			}			
+				Bet.tbl[raceNoIdx][numIdx] = {winAmt:winAmt, qinLeg:qinLeg, plaAmt:plaAmt, qplLeg:qplLeg,
+											  qinAmt:qinAmt, qplAmt:qplAmt};
+			} else
+				return;	//nothing chosen
 		}
 		cacheToStore ("cache", {key:"Bets",betTbl:Bet.tbl, raceDate:raceDate});
 	});

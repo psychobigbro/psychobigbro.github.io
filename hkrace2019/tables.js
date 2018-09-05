@@ -118,9 +118,9 @@ function buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime) {
 		}
 		//finished 1 starter, rank times' index and insert rank style to corr. cell
 		let indices = indicesOfSortedArray (times);
-		let prefix = '<rank';
-		let suffix1 = '">';
-		let suffix2 = '</>';
+		//let prefix = '<rank';
+		//let suffix1 = '">';
+		//let suffix2 = '</>';
 		for (let i=0; i<4; i++) {
 			let cellText = tTbl[tRows[indices[i]]][c+1];
 			tTbl[tRows[indices[i]]][c+1] = "<rank" + i + ">" + cellText + "</rank" + i + ">";

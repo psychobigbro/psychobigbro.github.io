@@ -234,13 +234,15 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		let bet = Bet.tbl[raceNo-1][Number(num)-1]; //use Bet.tbl instead of $(this).attr as latter is not uptodate
 		let winAmt = bet ? bet.winAmt : "";
 		let plaAmt = bet ? bet.plaAmt : "";
-		if (winAmt || plaAmt) {
+		let qinLeg = bet ? bet.qinLeg : "";
+		let qplLeg = bet ? bet.qplLeg : "";
+		if (winAmt || plaAmt || qinLeg || qplLeg ) {
 			$( "#popup-marker h2" ).html(num+"號:"+horseName+"<br>已下注");
 			$( "#mark-bet-btn" ).text("取消下注");
 			$("#select-win-amt").val(winAmt).selectmenu( "refresh" );
 			$("#select-pla-amt").val(plaAmt).selectmenu( "refresh" );
-			let qinLeg = bet ? bet.qinLeg : "";
-			let qplLeg = bet ? bet.qplLeg : "";
+			$("#select-qin-amt").val(bet.qinAmt).selectmenu( "refresh" );
+			$("#select-qpl-amt").val(bet.qplAmt).selectmenu( "refresh" );
 			if (qplLeg)
 				qplLegs["位置Q"+num+"搭"+qplLeg] = qplLeg;
 			if (qinLeg)
@@ -257,6 +259,8 @@ function refreshPage ($page, thead, starter, pred, stat) {
 			$( "#mark-bet-btn" ).text("下注");
 			$("#select-win-amt").val("").selectmenu( "refresh" );
 			$("#select-pla-amt").val("").selectmenu( "refresh" );
+			$("#select-qin-amt").val(10).selectmenu( "refresh" );
+			$("#select-qpl-amt").val(10).selectmenu( "refresh" );
 			let $num = e.data.$num;
 			$num.each (function (idx) {
 				let thisNum = $(this).text();
@@ -285,11 +289,13 @@ function refreshPage ($page, thead, starter, pred, stat) {
 			let cell = Bet.tbl[raceNoIdx][numIdx];
 			if ( cell && (cell.winAmt || cell.plaAmt)) {
 				let betType = cell.winAmt && cell.plaAmt ? "win-pla" : cell.winAmt ? "win" : "pla";
-				$(elm).addClass(betType)
+				$(elm).addClass(betType); /*
 					  .attr("win-amt", cell.winAmt)
 					  .attr("qin-leg", cell.qinLeg)
 					  .attr("qpl-leg", cell.qplLeg)
-					  .attr("pla-amt", cell.plaAmt);
+					  .attr("qin-amt", cell.qinAmt)
+					  .attr("qpl-amt", cell.qplAmt)
+					  .attr("pla-amt", cell.plaAmt);*/
 			}
 		});
 	}
