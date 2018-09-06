@@ -11,15 +11,19 @@ function changeEvent () {
 			let raceDates = Object.keys(info);
 			let $select = $("#select-event");
 			let options = {};
+			let defaultDate = "";
 			raceDates.reverse().forEach (raceDate => {
-				let date = raceDate.toHyphenatedDate();
 				let event = info[raceDate].event;
-				let venue = event[1] == "ST" ? "沙田" : "跑馬地";
-				let maxRaceNo = info[raceDate].maxRaceNo;
-				options[date+" "+venue+" 共"+maxRaceNo+"場"] = raceDate;
+				if (event[0] != Event[0]) {  //exclude current event from selection
+					let date = raceDate.toHyphenatedDate();
+					let venue = event[1] == "ST" ? "沙田" : "跑馬地";
+					let maxRaceNo = info[raceDate].maxRaceNo;
+					options[date+" "+venue+" 共"+maxRaceNo+"場"] = raceDate;
+					if (!defaultDate) defaultDate = raceDate; 
+				}
 			});
 			$select.empty();
-			renewSelect ($select, options, raceDates[0]);
+			renewSelect ($select, options, defaultDate);
 			$( "#event-dialog" ).data('opener', {pastEventsInfo:info}).popup("open");
 		}
 		else

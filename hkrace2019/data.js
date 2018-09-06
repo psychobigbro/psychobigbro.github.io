@@ -37,7 +37,7 @@ function downloadGCSFiles (event, maxRaceNo) {
 /**** Recursive function to call loadDataAndRefreshDomPromise for maxRaceNo races ****/
 function loadDataAndRefreshDom (event, raceNo, maxRaceNo) {
 	if (raceNo <= maxRaceNo)
-		loadDataAndRefreshDomPromise(event, false, raceNo)
+		loadDataAndRefreshDomPromise(event, true, raceNo)
 		.then ( raceNoDone => {
 			popupMsg("已更新第" + raceNoDone + "場 ...");
 			loadDataAndRefreshDom (event, ++raceNo, maxRaceNo);

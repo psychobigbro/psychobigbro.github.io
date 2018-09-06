@@ -6,8 +6,8 @@
   var MaxRaceNo = 0;  //global to hold max. race no corr. to Event
   var Event = null;     //global object for current race event AS OBTAINED FROM getRaceInfo [yyyymmdd','RC']
 								  // or set by Event datebacking; this is changed before RaceDate which is starter based
-  var HorsesOSRaceDate = "";	//raceDate of downloaded iDB horses store
-  var HistoryOSRaceDate = "";	//raceDate of downloaded iDB history store
+  var HorsesOSRaceDate = "";	//raceDate of downloaded iDB horses store dd-mm-yyyy
+  var HistoryOSRaceDate = "";	//raceDate of downloaded iDB history store dd-mm-yyyy
   var Tfjs = {}; 	//global object for TensorFlow.js model and params
   var Features;
   //var Db;		 	//firestore db 
@@ -637,48 +637,6 @@
 		let raceNo = getActiveRaceNo ();
 		if (!raceNo) return;  //page has no raceNo
 		updateOddsAndScores (raceNo);
-		/*
-		dataLoading (true); //disable button to avoided repeated calls
-		if ( $("#online-mode-switch").val() == "off" ) {  //return cache in offline mode
-			getFromCache ("winOdds", raceNo, RaceDate)
-			.then ( rec => {
-				dataLoading (false);
-				if (rec && rec.obj) {
-					refreshWinOdds (rec.obj);
-					// also predict AI score and refresh 
-					updateScoresFromFeatures (rec.obj.wins, raceNo, RaceDate);
-				}
-			});
-			return;
-		};
-		// get winOdds online
-		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNo});
-		execGoogleAppPromise ("fetchWinPlaOdds", param)
-		.then (async obj => {
-			dataLoading (false);
-			if (obj && obj.wins) {
-				refreshWinOdds (obj);
-			    // also predict AI score using winOdds and refresh 
-				updateScoresFromFeatures (obj.wins, obj.raceNo, obj.raceDate);
-				// cache winOdds for offline access 
-				cacheToStore ("winOdds", {key:obj.raceNo, raceDate:obj.raceDate, obj:obj});
-			} else {
-				// try any cache
-				let rec = await getFromCache ("winOdds", raceNo, RaceDate);
-				if (rec && rec.obj) {
-					console.log ("Using WinOdds cache for race", raceNo);
-					refreshWinOdds (rec.obj);
-					// also predict AI score and refresh 
-					updateScoresFromFeatures (rec.obj.wins, raceNo, RaceDate);					
-				} else
-					console.log ("No WinOdds for race", raceNo);
-			}
-		})
-		.catch (error => {
-			dataLoading (false);
-			console.log (error);
-			popupMsg ("fetchWinPlaOdds:"+JSON.stringify(error));
-		}); */
 	})
 	.on("taphold", function (e) {
 		e.preventDefault();  // need also -webkit-touch-callout:none in css to stop ios taphold default!!
@@ -762,16 +720,22 @@
 		let opener = $("#event-dialog").data("opener");
 		let pastEventsInfo = opener.pastEventsInfo;
 		$("#event-dialog").popup("close");
-		let raceDate = $('#select-event').val();  //yyyymmdd
-		Event = pastEventsInfo[raceDate].event;
-		if (MaxRaceNo != pastEventsInfo[raceDate].maxRaceNo) {
-			MaxRaceNo = pastEventsInfo[raceDate].maxRaceNo
-			updateScrollMenu (MaxRaceNo);
+		let yyyymmdd = $('#select-event').val();  //selected event date in yyyymmdd
+		let yyyymmddHorsesOS = toDateObj (HorsesOSRaceDate).yyyymmdd();
+		let yyyymmddHistoryOS = toDateObj (HistoryOSRaceDate).yyyymmdd();
+		if (yyyymmdd > yyyymmddHorsesOS || yyyymmdd > yyyymmddHistoryOS) 
+			popupMsg ("Horses and/or History store not yet updated to "+yyyymmdd);
+		else {
+			Event = pastEventsInfo[yyyymmdd].event;
+			if (MaxRaceNo != pastEventsInfo[yyyymmdd].maxRaceNo) {
+				MaxRaceNo = pastEventsInfo[yyyymmdd].maxRaceNo
+				updateScrollMenu (MaxRaceNo);
+			}
+			RaceDate = yyyymmdd.toHyphenatedDate();   //=> dd-mm-yyyy, will forceit caches
+			cacheRaceInfo ();
+			clearBetTbl ();
+			updateWinOddsAndStartersCaches (Event);
 		}
-		RaceDate = raceDate.toHyphenatedDate();   //=> dd-mm-yyyy, will forceit caches
-		cacheRaceInfo ();
-		clearBetTbl ();
-		updateWinOddsAndStartersCaches (Event);
 	});
 	/*******************/
 	/* switches change */
