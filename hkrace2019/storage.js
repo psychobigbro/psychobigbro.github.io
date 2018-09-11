@@ -44,14 +44,14 @@ function downloadGCSFilePromise (fileName) {
 		HorsesIDbPromise = idb.open('HKRaceDB', ++versionNo, function (upgradeDb) {
 			if (upgradeDb.objectStoreNames.contains(storeName)) {
 				upgradeDb.deleteObjectStore(storeName);
-				//console.log ("iDB store",storeName, "deleted!!");
+				console.log ("iDB store",storeName, "deleted!!");
 			}
 			let horsesOS = upgradeDb.createObjectStore(storeName, {autoIncrement:true});
 			horsesOS.createIndex('HY', ['horseNo','yyyymmdd'], {unique: true});
 			horsesOS.createIndex('HSY', ['horseNo','season','yyyymmdd'], {unique: true});
 			horsesOS.createIndex('HRTDY', ['horseNo','RCC','track','distance','yyyymmdd'], {unique: true});
 			horsesOS.createIndex('HRTDCY', ['horseNo','RCC','track','distance','course','yyyymmdd'], {unique: true});
-			//console.log ("iDB store",storeName, "of HKRaceDB version",versionNo,"created");
+			console.log ("iDB store",storeName, "of HKRaceDB version",versionNo,"created");
 		});
 		let db = await HorsesIDbPromise;
 		let tx = db.transaction(storeName, "readwrite");
@@ -67,7 +67,7 @@ function downloadGCSFilePromise (fileName) {
 		await store.add({horseNo:"ZZZZ",yyyymmdd:"00000000",RCC:"",track:"",distance:0,course:"",raceDate:raceDate});
 		console.log ('...finished all horses');
 		await tx.complete;
-		//console.log ("iDB store", storeName, "of", raceDate,"updated!!");
+		console.log ("iDB store", storeName, "of", raceDate,"updated!!");
 		HorsesOSRaceDate = raceDate;
 		cacheRaceInfo ();
 		resolve (numHorseRecs);
@@ -152,14 +152,14 @@ function updateHistoryStorePromise (history) {
 	.then( rec => {
 		if (rec && rec.lastRaceIdx && rec.season == season) {
 			recLastRaceIdx = rec.lastRaceIdx;
-			//console.log (storeName,"to be appended from lastRaceIdx",rec.lastRaceIdx)
+			console.log (storeName,"to be appended from lastRaceIdx",rec.lastRaceIdx)
 			return IDbPromise;
 		}
 		return IDbPromise.then ( db => {
-		//console.log (storeName,"has no header record or of different season");
+		console.log (storeName,"has no header record or of different season");
 		let tx = db.transaction(storeName, "readwrite");
 		tx.objectStore(storeName).clear();
-		//console.log ("iDB store",storeName, "to be reset!!");		
+		console.log ("iDB store",storeName, "to be reset!!");		
 		return tx.complete;
 		})
 	})
@@ -182,8 +182,8 @@ function updateHistoryStorePromise (history) {
 		})
 	})
 	.then( () => {
-		//console.log ("iDB store",storeName,"updated to",raceDate,"with",numRecAdded,
-		//			"records added up to lastRaceIdx:", updLastRaceIdx);
+		console.log ("iDB store",storeName,"updated to",raceDate,"with",numRecAdded,
+					"records added up to lastRaceIdx:", updLastRaceIdx);
 		HistoryOSRaceDate = raceDate;
 		Season = season;  //remember season that this history store support
 		cacheRaceInfo ();

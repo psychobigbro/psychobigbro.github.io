@@ -161,6 +161,13 @@
   StdTimes["田全1200"] = [68.20,68.35,68.55,69.20,69.35];
   StdTimes["田全1650"] = [MaxSeconds,98.25,98.60,99.10,99.60];
   StdTimes["田全1800"] = [MaxSeconds,MaxSeconds,107.80,108.30,109.20];
+  /* load eruda if ?eruda  */
+  (function () {
+	let src = '//cdn.jsdelivr.net/npm/eruda';
+	if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') != 'true') return;
+	document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+	document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
+  })();
   /* Initialize Firebase & Firestore */
   (function () {
 	'use strict';
@@ -874,10 +881,10 @@
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
 			user.providerData.forEach(function (profile) {
-				//console.log("Sign-in provider: " + profile.providerId);
+				console.log("Sign-in provider: " + profile.providerId);
 				//console.log("  Provider-specific UID: " + profile.uid);
-				//console.log("  Name: " + profile.displayName);
-				//console.log("  Email: " + profile.email);
+				console.log("  Name: " + profile.displayName);
+				console.log("  Email: " + profile.email);
 				//console.log("  Photo URL: " + profile.photoURL);
 				$('#user-photo').attr("src",profile.photoURL);
 				$('#user-email').text(profile.email);
