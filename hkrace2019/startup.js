@@ -1,5 +1,6 @@
   /*** Startup ***/
   /* Globals */
+  var ErudaEnabled = false;
   var Season = 0;		//season of history store 
   var SuperUser = false;
   var RaceDate = "";  //global to hold current raceDate AS OBTAINED FROM last online Starters, dd-mm-yyyy
@@ -161,13 +162,15 @@
   StdTimes["田全1200"] = [68.20,68.35,68.55,69.20,69.35];
   StdTimes["田全1650"] = [MaxSeconds,98.25,98.60,99.10,99.60];
   StdTimes["田全1800"] = [MaxSeconds,MaxSeconds,107.80,108.30,109.20];
-  /* load eruda if ?eruda  */
+  
+  /* load eruda if ?eruda follow url */
   (function () {
-	let src = '//cdn.jsdelivr.net/npm/eruda';
+	let src = 'https://cdn.jsdelivr.net/npm/eruda';
 	if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') != 'true') return;
 	document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
-	document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
+	document.write('<scr' + 'ipt>eruda.init(); ErudaEnabled=true;</scr' + 'ipt>');
   })();
+  
   /* Initialize Firebase & Firestore */
   (function () {
 	'use strict';

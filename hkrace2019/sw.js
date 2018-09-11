@@ -32,6 +32,7 @@ const requestsToBeCached  /* must use relative path to cater for both https://ps
 		'DataTables/datatables.min.css',
 		'DataTables/datatables.min.js',
 		'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.5',
+		'https://cdn.jsdelivr.net/npm/eruda',
 		'png/bug.png',
 		'png/cloud-download.png',
 		'png/eraser.png',
@@ -46,7 +47,7 @@ const requestsToBeCached  /* must use relative path to cater for both https://ps
 		'https://fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff2'
        ];
 	   
-const expectedCaches = ['HKRace2019v0.33'];
+const expectedCaches = ['HKRace2019v0.34'];
 const latestCacheVersion = expectedCaches[0];
 
 self.addEventListener ('install', event => {

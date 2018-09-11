@@ -259,6 +259,19 @@ function toggleOnlineDebug () {
 		popupMsg (JSON.stringify(error));
 	})
 }
+
+function toggleEruda () {
+	if (typeof eruda !== 'undefined') {
+		if (ErudaEnabled) {
+			eruda.destroy();
+			ErudaEnabled = false;
+		} else {
+			eruda.init();
+			ErudaEnabled = true;
+		}
+	}
+}
+
 function timeFromNow (date) {   //date is dd-mm-yyyy
 	let now = new Date();
 	let yyyymmdd = date.substr(6,4)+ "-" +date.substr(3,2)+ "-" + date.substr(0,2);
