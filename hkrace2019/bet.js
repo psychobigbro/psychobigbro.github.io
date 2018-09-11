@@ -92,7 +92,7 @@ function updateResultTable () {
 				}
 				if (bets.qpl[i] && bets.qpl[i][j]) {
 					row[10] = bets.qpl[i][j].numAmt;
-					if (results[i])
+					if (results[i] && results[i].qpls)  //may not have qpl results for race with few horses
 						for (let k=0; k < results[i].qpls.length; k++)
 							if (results[i].qpls[k].nums == bets.qpl[i][j].num) {
 								let div = results[i].qpls[k].div / 10 * bets.qpl[i][j].amt
@@ -204,7 +204,8 @@ function tabulatedBetData () {
 function clearBetTbl () {
 	Bet.raceDate = RaceDate;
 	Bet.tbl = Array(11).fill(null).map(() => Array(14).fill(null));
-	cacheToStore ("cache", {key:"Bets",betTbl:Bet.tbl, raceDate:RaceDate});
+	Bet.modelName = "";
+	cacheToStore ("cache", {key:"Bets",betTbl:Bet.tbl, raceDate:RaceDate, modelName:Bet.modelName});
 }
 
 function betOnStrategy () {
@@ -299,7 +300,8 @@ function placeBetsForStrategy (starters, predictedTime) {
 		$.each (bets, function (i, bet) {
 			Bet.tbl[bet.raceNoIdx][bet.numIdx] = {winAmt:"10",qinLeg:"",plaAmt:"10",qplLeg:""};		
 		});
-		cacheToStore ("cache", {key:"Bets",betTbl:Bet.tbl, raceDate:Bet.raceDate});
+		Bet.modelName = "strategy";
+		cacheToStore ("cache", {key:"Bets",betTbl:Bet.tbl, raceDate:Bet.raceDate, modelName:Bet.modelName});
 	}
 	return bets;
 }

@@ -313,13 +313,13 @@ function refreshWinOdds (obj) {
 	let winOdds = [];
 	for (let i=0; i < wins.length; i++ ) {
 		let rowIdx = i+1;
-		winOdds.push(wins[i].winOdds);
+		winOdds.push(wins[i].odds);
 		let $cell = $tblBody.find("tr:nth-child(" + rowIdx + ")")
 							.find("td:nth-last-child(3)");
 		let $cell2 = $tblBody.find("tr:nth-child(" + rowIdx + ")")
 							 .find("td:nth-last-child(2)");
-		$cell.text(wins[i].winOdds);
-		$cell2.text(plas[i].plaOdds);
+		$cell.text(wins[i].odds);
+		$cell2.text(plas[i].odds);
 		if (wins[i].hottest)
 			$cell.css("backgroundColor", "#f33");
 		if (plas[i].hottest)

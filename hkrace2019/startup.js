@@ -8,7 +8,7 @@
 								  // or set by Event datebacking; this is changed before RaceDate which is starter based
   var HorsesOSRaceDate = "";	//raceDate of downloaded iDB horses store dd-mm-yyyy
   var HistoryOSRaceDate = "";	//raceDate of downloaded iDB history store dd-mm-yyyy
-  var Tfjs = {}; 	//global object for TensorFlow.js model and params
+  var Tfjs = {modelName:'model'}; 	//global object for TensorFlow.js model and params
   var Features;
   //var Db;		 	//firestore db 
   var LastFunc = "";//global to hold last webapp func name invoked
@@ -43,6 +43,7 @@
   const MaxSeconds = 9999.99;  //indicate no horse finish time is available for comparison
   const HKJCHorseUrl = "http://www.hkjc.com/chinese/racing/horse.asp?HorseNo=";
   const HKJCOnlineExec = "https://script.google.com/macros/s/AKfycbycwkuTZbAuOLNyA4gHKrjv422WYNDeAAPg1xLSg-KL0prwETA/exec?";
+  const HKRace2019Exec = "https://script.google.com/macros/s/AKfycbxHVZLL-PvOG6-Z1xzKkM591O8_MC0JzXSLoBdN4AbmgaDEc0Q6/exec?";
   const ShatinTurf={"1000M": "1000",
 					"1200M": "1200",
 					"1400M": "1400",
@@ -662,7 +663,7 @@
 		let trioBet = betNos.join('-');
 		popupMsg ("Fetching Odds for Trio " + trioBet);
 		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNo});
-		execGoogleAppPromise ("fetchTriOdds", param)
+		execGoogleAppPromise ("fetchXmlTriOdds", param)
 		.then (obj => {
 			if (obj && obj.tris) {
 				popupMsg ('單T ' + trioBet + ' 賠率: ' + obj.tris[trioBet]);
@@ -705,13 +706,14 @@
 					Bet.raceDate = raceDate;
 					// dont use Array().fill(Array().fill()) which will create reference to entire column upon single cell upd
 					Bet.tbl = Array(11).fill(null).map(() => Array(14).fill(null));
+					Bet.modelName = "";
 				}
 				Bet.tbl[raceNoIdx][numIdx] = {winAmt:winAmt, qinLeg:qinLeg, plaAmt:plaAmt, qplLeg:qplLeg,
 											  qinAmt:qinAmt, qplAmt:qplAmt};
 			} else
 				return;	//nothing chosen
 		}
-		cacheToStore ("cache", {key:"Bets",betTbl:Bet.tbl, raceDate:raceDate});
+		cacheToStore ("cache", {key:"Bets",betTbl:Bet.tbl, raceDate:raceDate, modelName:Bet.modelName});
 	});
 	/********************/
 	/* change-event-btn */

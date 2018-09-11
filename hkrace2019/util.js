@@ -356,3 +356,13 @@ async function updateWinOddsAndStartersCaches () {
 	//await fetchAllStarters (Event, MaxRaceNo);
 	//popupMsg ("Event changed to:"+Event.toString());
 }
+
+function recordBetRecords () {
+	if (Bet.raceDate != RaceDate) return;
+	Bet.event = Event;  	//used for record only
+	Bet.season = Season;	//used for record only
+	execGoogleAppPromise('recordBetRecords',JSON.stringify(Bet),30000,HKRace2019Exec)
+	.then (msg => {
+		popupMsg (msg,3000);
+	});
+}

@@ -137,7 +137,7 @@ function loadDataAndRefreshDomPromise (event, byPassCache, raceNo) {
 	.catch (error => {  //catch all error returned from the nested .then above
 		console.log(error);
 		dataLoading(false);
-		popupMsg ("loadDataAndRefresh:"+error);
+		popupMsg ("loadDataAndRefresh:"+JSON.stringify(error));
 		reject(error);
 	});
 	}) //Promise
@@ -540,11 +540,13 @@ function fetchStarter (event, raceNo) {
 /*** Return a promise to execute a google web app function and obtain response ***/
 function execGoogleAppPromise  (func,
 								param,
-								respTimeout){
+								respTimeout,
+								exec){
 	return new Promise (function (resolve, reject) {
 		if (param === undefined) param = "";
-		if (respTimeout === undefined) respTimeout = 30 * 1000;  //default to 30 seconds			
-		let url =  HKJCOnlineExec + "func=" + func + "&param=";	
+		if (respTimeout === undefined) respTimeout = 30 * 1000;  //default to 30 seconds
+		if (exec === undefined) exec = HKJCOnlineExec;
+		let url =  exec + "func=" + func + "&param=";	
 		$.ajax({
 			crossDomain: true,
 			url: url + encodeURIComponent(param),
@@ -740,7 +742,7 @@ function updateOddsAndScores (raceNo) {
 		};
 		// get winOdds online
 		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNo});
-		execGoogleAppPromise ("fetchWinPlaOdds", param)
+		execGoogleAppPromise ("fetchXmlWinPlaOdds", param)
 		.then (async obj => {
 			dataLoading (false);
 			if (obj && obj.wins) {
@@ -765,7 +767,7 @@ function updateOddsAndScores (raceNo) {
 		.catch (error => {
 			dataLoading (false);
 			console.log (error);
-			popupMsg ("fetchWinPlaOdds:"+JSON.stringify(error));
+			popupMsg ("fetchXmlWinPlaOdds:"+JSON.stringify(error));
 			reject(error);
 		});
 	})

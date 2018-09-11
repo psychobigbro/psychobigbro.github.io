@@ -1,7 +1,7 @@
 /* AI related functions */
 (function () {
 	'use strict';
-	Tfjs.model = tf.loadModel('model/model.json');
+	Tfjs.model = tf.loadModel(Tfjs.modelName+'/model.json'); //model name = subfolder name
 	$.getJSON( "model/scale_.json", function( scale_ ) {
 		Tfjs.tensorS = tf.tensor1d(scale_);	//for either StandardScaler or MinMaxScaler
 		Tfjs.tensorS.print();
@@ -90,7 +90,8 @@ function refreshAIScores (raceDate, raceNo, scores) {
 		if (ai) {
 			let leg = indices[(i+1) % 3] + 1;
 			//update bet for highest 3 AI scores, but not immediately refreshed!!
-			Bet.tbl[raceNo-1][indices[i]] = {winAmt:"10",qinAmt:"10",qinLeg:leg,plaAmt:"10",qplAmt:"10",qplLeg:leg};
+			Bet.tbl[raceNo-1][indices[i]] = {winAmt:"10",qinAmt:"10",qinLeg:leg,plaAmt:"10",qplAmt:"10",qplLeg:leg,
+											nHorses:scores.length};  //nHorses for backend record only
 		}
 		$tblBody.find("tr:nth-child(" + rowIdx + ")")
 					.find("td:nth-last-child(1)")
@@ -98,7 +99,8 @@ function refreshAIScores (raceDate, raceNo, scores) {
 	}
 	if (ai) {
 		Bet.raceDate = raceDate;
-		cacheToStore ("cache", {key:"Bets",betTbl:Bet.tbl, raceDate:raceDate});
+		Bet.modelName = Tfjs.modelName;
+		cacheToStore ("cache", {key:"Bets",betTbl:Bet.tbl, raceDate:raceDate, modelName:Bet.modelName});
 	}
 }
 
@@ -124,7 +126,7 @@ function updateScoresFromFeatures (wins, raceNo, raceDate) {
 			key = f.lastRCC + f.lastTrack + f.lastDist;
 			let lastSpd = (f.lastTime >= MaxSeconds || f.lastClass <= 0)
 						   ? 0 : f.lastTime / StdTimes[key][f.lastClass-1] * 100;
-			let winOdds = wins[i].winOdds;
+			let winOdds = wins[i].odds;
 			if (isNaN(winOdds))
 				winOdds = 9999;
 			selFeats[i].push (f.dr, f.rating, winOdds,
