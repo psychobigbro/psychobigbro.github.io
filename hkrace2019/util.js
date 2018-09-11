@@ -162,10 +162,10 @@ function cacheToStore (storeName, obj) {
 		})
 		.then(function() {
 			if (storeName == "starters") {
-				console.log(storeName, obj.raceNo,'in iDb updated!');
+				console.log(storeName+' '+obj.raceNo+ 'in iDb updated!');
 			}
 			else
-				console.log(storeName, obj.key,'in iDb updated!');
+				console.log(storeName+' '+obj.key+' in iDb updated!');
 			resolve ();
 		})
 		.catch(function(error) {

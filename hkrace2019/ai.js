@@ -141,7 +141,7 @@ function updateScoresFromFeatures (wins, raceNo, raceDate) {
 			//const tensorScaledX = tensorX.mul(Tfjs.tensorS).add(Tfjs.tensorM);
 			const tensorScaledX = Tfjs.scalerTransform(tensorX);
 			
-			//tensorScaledX.print();
+			tensorScaledX.print();
 			const tensorY = model.predict(tensorScaledX);
 			tensorY.print();
 			tensorY.data().then ( scores => refreshAIScores (raceDate, raceNo, scores) );	
