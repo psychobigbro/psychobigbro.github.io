@@ -163,10 +163,13 @@
   StdTimes["田全1650"] = [MaxSeconds,98.25,98.60,99.10,99.60];
   StdTimes["田全1800"] = [MaxSeconds,MaxSeconds,107.80,108.30,109.20];
   
-  /* load eruda if ?eruda follow url */
+  /* load eruda if ?eruda follow non-firebaseapp.com url */
   (function () {
-	let src = 'https://cdn.jsdelivr.net/npm/eruda';
-	if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') != 'true') return;
+	if (window.location.hostname == 'hkrace-2018.firebaseapp.com' ||
+		/eruda=true/.test(window.location) ||
+		localStorage.getItem('active-eruda') == 'true')
+		return;
+	const src = 'https://cdn.jsdelivr.net/npm/eruda';
 	document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
 	document.write('<scr' + 'ipt>eruda.init(); ErudaEnabled=true;</scr' + 'ipt>');
   })();
