@@ -166,8 +166,8 @@
   /* load eruda if ?eruda follow non-firebaseapp.com url */
   (function () {
 	if (window.location.hostname == 'hkrace-2018.firebaseapp.com' ||
-		/eruda=true/.test(window.location) ||
-		localStorage.getItem('active-eruda') == 'true')
+		!/eruda=true/.test(window.location) &&
+		localStorage.getItem('active-eruda') != 'true')
 		return;
 	const src = 'https://cdn.jsdelivr.net/npm/eruda';
 	document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
