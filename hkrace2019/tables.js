@@ -38,7 +38,7 @@ function updateTrainerJockeyTables () {
 	.catch ( error => {
 		popupMsg(JSON.stringify(error));
 		dataLoading (false);
-		console.log (error);
+		console.error (error);
 	});
 }
 

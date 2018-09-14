@@ -126,7 +126,7 @@ function updateResultTable () {
 	.catch ( error => {
 		dataLoading (false);
 		popupMsg(JSON.stringify(error));
-		console.log (error);
+		console.error (error);
 	});
 }
 
@@ -240,7 +240,7 @@ function betOnStrategy () {
 	.catch ( error => {
 		popupMsg(JSON.stringify(error));
 		dataLoading (false);
-		console.log (error);
+		console.error (error);
 	});
 }
 

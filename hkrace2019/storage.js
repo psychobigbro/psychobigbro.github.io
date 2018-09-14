@@ -124,7 +124,7 @@ function updateHorsesStorePromise (horsesObj) {
 		})
 	})
 	.catch( error => {
-		console.log ("update iDB horses:",error);
+		console.error ("update iDB horses:",error);
 		reject ("update iDB horses:"+JSON.stringify(error));
 	})
 	})
@@ -190,7 +190,7 @@ function updateHistoryStorePromise (history) {
 		resolve ({numRecAdded:numRecAdded,lastRaceIdx:updLastRaceIdx});
 	})
 	.catch( error => {
-		console.log ("update iDB history:",error);
+		console.error ("update iDB history:",error);
 		reject ("update iDB history:"+JSON.stringify(error));
 	})
 	})

@@ -185,7 +185,7 @@
 			//registration.update();  //uncomment if force update on each reload
 		})
 		.catch( error => {
-			console.log ('Service Worker Registration failed:',error);
+			console.error ('Service Worker Registration failed:',error);
 		});
 	}
 	let config = {

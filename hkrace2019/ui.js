@@ -309,7 +309,15 @@ function refreshWinOdds (obj) {
 	let plas = obj.plas;
 	//select tbody of all columnToggle tables
 	let $tblBody = $( "[data-mode='columntoggle'] tbody" );
-
+	let $tblHead = $( "[data-mode='columntoggle'] thead" );
+	if (obj.fromCache) {
+		$tblHead.find("th:nth-last-child(3)").css("color", "grey");
+		$tblHead.find("th:nth-last-child(2)").css("color", "grey");
+		$tblHead.find("th:nth-last-child(1)").css("color", "grey");
+	} else {
+		$tblHead.find("th").removeAttr("style");
+		//$tblHead.find("th:nth-last-child(2)").removeAttr("style");
+	}		
 	let winOdds = [];
 	for (let i=0; i < wins.length; i++ ) {
 		let rowIdx = i+1;

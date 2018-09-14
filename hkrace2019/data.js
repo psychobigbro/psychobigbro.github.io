@@ -29,7 +29,7 @@ function downloadGCSFiles (event, maxRaceNo) {
 	.catch (error => {
 		$.mobile.loading( "hide" );
 		$("#start-dl-btn").text("停止！操作失敗："+error);
-		console.log (error);
+		console.error (error);
 		popupMsg (JSON.stringify(error));
 	})
 }
@@ -135,7 +135,7 @@ function loadDataAndRefreshDomPromise (event, byPassCache, raceNo) {
 		});				
 	})
 	.catch (error => {  //catch all error returned from the nested .then above
-		console.log(error);
+		console.error(error);
 		dataLoading(false);
 		popupMsg ("loadDataAndRefresh:"+JSON.stringify(error));
 		reject(error);
@@ -526,7 +526,7 @@ function fetchStarter (event, raceNo) {
 				})
 				.catch ((error) => {
 					if (oldStarterFromCache) {
-						console.log ("fetchStarter from cache after:",error);
+						console.error ("fetchStarter from cache after:",error);
 						resolve (oldStarterFromCache);
 					}
 					else
@@ -732,6 +732,7 @@ function updateOddsAndScores (raceNo) {
 			.then ( rec => {
 				dataLoading (false);
 				if (rec && rec.obj) {
+					rec.obj.fromCache = true;
 					refreshWinOdds (rec.obj);
 					/* also predict AI score and refresh */
 					updateScoresFromFeatures (rec.obj.wins, raceNo, RaceDate);
@@ -745,7 +746,7 @@ function updateOddsAndScores (raceNo) {
 		execGoogleAppPromise ("fetchXmlWinPlaOdds", param)
 		.then (async obj => {
 			dataLoading (false);
-			if (obj && obj.wins) {
+			if (obj && obj.wins && obj.wins.length > 0) {  //also check empty array for XML response
 				refreshWinOdds (obj);
 			    /* also predict AI score using winOdds and refresh */
 				updateScoresFromFeatures (obj.wins, obj.raceNo, obj.raceDate);
@@ -755,6 +756,7 @@ function updateOddsAndScores (raceNo) {
 				/* try any cache */
 				let rec = await getFromCache ("winOdds", raceNo, RaceDate);
 				if (rec && rec.obj) {
+					rec.obj.fromCache = true;
 					console.log ("Using WinOdds cache for race", raceNo);
 					refreshWinOdds (rec.obj);
 					/* also predict AI score and refresh */
@@ -766,9 +768,9 @@ function updateOddsAndScores (raceNo) {
 		})
 		.catch (error => {
 			dataLoading (false);
-			console.log (error);
-			popupMsg ("fetchXmlWinPlaOdds:"+JSON.stringify(error));
-			reject(error);
+			console.error (error);
+			popupMsg ("fetchXmlWinPlaOdds:"+error);
+			resolve();  //no longer escalate
 		});
 	})
 }

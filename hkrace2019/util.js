@@ -31,7 +31,7 @@ function changeEvent () {
 	})
 	.catch ( error => {
 		popupMsg("changeEvent " + JSON.stringify(error));
-		console.log (error);
+		console.error (error);
 	});
 }
 
@@ -54,7 +54,7 @@ function updateRaceInfo() { /***** THIS MAY NOT BE REQUIRED !!!!!****/
 	})
 	.catch ( error => {
 		popupMsg("updateRaceInfo " + JSON.stringify(error));
-		console.log (error);
+		console.error (error);
 	});
 }
 
@@ -111,7 +111,7 @@ function getStarterFromCache (raceNo, raceDate) {
 				reject (null); 
 		})
 		.catch(function(error) {
-			console.log ("Fail to get iDb starter:", raceNo, error);
+			console.error ("Fail to get iDb starter:", raceNo, error);
 			reject (null);
 		})
 	})
@@ -162,14 +162,14 @@ function cacheToStore (storeName, obj) {
 		})
 		.then(function() {
 			if (storeName == "starters") {
-				console.log(storeName+' '+obj.raceNo+ ' in iDb updated!');
+				console.log(storeName,obj.raceNo,'in iDb updated');
 			}
 			else
-				console.log(storeName+' '+obj.key+' in iDb updated!');
+				console.log(storeName,obj.key,'in iDb updated');
 			resolve ();
 		})
 		.catch(function(error) {
-			console.log ("Fail to put iDb", storeName, obj, error);
+			console.error ("Fail to put iDb", storeName, obj, error);
 			popupMsg ("Fail to put iDb " + storeName + ":" + JSON.stringify(error));
 			reject (error);
 		})
@@ -199,7 +199,7 @@ function clearCache () {
 		popupMsg ("cache in indexedDB cleared!!");
 	})
 	.catch(function(error) {
-		console.log ("Fail to clear cache", error);
+		console.error ("Fail to clear cache", error);
 		popupMsg ("clearCache:"+JSON.stringify(error));
 	})
 
@@ -232,7 +232,7 @@ function deleteAllDbs () {
 		location.reload(true);  //reload current page from server
 	})
 	.catch( error =>{
-		console.log ("deleteAllDbs:", error);
+		console.error ("deleteAllDbs:", error);
 		popupMsg(JSON.stringify(error));
 	})
 }
@@ -269,7 +269,8 @@ function toggleEruda () {
 			eruda.init();
 			ErudaEnabled = true;
 		}
-	}
+	} else
+		popupMsg ("eruda not available!");
 }
 
 function timeFromNow (date) {   //date is dd-mm-yyyy
@@ -355,7 +356,7 @@ async function updateWinOddsAndStartersCaches () {
 	popupMsg ("Downloading "+fileName);
 	let objs = await downloadGCSFilePromise (fileName)
 					.catch(error => {
-						console.log(error);
+						console.error(error);
 					});
 	if (objs)
 		for (let i=0; i<objs.length; i++)

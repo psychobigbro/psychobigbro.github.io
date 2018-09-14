@@ -2,17 +2,20 @@
 (function () {
 	'use strict';
 	Tfjs.model = tf.loadModel(Tfjs.modelName+'/model.json'); //model name = subfolder name
-	$.getJSON( "model/scale_.json", function( scale_ ) {
+	$.getJSON( Tfjs.modelName+"/scale_.json", function( scale_ ) {
 		Tfjs.tensorS = tf.tensor1d(scale_);	//for either StandardScaler or MinMaxScaler
+		console.log (Tfjs.modelName,'scaler scale_ downloaded:');
 		Tfjs.tensorS.print();
 	}); /* uncomment if minMaxScaler is used
-	$.getJSON( "model/min_.json", function( min_ ) {
+	$.getJSON( Tfjs.modelName+"/min_.json", function( min_ ) {
 		Tfjs.tensorM = tf.tensor1d(min_);	//for MinMaxScaler
+		console.log (Tfjs.modelName,'MinMaxScaler min_ downloaded:');
 		Tfjs.tensorM.print();
 		Tfjs.scalerTransform = minMaxScaler;
 	}); */
-	$.getJSON( "model/mean_.json", function( mean_ ) {
+	$.getJSON( Tfjs.modelName+"/mean_.json", function( mean_ ) {
 		Tfjs.tensorM = tf.tensor1d(mean_);	//for StandardScaler
+		console.log (Tfjs.modelName,'standardScaler mean_ downloaded:');
 		Tfjs.tensorM.print();
 		Tfjs.scalerTransform = standardScaler;
 	});
@@ -141,14 +144,14 @@ function updateScoresFromFeatures (wins, raceNo, raceDate) {
 			//const tensorScaledX = tensorX.mul(Tfjs.tensorS).add(Tfjs.tensorM);
 			const tensorScaledX = Tfjs.scalerTransform(tensorX);
 			
-			tensorScaledX.print();
+			//tensorScaledX.print();
 			const tensorY = model.predict(tensorScaledX);
 			tensorY.print();
 			tensorY.data().then ( scores => refreshAIScores (raceDate, raceNo, scores) );	
 		});
 	})
 	.catch (error => {
-		console.log (error);
+		console.error (error);
 		popupMsg (JSON.stringify(error));
 	})
 	
