@@ -1,7 +1,15 @@
 /* Change global Event to a choice from past events list maintained by host */
-function changeEvent () {
+async function changeEvent () {
 	if (!Season) {
 		popupMsg ("Require season history from GCS");
+		return;
+	}
+	//make sure horses store created from allHorses.json
+	let storeName = 'horses';
+	let db = await HorsesIDbPromise;
+	let hdrRec = await db.transaction(storeName, "readonly").objectStore(storeName).index("HY").get(['ZZZZ','00000000']);
+	if (!hdrRec || hdrRec.storeName != 'allHorses.json') {
+		popupMsg ("GCS allHorses.json required!");
 		return;
 	}
 	execGoogleAppPromise ("getPastEventsInfo",JSON.stringify({season:Season}))

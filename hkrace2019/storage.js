@@ -32,6 +32,7 @@ function downloadGCSFilePromise (fileName) {
  function createHorsesStorePromise (horsesObj) {
 	let horses = horsesObj.horses;
 	let raceDate = horsesObj.raceDate;
+	let recStoreName = horsesObj.storeName;  //as in GCS rec
 	let storeName = 'horses';
 	let numHorseRecs = 0;
 	return new Promise (async function (resolve, reject) {
@@ -64,8 +65,9 @@ function downloadGCSFilePromise (fileName) {
 			//obj.horseNo = horses[i].horseNo;
 			await store.add(obj);
 		}
-		await store.add({horseNo:"ZZZZ",yyyymmdd:"00000000",RCC:"",track:"",distance:0,course:"",raceDate:raceDate});
-		console.log ('...finished all horses');
+		await store.add({horseNo:"ZZZZ",yyyymmdd:"00000000",RCC:"",track:"",distance:0,course:"",
+						raceDate:raceDate, storeName:recStoreName});
+		console.log ('...finished all horses from',recStoreName);
 		await tx.complete;
 		console.log ("iDB store", storeName, "of", raceDate,"updated!!");
 		HorsesOSRaceDate = raceDate;

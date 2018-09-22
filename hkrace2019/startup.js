@@ -135,7 +135,7 @@
 	'<th data-priority="2">AI</th>'+
 	'</tr></thead>'+ */
 	'<thead><tr>'+
-	'<th>號</th><th data-priority="1">馬名</th><th data-priority="1">騎師</th><th data-priority="4">練馬師</th>'+
+	'<th>號</th><th data-priority="1">馬名</th><th data-priority="1">騎師</th><th data-priority="3">練馬師</th>'+
 	'<th data-priority="1">檔</th><th data-priority="1">負磅</th>'+
 	'<th data-priority="2">記錄</th><th data-priority="2">預測時間</th>'+
 	'<th data-priority="4">記錄</th><th data-priority="4">參考時間</th>'+
