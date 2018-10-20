@@ -26,6 +26,22 @@ function downloadGCSFilePromise (fileName) {
 	})
 }
 
+/* return a promise to upload fileName to GCS
+ */
+function uploadGCSFilePromise (fileName, data, metadata) {
+	return new Promise ((resolve, reject) => {
+		let storeRef = firebase.storage().ref(fileName);
+		storeRef.putString(data, 'raw', metadata)
+		.then ( snapshot => {
+			resolve (snapshot);
+		})
+		.catch ( error => {
+			// Handle any errors
+			reject (fileName+":"+error.code);
+		});
+	})
+}
+
 /* return a promise to create iDB horses store from GCS horses file
  * resolve to number of horses put to store
  */

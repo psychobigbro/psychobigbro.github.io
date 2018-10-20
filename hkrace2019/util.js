@@ -388,3 +388,24 @@ function recordBetRecords () {
 		popupMsg (msg,3000);
 	});
 }
+
+async function recordOdds () {
+	if (!Event[0]) return
+	let recs = await getAllFromCache ("winOdds");
+	if (recs) {
+		let arr = [];
+		for (let i=0; i<recs.length; i++)
+			arr.push(recs[i].obj);
+		let jsonData = JSON.stringify(arr);
+		let fileName = "odds"+Event[0]+".json";	//GCS odds file
+		const metadata = { contentType: "application/json" };
+		popupMsg ("Uploading odds to "+fileName);
+		uploadGCSFilePromise (fileName, jsonData, metadata)
+		.then (	snapshot => {
+			popupMsg (fileName+" uploaded",3000);
+		})
+		.catch( error => {
+			console.error(error);
+		});
+	}
+}
