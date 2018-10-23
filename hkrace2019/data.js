@@ -743,7 +743,7 @@ function updateOddsAndScores (raceNo) {
 		};
 		// get winOdds online
 		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNo});
-		execGoogleAppPromise ("fetchWinPlaOdds", param)
+		execGoogleAppPromise ("fetchXmlWinPlaOdds", param)
 		.then (async obj => {
 			dataLoading (false);
 			if (obj && obj.wins && obj.wins.length > 0) {  //also check empty array for XML response
@@ -769,7 +769,7 @@ function updateOddsAndScores (raceNo) {
 		.catch (error => {
 			dataLoading (false);
 			console.error (error);
-			popupMsg ("fetchWinPlaOdds:"+error);
+			popupMsg ("fetchXmlWinPlaOdds:"+error);
 			resolve();  //no longer escalate
 		});
 	})
