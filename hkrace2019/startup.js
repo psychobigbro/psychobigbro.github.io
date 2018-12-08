@@ -765,6 +765,7 @@
 	}) ;
 	$("#ai-mode-switch").change ( () => cacheSettings()) ;
 	$("#horses-file").change ( () => cacheSettings()) ;
+	$("#odds-switch").change ( () => cacheSettings()) ;
 
 	/*********************/
 	/* change-course-btn */
@@ -899,7 +900,7 @@
 					$(".super").show();
 				else
 					$(".super").hide();
-				popupMsg ("You have signed in as a " + (SuperUser ? "super user:":"normal user:") + profile.email, 3500);
+				popupMsg ("You have signed in as " + (SuperUser ? "super user:":"normal user:") + profile.email, 3500);
 			});
 			getFromCache ("cache", "RaceInfo")
 			.then (rec => {
@@ -945,6 +946,7 @@
 						$("h1[role='heading']").css("color","pink");
 					$("#ai-mode-switch").val(rec.aiMode).slider( "refresh" );
 					$("#horses-file").val(rec.horsesFile).slider( "refresh" );
+					$("#odds-switch").val(rec.oddsMode).slider( "refresh" );
 				}
 				return;
 			})

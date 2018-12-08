@@ -305,7 +305,8 @@ function cacheSettings () {
 	cacheToStore ("cache", {key:"Settings",
 							onlineMode: $("#online-mode-switch").val(),
 							horsesFile: $("#horses-file").val(),
-							aiMode: $("#ai-mode-switch").val()});
+							aiMode: $("#ai-mode-switch").val(),
+							oddsMode: $("#odds-switch").val()});
 }
 
 function cacheRaceInfo () {

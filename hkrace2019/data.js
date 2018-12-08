@@ -126,9 +126,8 @@ function loadDataAndRefreshDomPromise (event, byPassCache, raceNo) {
 				refreshRacePage (starter, predictRec, statRec);
 				//get features in global memory, assuming access only in current raceNo
 				Features = getFeaturesForRace (starter, predictRec, statRec);
-				if ( timeFromNow (starter.raceDate) < 72000000 )	//tigger winOdds fetch if less than 20 hours ahead (from 08:00 of raceDate)
-					//&& $("#online-mode-switch").val() == "on") 	//and online
-					//$("#summary-page a.winodds-btn").trigger( "tap" );
+				if ( timeFromNow (starter.raceDate) < 72000000 		//tigger winOdds fetch if less than 20 hours ahead (from 08:00 of raceDate)
+					 && $("#odds-switch").val() == "on" ) 			//and odds-mode is on
 					await updateOddsAndScores (raceNo);
 				resolve(raceNo);
 			});
