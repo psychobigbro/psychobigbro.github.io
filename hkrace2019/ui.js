@@ -134,7 +134,10 @@ function refreshPage ($page, thead, starter, pred, stat) {
 			$tbl.find("thead:first-child th:nth-child(15)").attr("data-priority","6");
 		else
 			$tbl.find("thead:first-child th:nth-child(20)").attr("data-priority","6");
-	
+	if ($tbl.prop("id") == "race-table" && $("#odds-switch").val() == "off") {
+		$tbl.find("thead:first-child th:nth-child(18)").attr("data-priority","6");
+		$tbl.find("thead:first-child th:nth-child(19)").attr("data-priority","6");
+	}
 	let tblContent = "<tbody>";
 	//s index to stat, p index to pred
 	let timeArr = [];
