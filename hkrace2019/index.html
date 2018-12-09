@@ -26,14 +26,14 @@
   <!-- NOTE: sw.js can't download datatables and firebase from orginal cdn, so DL from local server and jsdelivr.net instead -->
   <link rel="stylesheet" type="text/css" href="inline.css"/>
   <!-- Load TensorFlow.js -->
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.5"> </script>
-
+  <!--script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.5"> </script-->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.14.1/dist/tf.min.js"> </script>
 </head>
 
 <body>
   <div data-role="page" id="race-page" data-theme="a" >
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>v0.46 181209</h1>
+      <h1>v0.47 181209</h1>
 	  <div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 	    <a href="#left-panel" data-role="button" data-icon="gear" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
 			class="ui-nodisc-icon">menu</a>
@@ -149,7 +149,7 @@
 		<p>Datatables 1.10.18</p>
 		<p>JQuery 1.11.1</p>
 		<p>JQueryMobile 1.4.5</p>
-		<p>TensorFlow.js 0.12.5</p>
+		<p>TensorFlow.js 0.14.1</p>
 		<p>Firebase User:&nbsp;<span id="user-email">&nbsp;</span></p>
 		<p><img id="user-photo" src="png/whoami.png" alt="User Photo" width="42" height="42"></p>
 	  </div>
