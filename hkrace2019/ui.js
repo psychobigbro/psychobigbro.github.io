@@ -78,7 +78,7 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		stat = [];
 		for (let i=0; i<starter.runners.length; i++) {
 			stat.push([0,0]);
-			stat.push({weight:false,course:false,distance:false});
+			stat.push({weight:false,course:false,distance:false,HJInPlaCnt:0, HJTotCnt:0});
 			stat.push({testHorse:false,testHorseFail:false});
 			stat.push([0,0,0,0]);
 		}
@@ -184,7 +184,9 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		time = pred[p+1].predTime;
 /*10*/	tblContent += "<td>" + secToMin(time) + "</td>";		
 /*11*/	tblContent += "<td>" + stat[s][0] + "/" + stat[s][1] + "</td>";
-/*12*/	tblContent += "<td>" + stat[s+3][0] + "/" + stat[s+3][1] + "</td>";
+// trump in place ratio display replaced by Horse Jockey in place ratio
+/*12	tblContent += "<td>" + stat[s+3][0] + "/" + stat[s+3][1] + "</td>"; */
+/*12*/	tblContent += "<td>" + stat[s+1].HJInPlaCnt + "/" + stat[s+1].HJTotCnt + "</td>";
 		let remarkWeight = stat[s+1].weight ? "&#10028" : "";
 		let remarkCourse = stat[s+1].course ? "&#10028" : "";
 		let remarkDistance = stat[s+1].distKing ? "&#10026" : stat[s+1].distance ? "&#10025" : "";

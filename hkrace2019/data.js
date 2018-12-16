@@ -292,7 +292,7 @@ function queryInPlaceTrumpcards (byPassCache, season, raceDate, trainer, inPlaLi
 }
 
 /* Return a promise to query IDB Horses for in place(1-4) records and check for remarks */
-function queryInPlaceRemarks (byPassCache, raceDate, RCC, track, course, distance, horseWeight, horseNo) {
+function queryInPlaceRemarks (byPassCache, raceDate, RCC, track, course, distance, horseWeight, horseNo, jockey) {
 	return new Promise (function (resolve, reject) {
 		if (byPassCache)
 			_queryInPlaceRemarksFromIDB (resolve, reject);
@@ -325,13 +325,17 @@ function queryInPlaceRemarks (byPassCache, raceDate, RCC, track, course, distanc
 			return index.getAll(range);
 		})
 		.then ( function(recs) {
-			let remarks = {weight:false, distance:false, course:false, distKing:false};
+			let remarks = {weight:false, distance:false, course:false, distKing:false, HJInPlaCnt:0, HJTotCnt:0};
 			let sameRCCTrkDistCnt = 0;
 			let sameRCCTrkDistInPlaCnt = 0;
 			recs.forEach(function(rec) {
 				if (rec.RCC == RCC && rec.track == track && rec.distance == distance)
 					sameRCCTrkDistCnt++;
+				if (rec.horseNo == horseNo && rec.jockey == jockey)
+					remarks.HJTotCnt++;
 				if (rec.place < 5 && rec.place > 0) {
+					if (rec.horseNo == horseNo && rec.jockey == jockey)
+						remarks.HJInPlaCnt++;
 					if (horseWeight > 500 && Math.abs(horseWeight - rec.weight) <= 10)
 						remarks.weight = true;
 					if (rec.RCC == RCC && rec.track == track && rec.distance == distance) {
@@ -638,7 +642,8 @@ function startFireStoreQueriesForStatistics (byPassCache, starter) {
 								 starter.course,
 								 starter.distance,
 								 starter.runners[i].horseWeight,
-								 starter.runners[i].horseNo)
+								 starter.runners[i].horseNo,
+								 starter.runners[i].jockey)
 							   );
 		fireStorePromises.push (queryTestHorse
 								(byPassCache,

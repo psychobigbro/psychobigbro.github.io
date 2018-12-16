@@ -102,7 +102,7 @@
 	'<th data-priority="1" colspan="2">預測時間</th>' +
 	'<th data-priority="1" colspan="2">參考時間</th>' +
 	'<th data-priority="5">騎練</th>' +
-	'<th data-priority="5">皇牌</th>' +
+	'<th data-priority="5">騎馬</th>' +
 	'<th data-priority="5" colspan="5">注意事項</th>'+
 	'<th data-priority="4">獨贏</th>'+
 	'<th data-priority="4">位置</th>'+
@@ -128,7 +128,7 @@
 	'<th data-priority="2" colspan="2">預測時間</th>' +
 	'<th data-priority="4" colspan="2">參考時間</th>' +
 	'<th data-priority="3">騎練</th>' +
-	'<th data-priority="5">皇牌</th>' +
+	'<th data-priority="5">騎馬</th>' +
 	'<th data-priority="3" colspan="5">注意事項</th>'+
 	'<th data-priority="1">獨贏</th>'+
 	'<th data-priority="1">位置</th>'+
@@ -139,7 +139,7 @@
 	'<th data-priority="1">檔</th><th data-priority="1">負磅</th>'+
 	'<th data-priority="2">記錄</th><th data-priority="2">預測時間</th>'+
 	'<th data-priority="6">記錄</th><th data-priority="6">參考時間</th>'+
-	'<th data-priority="3">騎練</th>'+ '<th data-priority="4">皇牌</th>' +
+	'<th data-priority="3">騎練</th>'+ '<th data-priority="4">騎馬</th>' +
 	'<th data-priority="3">試</th><th data-priority="3">失</th><th data-priority="3">重</th><th data-priority="3">程</th><th data-priority="3">道</th>'+
 	'<th data-priority="1">W</th>'+
 	'<th data-priority="1">P</th>'+
