@@ -44,6 +44,7 @@ function updateResultTable () {
 		let raceNoCeiling = Math.max(bets.winLen, bets.plaLen, bets.qinLen, bets.qplLen, resultLen);
 		for (let i=0; i < raceNoCeiling; i++) {
 			let maxRows = Math.max(results[i]  ? results[i].plas.length : 0,
+								   results[i] && results[i].qpls ? results[i].qpls.length : 0,
 								   bets.win[i] ? bets.win[i].length : 0,
 								   bets.pla[i] ? bets.pla[i].length : 0,
 								   bets.qin[i] ? bets.qin[i].length : 0,
