@@ -676,7 +676,7 @@
 		let trioBet = betNos.join('-');
 		popupMsg ("Fetching Odds for Trio " + trioBet);
 		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNo});
-		execGoogleAppPromise ("fetchXmlTriOdds", param)
+		execGoogleAppPromise ("fetchTriOdds", param)
 		.then (obj => {
 			if (obj && obj.tris) {
 				popupMsg ('單T ' + trioBet + ' 賠率: ' + obj.tris[trioBet]);
