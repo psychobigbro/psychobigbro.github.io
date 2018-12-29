@@ -74,7 +74,7 @@ function getFeaturesForRace (starter, pred, stat) {
 }
 
 /* Update AI Scores column (last column) in all column toggle tables */
-function refreshAIScores (raceDate, raceNo, scores) {
+function refreshAIScores (raceDate, raceNo, scores, wins) {
 	if (!scores || scores.length < 1) return;
 	//select tbody of all columnToggle tables
 	let $tblBody = $( "[data-mode='columntoggle'] tbody" );
@@ -96,9 +96,13 @@ function refreshAIScores (raceDate, raceNo, scores) {
 			Bet.tbl[raceNo-1][indices[i]] = {winAmt:"10",qinAmt:"10",qinLeg:leg,plaAmt:"10",qplAmt:"10",qplLeg:leg,
 											nHorses:scores.length};  //nHorses for backend record only
 		}
-		$tblBody.find("tr:nth-child(" + rowIdx + ")")
-					.find("td:nth-last-child(1)")
-					.css("backgroundColor", TimeRankColors[i]);	
+		let $row = $tblBody.find("tr:nth-child(" + rowIdx + ")");
+		$row.find("td:nth-last-child(1)")
+			.css("backgroundColor", TimeRankColors[i]);
+		// special highlight of horse num with high score as well as winodds >=10
+		if ( wins[rowIdx-1].odds >=10 )
+			$row.find("td:nth-child(1)")
+				.css("backgroundColor", TimeRankColors[i]);
 	}
 	if (ai) {
 		Bet.raceDate = raceDate;
@@ -147,7 +151,7 @@ function updateScoresFromFeatures (wins, raceNo, raceDate) {
 			//tensorScaledX.print();
 			const tensorY = model.predict(tensorScaledX);
 			tensorY.print();
-			tensorY.data().then ( scores => refreshAIScores (raceDate, raceNo, scores) );	
+			tensorY.data().then ( scores => refreshAIScores (raceDate, raceNo, scores, wins) );	
 		});
 	})
 	.catch (error => {
