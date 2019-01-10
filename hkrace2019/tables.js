@@ -152,3 +152,48 @@ function buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime) {
 		return r;  //now r should point to the last row
 	}
 }
+
+function highlightRaceResults (tableName, raceNo) {
+	if (!(Event && MaxRaceNo)) {
+		popupMsg ("No active Event!!");
+		return;
+	}
+	if (raceNo > MaxRaceNo)
+		return;
+	dataLoading(true);
+	popupMsg ("更新賽果",2000);
+	execGoogleAppPromise ("fetchResultsDividends",
+						   JSON.stringify({raceDate:Event[0],venue:Event[1],raceNo:raceNo}))
+	.then (results => {
+		dataLoading (false);
+		if (results && results.runners) {
+			let runners = results.runners;
+			let table = $(tableName).DataTable();
+			let colData;
+			if (tableName == "#trainer-table")
+				colData = table.column(raceNo).data();
+			else
+				colData = table.column(0).data();
+			let nodes = table.column(raceNo).nodes();
+			for (let i=0; i<5; i++) {  //only check the 1st 5 positions
+				let runner = runners[i];
+				if (runner.position > 0 && runner.position < 5) {
+					let jockey = runner.jockey;
+					for (let j=0; j<colData.length; j++)
+						if (colData[j].indexOf(jockey) >= 0) {
+							$(nodes[j]).addClass('position-'+runner.position);
+							break;
+						}
+				}
+			}
+		} else {
+			popupMsg ("未有賽果",2000);
+		}
+	})
+	.catch ( error => {
+		dataLoading (false);
+		popupMsg ("未有賽果",2000);
+		//popupMsg(JSON.stringify(error));
+		console.error (error);
+	});
+}

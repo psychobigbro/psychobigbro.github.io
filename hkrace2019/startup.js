@@ -293,11 +293,17 @@
 		$(window).resize(function() {
 			$("#trainer-table").DataTable().draw();
 		});
-		/*** page menu click events handler, need to separate from jockey-page as iphone may not work correctly ***/
+		/*** title first column click event handler, need to separate from jockey-page as iphone may not work correctly ***/
 		$("#trainer-page div.dataTables_wrapper th:first-child").on ("click", (e) => {
 			$("#page-menu").popup( "open", { x: e.pageX, y: e.pageY, transition: "slideDown"} );
 			e.preventDefault();
 		});
+		/*** title race no taphold events handlers ***/
+		for (let col=2; col < 13; col++) /* table must have 12 columns!! */
+			$("#trainer-page div.dataTables_wrapper th:nth-child("+col+")").on ("taphold", {raceNo: col-1},(e) => {
+				e.preventDefault();
+				highlightRaceResults ("#trainer-table",e.data.raceNo);
+			});
 	});	
   });
   $(document).on("pageinit", "#jockey-page", async function () {
@@ -320,11 +326,17 @@
 		$(window).resize(function() {
 			$("#jockey-table").DataTable().draw();
 		});
-		/*** page menu click events handler ***/
+		/*** title first column click event handler ***/
 		$("#jockey-page div.dataTables_wrapper th:first-child").on ("click", (e) => {
 			$("#page-menu").popup( "open", { x: e.pageX, y: e.pageY, transition: "slideDown"} );
 			e.preventDefault();
 		});
+		/*** title race no taphold events handlers ***/
+		for (let col=2; col < 13; col++) /* table must have 12 columns!! */
+			$("#jockey-page div.dataTables_wrapper th:nth-child("+col+")").on ("taphold", {raceNo: col-1},(e) => {
+				e.preventDefault();
+				highlightRaceResults ("#jockey-table",e.data.raceNo);				
+			});
 	});	
   });
 
