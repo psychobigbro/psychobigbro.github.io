@@ -266,6 +266,21 @@
 	$( "#left-panel" ).enhanceWithin().panel();
 	//$.event.special.tap.tapholdThreshold = 1000;
 	$.event.special.tap.emitTapOnTaphold = false;
+	//Get race info which will be used during subsequent page inits
+	//  Don't use await here as it will cause some controls (eg. sliders) un-initialized when accessed in race-page init!!!
+	getFromCache ("cache", "RaceInfo")
+	.then (rec => {
+		if (rec) {
+			RaceDate = rec.raceDate;
+			Event = rec.event;
+			HorsesOSRaceDate = rec.horsesOSRaceDate;
+			HistoryOSRaceDate = rec.historyOSRaceDate;
+			MaxRaceNo = rec.maxRaceNo;
+			Season = rec.season;
+			if (MaxRaceNo > 5)  //in case diff from scrollmenu default no.
+				updateScrollMenu (MaxRaceNo);
+		}
+	})
 	$.mobile.loadPage( "#trainer-page" );
 	//$.mobile.loadPage( "#result-page" ); 
 	$.mobile.loadPage( "#jockey-page" );  //to init data-tables before add.rows() in race-page
@@ -302,9 +317,16 @@
 		for (let col=2; col < 13; col++) /* table must have 12 columns!! */
 			$("#trainer-page div.dataTables_wrapper th:nth-child("+col+")").on ("taphold", {raceNo: col-1},(e) => {
 				e.preventDefault();
-				highlightRaceResults ("#trainer-table",e.data.raceNo);
+				highlightRaceResults (e.data.raceNo); //for both trainer and jockey tables
 			});
-	});	
+	});
+	
+	/*** get any runners from cache and highlight forerunners in table ***/
+	for (let raceNo=1; raceNo < 12; raceNo++) {
+		let rec = await getFromCache ("cache", "Runners"+raceNo, RaceDate);
+		if (rec)
+			highlightForeRunners ("#trainer-table", raceNo, rec.runners);
+	}	
   });
   $(document).on("pageinit", "#jockey-page", async function () {
 	await getFromCache ("cache", "JockeyRides")
@@ -335,9 +357,16 @@
 		for (let col=2; col < 13; col++) /* table must have 12 columns!! */
 			$("#jockey-page div.dataTables_wrapper th:nth-child("+col+")").on ("taphold", {raceNo: col-1},(e) => {
 				e.preventDefault();
-				highlightRaceResults ("#jockey-table",e.data.raceNo);				
+				highlightRaceResults (e.data.raceNo);  //for both trainer and jockey tables				
 			});
-	});	
+	});
+	
+	/*** get any runners from cache and highlight forerunners in table ***/
+	for (let raceNo=1; raceNo < 12; raceNo++) {
+		let rec = await getFromCache ("cache", "Runners"+raceNo, RaceDate);
+		if (rec)
+			highlightForeRunners ("#jockey-table", raceNo, rec.runners);
+	}
   });
 
   $(document).on("pageinit", "#result-page", async function () {
@@ -914,6 +943,7 @@
 					$(".super").hide();
 				popupMsg ("You have signed in as " + (SuperUser ? "super user:":"normal user:") + profile.email, 3500);
 			});
+			/* Moved to Document.ready event handler 
 			getFromCache ("cache", "RaceInfo")
 			.then (rec => {
 				if (rec) {
@@ -927,7 +957,8 @@
 						updateScrollMenu (MaxRaceNo);
 				}
 				return getFromCache ("cache", "Bets")
-			})
+			}) */
+			getFromCache ("cache", "Bets")
 			.then (rec => {
 				if (rec && rec.raceDate && timeFromNow (rec.raceDate) > -86400000) {
 					Bet.tbl = rec.betTbl;

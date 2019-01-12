@@ -17,7 +17,7 @@ function updateTrainerJockeyTables () {
 	fetchAllStarters (Event, MaxRaceNo)
 	.then ( starters => { //to carry forward starters, init another thenable function passing in starters
 		return startLoadingDataForTables (starters)
-		.then ( data => {
+		.then ( async data => {
 			// data contain jTInPlace & predictedTime data of each size (tot no. of runners in starters)
 			let jTInPlace = data.splice(0,data.length/2); 	//jTInPlace is first half
 			let predictedTime = data;  						//predictedTime is second half
@@ -31,6 +31,14 @@ function updateTrainerJockeyTables () {
 			jTable.clear().rows.add(obj.jockeyRides);
 			$( jTable.column(0).nodes() ).addClass( 'fixed-column' );
 			$( tTable.column(0).nodes() ).addClass( 'fixed-column' );
+			/*** get any runners from cache and highlight forerunners in table ***/
+			for (let raceNo=1; raceNo < 12; raceNo++) {
+				let rec = await getFromCache ("cache", "Runners"+raceNo, RaceDate);
+				if (rec) {
+					highlightForeRunners ("#jockey-table", raceNo, rec.runners);
+					highlightForeRunners ("#trainer-table", raceNo, rec.runners);
+				}
+			}
 			popupMsg("完成"+Event[0]+Event[1]+"共" + maxRaceNo + "場賽事", 5000);
 			dataLoading (false);
 		})
@@ -153,47 +161,55 @@ function buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime) {
 	}
 }
 
-function highlightRaceResults (tableName, raceNo) {
+function highlightRaceResults (raceNo) {
 	if (!(Event && MaxRaceNo)) {
 		popupMsg ("No active Event!!");
 		return;
 	}
 	if (raceNo > MaxRaceNo)
 		return;
-	dataLoading(true);
 	popupMsg ("更新賽果",2000);
+	dataLoading(true);
+
 	execGoogleAppPromise ("fetchResultsDividends",
 						   JSON.stringify({raceDate:Event[0],venue:Event[1],raceNo:raceNo}))
 	.then (results => {
 		dataLoading (false);
 		if (results && results.runners) {
 			let runners = results.runners;
-			let table = $(tableName).DataTable();
-			let colData;
-			if (tableName == "#trainer-table")
-				colData = table.column(raceNo).data();
-			else
-				colData = table.column(0).data();
-			let nodes = table.column(raceNo).nodes();
-			for (let i=0; i<5; i++) {  //only check the 1st 5 positions
-				let runner = runners[i];
-				if (runner.position > 0 && runner.position < 5) {
-					let jockey = runner.jockey;
-					for (let j=0; j<colData.length; j++)
-						if (colData[j].indexOf(jockey) >= 0) {
-							$(nodes[j]).addClass('position-'+runner.position);
-							break;
-						}
-				}
-			}
+			cacheToStore ("cache", {key:"Runners"+raceNo, raceDate:RaceDate, runners:runners});
+			highlightForeRunners ("#trainer-table", raceNo, runners);
+			highlightForeRunners ("#jockey-table", raceNo, runners);
 		} else {
 			popupMsg ("未有賽果",2000);
 		}
 	})
 	.catch ( error => {
-		dataLoading (false);
 		popupMsg ("未有賽果",2000);
+		dataLoading (false);
 		//popupMsg(JSON.stringify(error));
 		console.error (error);
 	});
+}
+
+function highlightForeRunners (tableName, colNo, runners) {
+	let table = $(tableName).DataTable();
+	let colData;
+	if (tableName == "#trainer-table")
+		colData = table.column(colNo).data();
+	else
+		colData = table.column(0).data();
+	let nodes = table.column(colNo).nodes();
+	for (let i=0; i<5; i++) {  //only check the 1st 5 positions
+		let runner = runners[i];
+		if (runner.position > 0 && runner.position < 5) {
+			let jockey = runner.jockey;
+			for (let j=0; j<colData.length; j++)
+				if (colData[j].indexOf(jockey) >= 0) {
+					$(nodes[j]).addClass('position-'+runner.position);
+					break;
+				}
+		}
+	}
+	$(table.column(colNo).header()).css("color", "DarkBlue");	
 }
