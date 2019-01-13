@@ -190,6 +190,18 @@ td.position-4 {
 	color : purple !important;
 	border-color : purple !important;
 }
+td.rank0 {
+	background-color : #ff0 !important;
+}
+td.rank1 {
+	background-color : #e6e600 !important;
+}
+td.rank2 {
+	background-color : #cc0 !important;
+}
+td.rank3 {
+	background-color : #990 !important;
+}
 #jockey-page table.dataTable th, #trainer-page table.dataTable th, #jockey-page table.dataTable td,
 #trainer-page table.dataTable td {
     font-size: 60%;
@@ -205,7 +217,9 @@ td.position-4 {
   border-top: 2px solid Darkblue;
 #border-collapse: collapse;
 }
-
+#result-page td.column-won {
+  color: Tomato;
+}
 div.ui-slider-switch { width: 8em }
 /*
 th.remarks:active {

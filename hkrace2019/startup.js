@@ -288,9 +288,9 @@
   /***********************************/
   /* on various pageinit, pagecreate */
   /***********************************/
-  $(document).on("pageinit", "#trainer-page", async function () {
-	await getFromCache ("cache", "TrainerEntries")
-	.then ((rec) => {
+  $(document).on("pageinit", "#trainer-page", function () {
+	getFromCache ("cache", "TrainerEntries")
+	.then (rec => {
 		let data = (rec && rec.data) ? rec.data : null;
 		let table = $("#trainer-table").DataTable( {
 			data: data,
@@ -319,18 +319,21 @@
 				e.preventDefault();
 				highlightRaceResults (e.data.raceNo); //for both trainer and jockey tables
 			});
-	});
-	
-	/*** get any runners from cache and highlight forerunners in table ***/
-	for (let raceNo=1; raceNo < 12; raceNo++) {
-		let rec = await getFromCache ("cache", "Runners"+raceNo, RaceDate);
-		if (rec)
-			highlightForeRunners ("#trainer-table", raceNo, rec.runners);
-	}	
+		/*** set table cell background-color according to horse rankings ***/
+		for (let i=0; i < 4; i++)
+			$(table.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
+		/*** get any runners from cache and highlight forerunners in table ***/
+		for (let raceNo=1; raceNo < 12; raceNo++)
+			getFromCache ("cache", "Runners"+raceNo, RaceDate)
+			.then (rec => {
+				if (rec)
+					highlightForeRunners ("#trainer-table", raceNo, rec.runners);
+			});
+	});	
   });
-  $(document).on("pageinit", "#jockey-page", async function () {
-	await getFromCache ("cache", "JockeyRides")
-	.then ((rec) => {
+  $(document).on("pageinit", "#jockey-page", function () {
+	getFromCache ("cache", "JockeyRides")
+	.then (rec => {
 		let data = (rec && rec.data) ? rec.data : null;
 		let table = $("#jockey-table").DataTable( {
 			data: data,
@@ -359,14 +362,17 @@
 				e.preventDefault();
 				highlightRaceResults (e.data.raceNo);  //for both trainer and jockey tables				
 			});
+		/*** set table cell background-color according to horse rankings ***/
+		for (let i=0; i < 4; i++)
+			$(table.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
+		/*** get any runners from cache and highlight forerunners in table ***/
+		for (let raceNo=1; raceNo < 12; raceNo++)
+			getFromCache ("cache", "Runners"+raceNo, RaceDate)
+			.then (rec => {
+				if (rec)
+					highlightForeRunners ("#jockey-table", raceNo, rec.runners);
+			});
 	});
-	
-	/*** get any runners from cache and highlight forerunners in table ***/
-	for (let raceNo=1; raceNo < 12; raceNo++) {
-		let rec = await getFromCache ("cache", "Runners"+raceNo, RaceDate);
-		if (rec)
-			highlightForeRunners ("#jockey-table", raceNo, rec.runners);
-	}
   });
 
   $(document).on("pageinit", "#result-page", async function () {
@@ -377,8 +383,11 @@
 		const title = (recs[0] && recs[0].data) ? recs[0].data.title : null;
 		const visibles = (recs[1] && recs[1].data && recs[1].data.length == 13) ? recs[1].data
 				: [true,false,true,false,false,true,false,false,true,false,false,true,false];
+		const classes = ["","","","column-won","","","column-won","","","column-won","","","column-won"];
 		let colOptions = [];  //array of objects for DataTable column options
-		visibles.forEach ( bool => colOptions.push({"visible":bool}));
+		$.each(visibles, (idx,bool) => {
+			colOptions.push({visible:bool, className:classes[idx]});
+		});
 		let table = $("#result-table").DataTable( {
 			data: data,
 			paging: false,
@@ -542,13 +551,13 @@
 			break;
 		case "trainer-page":
 			$("#trainer-table").DataTable().columns.adjust().draw();
-			for (let i=0; i < 4; i++)
-				$("#trainer-table td").has("rank"+i).css("background-color", TimeRankColors[i]);
+			//for (let i=0; i < 4; i++)
+			//	$("#trainer-table td").has("rank"+i).css("background-color", TimeRankColors[i]);
 			break;			
 		case "jockey-page":
 			$("#jockey-table").DataTable().columns.adjust().draw();
-			for (let j=0; j < 4; j++)
-				$("#jockey-table td").has("rank"+j).css("background-color", TimeRankColors[j]);
+			//for (let j=0; j < 4; j++)
+			//	$("#jockey-table td").has("rank"+j).css("background-color", TimeRankColors[j]);
 			break;
 		case "result-page":
 			$("#result-table").DataTable().columns.adjust().draw();
@@ -575,7 +584,7 @@
 		loadDataAndRefreshDom (Event, 1, MaxRaceNo);
 	});
 	
-	$("#left-panel a.exec-func")
+	$("#left-panel a.exec-func, #page-menu a.exec-func")
 	  .on("click", function() {
 		let funcLabel = $(this).find("h3").text();
 		let func = this.getAttribute("func");
@@ -588,9 +597,16 @@
 		var prompt = funcLabel + "?"
 		$dialog.find("h3").html(prompt);
 		$dialog.find("span").attr("func",func);
-		$("#left-panel").panel("close");
 		window.scrollTo(0, 0);  //scroll to top left before popup open, otherwise iphone misplace dialog
-		$dialog.popup( "open" ); //, {positionTo:"div.race-info"});
+		if ($(this).closest("div").hasClass("ui-popup"))
+			//for page-menu popup, the popup must be close before new popup (dialog) can be open
+			$("#page-menu").on("popupafterclose", () => {$dialog.popup( "open" );}).popup("close");
+		else {
+			$("#left-panel").panel("close");
+			$dialog.popup( "open" );
+		}
+
+		
 	})
 	/***************/
 	/* confirm-btn */

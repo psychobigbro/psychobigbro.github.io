@@ -33,7 +33,7 @@
 <body>
   <div data-role="page" id="race-page" data-theme="a" >
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>v0.55 190113</h1>
+      <h1>v0.58 190113</h1>
 	  <div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 	    <a href="#left-panel" data-role="button" data-icon="gear" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
 			class="ui-nodisc-icon">menu</a>
@@ -287,7 +287,7 @@
 		<li><a href="#race-page">排位表</a></li>
 		<li><a href="#trainer-page">練馬師分場表</a></li>
 		<li><a href="#jockey-page">騎師分場表</a></li>
-		<!--li><a href="#result-page">賽果派彩</a></li-->
+		<li><a class="exec-func" func="updateTrainerJockeyTables"><h3>更新分場表</h3></a></li>
 	</ul>
   </div>
   <!-- /page-menu -->
@@ -299,10 +299,12 @@
 	</div>
   </div>
   <!-- /popup-dialog -->
-  <div data-role="popup" id="select-dialog" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:35em;">
+  <div data-role="popup" id="select-dialog" data-overlay-theme="b" data-theme="a" data-dismissible="true">
 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	<div class="ui-content">
-    	<select name="RC" id="select-RC" data-iconpos="right" data-mini="false">
+	<div class="ui-grid-a">
+	  <div class="ui-block-a">
+		<select name="RC" id="select-RC" data-iconpos="right" data-mini="false">
        	  	<option selected value="今">今場</option>
         	<option value="谷">跑馬地</option>
         	<option value="田">沙田</option>
@@ -332,6 +334,9 @@
       		<option value=2200>2200M</option>
        		<option value=2400>2400M</option>
 		</select>
+	  </div>
+	  <div class="ui-block-b">
+	    <br>
 		<legend>負磅調速率：</legend>
 		<select name="weight-rate" id="weight-rate" data-iconpos="right" data-mini="false">
        		<option value=0>0秒/磅</option>
@@ -346,7 +351,7 @@
        		<option value=0.09>0.09秒/磅</option>
        		<option selected value=0.1>0.1秒/磅</option>
 		</select>
-		<legend>檔位調速率：</legend>
+		<legend><br>檔位調速率：</legend>
 		<select name="dr-rate" id="dr-rate" data-iconpos="right" data-mini="false">
        		<option value=0>0秒/檔</option>
        		<option value=0.01>0.01秒/檔</option>
@@ -360,7 +365,9 @@
        		<option value=0.09>0.09秒/檔</option>
        		<option selected value=0.1>0.1秒/檔</option>
 		</select>
-		<button id="change-course-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c" >更新</button>
+	  </div>
+	</div>
+	<button id="change-course-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c" >更新</button>
 	</div>
   </div>
   <!-- /select-dialog -->

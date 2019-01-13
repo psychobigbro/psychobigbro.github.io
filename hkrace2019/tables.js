@@ -39,6 +39,11 @@ function updateTrainerJockeyTables () {
 					highlightForeRunners ("#trainer-table", raceNo, rec.runners);
 				}
 			}
+			/* add classes for ranks, Note: $("#jockey-table td").has() does not work!! */
+			for (let i=0; i < 4; i++) {
+				$(jTable.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
+				$(tTable.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
+			}
 			popupMsg("完成"+Event[0]+Event[1]+"共" + maxRaceNo + "場賽事", 5000);
 			dataLoading (false);
 		})
@@ -211,5 +216,5 @@ function highlightForeRunners (tableName, colNo, runners) {
 				}
 		}
 	}
-	$(table.column(colNo).header()).css("color", "DarkBlue");	
+	//$(table.column(colNo).header()).css("color", "DarkBlue");	
 }
