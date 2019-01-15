@@ -3,7 +3,8 @@
   var ErudaEnabled = false;
   var Season = 0;		//season of history store 
   var SuperUser = false;
-  var RaceDate = "";  //global to hold current raceDate AS OBTAINED FROM last online Starters, dd-mm-yyyy
+  var RaceDate = "";  //global to hold current raceDate AS OBTAINED FROM last online Starters, dd-mm-yyyy, by loadDataAndRefreshDomPromise
+					  //format also used in cache for outdating; for display convenience; also updated upon event change; 
   var MaxRaceNo = 0;  //global to hold max. race no corr. to Event
   var Event = null;     //global object for current race event AS OBTAINED FROM getRaceInfo [yyyymmdd','RC']
 								  // or set by Event datebacking; this is changed before RaceDate which is starter based
@@ -288,11 +289,15 @@
   /***********************************/
   /* on various pageinit, pagecreate */
   /***********************************/
-  $(document).on("pageinit", "#trainer-page", function () {
-	getFromCache ("cache", "TrainerEntries")
+  $(document).on( "pageinit", "#trainer-page, #jockey-page", function (e) {
+	let $page = $(this);
+	let $tbl = $page.find("table");
+	let tblID = "#"+$tbl.prop("id");
+	let pageID = "#"+$page.prop("id");
+	getFromCache ("cache", $tbl.attr("cache-name")
 	.then (rec => {
 		let data = (rec && rec.data) ? rec.data : null;
-		let table = $("#trainer-table").DataTable( {
+		let table = $tbl.DataTable( {
 			data: data,
 			paging: false,
 			ordering: false,
@@ -306,73 +311,34 @@
 		});
 		$( table.column(0).nodes() ).addClass( 'fixed-column' );  //for stying 1st column
 		$(window).resize(function() {
-			$("#trainer-table").DataTable().draw();
+			table.draw();
 		});
-		/*** title first column click event handler, need to separate from jockey-page as iphone may not work correctly ***/
-		$("#trainer-page div.dataTables_wrapper th:first-child").on ("click", (e) => {
+		/*** corner cell click event handler, need to be separated for the 2 tbls as iphone may not work correctly ***/
+		$page.find("th:first-child").on ("click", (e) => {
 			$("#page-menu").popup( "open", { x: e.pageX, y: e.pageY, transition: "slideDown"} );
-			e.preventDefault();
+			return false;
 		});
-		/*** title race no taphold events handlers ***/
-		for (let col=2; col < 13; col++) /* table must have 12 columns!! */
-			$("#trainer-page div.dataTables_wrapper th:nth-child("+col+")").on ("taphold", {raceNo: col-1},(e) => {
-				e.preventDefault();
-				highlightRaceResults (e.data.raceNo); //for both trainer and jockey tables
-			});
-		/*** set table cell background-color according to horse rankings ***/
-		for (let i=0; i < 4; i++)
-			$(table.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
-		/*** get any runners from cache and highlight forerunners in table ***/
-		for (let raceNo=1; raceNo < 12; raceNo++)
-			getFromCache ("cache", "Runners"+raceNo, RaceDate)
-			.then (rec => {
-				if (rec)
-					highlightForeRunners ("#trainer-table", raceNo, rec.runners);
-			});
+		/*** title raceno taphold events handlers ***/
+		$page.find("th:not(:first-child)").on ("taphold", function(e){
+			highlightRaceResults ($(this).attr('raceDate'), $(this).index()); //for both trainer and jockey tables
+			return false;
+		});
+		/*** format cells when there are data ***/	
+		if (rec && rec.raceDate) {
+			/*** add raceDate attribute to header cells for reference by taphold event handler ***/
+			$( table.columns().header()).attr("raceDate",rec.raceDate);
+			/*** set table cell background-color according to horse rankings ***/
+			for (let i=0; i < 4; i++)
+				$(table.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
+			/*** get any runners from cache and highlight forerunners in table ***/
+			for (let raceNo=1; raceNo < 12; raceNo++)
+				getFromCache ("cache", "Runners"+raceNo, rec.raceDate)
+				.then (rec => {
+					if (rec)
+						highlightForeRunners (tblID, raceNo, rec.runners);
+				});
+		}
 	});	
-  });
-  $(document).on("pageinit", "#jockey-page", function () {
-	getFromCache ("cache", "JockeyRides")
-	.then (rec => {
-		let data = (rec && rec.data) ? rec.data : null;
-		let table = $("#jockey-table").DataTable( {
-			data: data,
-			paging: false,
-			ordering: false,
-			info: false,
-			searching: false,
-			scrollX: true,
-			scrollY: "90vh",  //% of viewport height
-			scrollCollapse: true,
-			fixedColumns: true,
-			fixedHeader: false
-		});
-		$( table.column(0).nodes() ).addClass( 'fixed-column' );
-		$(window).resize(function() {
-			$("#jockey-table").DataTable().draw();
-		});
-		/*** title first column click event handler ***/
-		$("#jockey-page div.dataTables_wrapper th:first-child").on ("click", (e) => {
-			$("#page-menu").popup( "open", { x: e.pageX, y: e.pageY, transition: "slideDown"} );
-			e.preventDefault();
-		});
-		/*** title race no taphold events handlers ***/
-		for (let col=2; col < 13; col++) /* table must have 12 columns!! */
-			$("#jockey-page div.dataTables_wrapper th:nth-child("+col+")").on ("taphold", {raceNo: col-1},(e) => {
-				e.preventDefault();
-				highlightRaceResults (e.data.raceNo);  //for both trainer and jockey tables				
-			});
-		/*** set table cell background-color according to horse rankings ***/
-		for (let i=0; i < 4; i++)
-			$(table.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
-		/*** get any runners from cache and highlight forerunners in table ***/
-		for (let raceNo=1; raceNo < 12; raceNo++)
-			getFromCache ("cache", "Runners"+raceNo, RaceDate)
-			.then (rec => {
-				if (rec)
-					highlightForeRunners ("#jockey-table", raceNo, rec.runners);
-			});
-	});
   });
 
   $(document).on("pageinit", "#result-page", async function () {
@@ -600,7 +566,12 @@
 		window.scrollTo(0, 0);  //scroll to top left before popup open, otherwise iphone misplace dialog
 		if ($(this).closest("div").hasClass("ui-popup"))
 			//for page-menu popup, the popup must be close before new popup (dialog) can be open
-			$("#page-menu").on("popupafterclose", () => {$dialog.popup( "open" );}).popup("close");
+			$("#page-menu").one("popupafterclose", () => {
+								//$dialog.popup( "open" ); //cant open first time just after another page-menu item repeatly clicked!
+								setTimeout (()=>{$dialog.popup( "open" );},100);  //setTimeout solve the problem
+								//$(this).off();	//use .one otherwise page-menu closed by another menu item will invoke $dialog
+							})
+						   .popup("close");
 		else {
 			$("#left-panel").panel("close");
 			$dialog.popup( "open" );

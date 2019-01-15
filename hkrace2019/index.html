@@ -33,7 +33,7 @@
 <body>
   <div data-role="page" id="race-page" data-theme="a" >
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>v0.58 190113</h1>
+      <h1>v0.59 190115</h1>
 	  <div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 	    <a href="#left-panel" data-role="button" data-icon="gear" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
 			class="ui-nodisc-icon">menu</a>
@@ -114,7 +114,7 @@
   <!-- /race-page -->
   <div data-role="page" id="trainer-page" data-theme="a" >
 	<div role="main" class="ui-content" >
-	  <table id="trainer-table" class="stripe nowrap cell-border compact" style="width:100%">
+	  <table id="trainer-table" cache-name="TrainerEntries" class="stripe nowrap cell-border compact" style="width:100%">
 		<thead><tr>
 		<th>練馬師</th><th>第一場</th><th>第二場</th><th>第三場</th>
 		<th>第四場</th><th>第五場</th><th>第六場</th><th>第七場</th>
@@ -126,7 +126,7 @@
   <!-- /trainer-page -->
   <div data-role="page" id="jockey-page" data-theme="a" >
 	<div role="main" class="ui-content" >
-	  <table id="jockey-table" class="stripe nowrap cell-border compact" style="width:100%">
+	  <table id="jockey-table" cache-name="JockeyRides" class="stripe nowrap cell-border compact" style="width:100%">
 		<thead><tr>
 		<th>騎師</th><th>第一場</th><th>第二場</th><th>第三場</th>
 		<th>第四場</th><th>第五場</th><th>第六場</th><th>第七場</th>
@@ -287,7 +287,7 @@
 		<li><a href="#race-page">排位表</a></li>
 		<li><a href="#trainer-page">練馬師分場表</a></li>
 		<li><a href="#jockey-page">騎師分場表</a></li>
-		<li><a class="exec-func" func="updateTrainerJockeyTables"><h3>更新分場表</h3></a></li>
+		<li data-icon="recycle"><a class="exec-func" func="updateTrainerJockeyTables"><h3>更新分場表</h3></a></li>
 	</ul>
   </div>
   <!-- /page-menu -->

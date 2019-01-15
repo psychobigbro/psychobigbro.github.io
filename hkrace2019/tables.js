@@ -9,11 +9,6 @@ function updateTrainerJockeyTables () {
 		return;
 	}
 	dataLoading (true);
-	/*
-	let allPromises = [];
-	for (let raceNo = 1; raceNo <= MaxRaceNo; raceNo++)
-		allPromises.push(fetchStarter (Event, raceNo));
-	Promise.all (allPromises) */
 	fetchAllStarters (Event, MaxRaceNo)
 	.then ( starters => { //to carry forward starters, init another thenable function passing in starters
 		return startLoadingDataForTables (starters)
@@ -22,18 +17,22 @@ function updateTrainerJockeyTables () {
 			let jTInPlace = data.splice(0,data.length/2); 	//jTInPlace is first half
 			let predictedTime = data;  						//predictedTime is second half
 			let maxRaceNo = starters.length;
+			let raceDate = starters[0].raceDate;
 			let obj = buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime);
-			cacheToStore ("cache", {key:"TrainerEntries", data:obj.trainerEntries});
-			cacheToStore ("cache", {key:"JockeyRides", data:obj.jockeyRides})
+			cacheToStore ("cache", {key:"TrainerEntries", raceDate:raceDate, data:obj.trainerEntries});
+			cacheToStore ("cache", {key:"JockeyRides", raceDate:raceDate, data:obj.jockeyRides})
 			let tTable = $("#trainer-table").DataTable();
 			tTable.clear().rows.add(obj.trainerEntries);
 			let jTable = $("#jockey-table").DataTable();
 			jTable.clear().rows.add(obj.jockeyRides);
 			$( jTable.column(0).nodes() ).addClass( 'fixed-column' );
 			$( tTable.column(0).nodes() ).addClass( 'fixed-column' );
-			/*** get any runners from cache and highlight forerunners in table ***/
+			/*** add raceDate attribute to header cells for reference by taphold event handler ***/
+			$( jTable.columns().header()).removeClass("finished").attr("raceDate",raceDate);
+			$( tTable.columns().header()).removeClass("finished").attr("raceDate",raceDate);
+			/*** get any runners of raceDate from cache and highlight forerunners in table, DONT trust RaceDate!! ***/
 			for (let raceNo=1; raceNo < 12; raceNo++) {
-				let rec = await getFromCache ("cache", "Runners"+raceNo, RaceDate);
+				let rec = await getFromCache ("cache", "Runners"+raceNo, raceDate);
 				if (rec) {
 					highlightForeRunners ("#jockey-table", raceNo, rec.runners);
 					highlightForeRunners ("#trainer-table", raceNo, rec.runners);
@@ -44,6 +43,9 @@ function updateTrainerJockeyTables () {
 				$(jTable.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
 				$(tTable.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
 			}
+			// redraw tables
+			tTable.columns.adjust().draw();
+			jTable.columns.adjust().draw();
 			popupMsg("完成"+Event[0]+Event[1]+"共" + maxRaceNo + "場賽事", 5000);
 			dataLoading (false);
 		})
@@ -166,12 +168,13 @@ function buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime) {
 	}
 }
 
-function highlightRaceResults (raceNo) {
+function highlightRaceResults (raceDate, raceNo) {
 	if (!(Event && MaxRaceNo)) {
 		popupMsg ("No active Event!!");
 		return;
 	}
-	if (raceNo > MaxRaceNo)
+	// Only handle results of current Event, old tables wont be handled
+	if (raceDate != Event[0].toHyphenatedDate() || raceNo > MaxRaceNo)
 		return;
 	popupMsg ("更新賽果",2000);
 	dataLoading(true);
@@ -182,7 +185,8 @@ function highlightRaceResults (raceNo) {
 		dataLoading (false);
 		if (results && results.runners) {
 			let runners = results.runners;
-			cacheToStore ("cache", {key:"Runners"+raceNo, raceDate:RaceDate, runners:runners});
+			//cache runners using results' raceDate, don't trust RaceDate
+			cacheToStore ("cache", {key:"Runners"+raceNo, raceDate:results.raceDate, runners:runners});
 			highlightForeRunners ("#trainer-table", raceNo, runners);
 			highlightForeRunners ("#jockey-table", raceNo, runners);
 		} else {
@@ -216,5 +220,5 @@ function highlightForeRunners (tableName, colNo, runners) {
 				}
 		}
 	}
-	//$(table.column(colNo).header()).css("color", "DarkBlue");	
+	$(table.column(colNo).header()).addClass("finished");	
 }

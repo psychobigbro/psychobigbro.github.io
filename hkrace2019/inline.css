@@ -202,6 +202,9 @@ td.rank2 {
 td.rank3 {
 	background-color : #990 !important;
 }
+th.finished {
+	color: DarkRed !important;
+}
 #jockey-page table.dataTable th, #trainer-page table.dataTable th, #jockey-page table.dataTable td,
 #trainer-page table.dataTable td {
     font-size: 60%;
