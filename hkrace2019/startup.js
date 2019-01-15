@@ -12,11 +12,6 @@
   var HistoryOSRaceDate = "";	//raceDate of downloaded iDB history store dd-mm-yyyy
   var Tfjs = {modelName:'model'}; 	//global object for TensorFlow.js model and params
   var Features;
-  //var Db;		 	//firestore db 
-  var LastFunc = "";//global to hold last webapp func name invoked
-  var ReqFunc = ""; //global to hold webapp or window function being requested
-  var Executor =""; //global to hold executor (window or google app) of the function
-  //var RC = '';		//racecourse of current race, use whatever starter return
   const DrRate = "0.1";
   const WgRate = "0.1";
   var StarterCacheTimeoutMinutes = 5;
@@ -94,21 +89,7 @@
   const TimeRankColors = ["#ff0","#e6e600","#cc0","#990"];
   const ColdWinColors = ["#0ff","#00d8d8","#0cc"];
   /* for predict-table */
-  const Thead1 = /* '<thead><tr>' +
-	'<th>編</th>' +
-	'<th data-priority="2">馬</th>' +
-	'<th data-priority="3">騎</th>' +
-	'<th data-priority="3">練</th>' +
-	'<th data-priority="2" colspan="2">排位</th>' +
-	'<th data-priority="1" colspan="2">預測時間</th>' +
-	'<th data-priority="1" colspan="2">參考時間</th>' +
-	'<th data-priority="5">騎練</th>' +
-	'<th data-priority="5">騎馬</th>' +
-	'<th data-priority="5" colspan="5">注意事項</th>'+
-	'<th data-priority="4">獨贏</th>'+
-	'<th data-priority="4">位置</th>'+
-	'<th data-priority="4">AI</th>'+
-	'</tr></thead>'+ */
+  const Thead1 = 
 	'<thead><tr>'+
 	'<th>號</th><th data-priority="2">馬名</th><th data-priority="3">騎師</th><th data-priority="3">練馬師</th>'+
 	'<th data-priority="2">檔</th><th data-priority="2">負磅</th>'+
@@ -120,21 +101,7 @@
 	'<th data-priority="4">AI</th>'+
 	'</tr></thead>';
   /* for race-table */
-  const Thead2 = /*'<thead><tr>' +
-	'<th>編</th>' +
-	'<th data-priority="1">馬</th>' +
-	'<th data-priority="2">騎</th>' +
-	'<th data-priority="4">練</th>' +
-	'<th data-priority="1" colspan="2">排位</th>' +
-	'<th data-priority="2" colspan="2">預測時間</th>' +
-	'<th data-priority="4" colspan="2">參考時間</th>' +
-	'<th data-priority="3">騎練</th>' +
-	'<th data-priority="5">騎馬</th>' +
-	'<th data-priority="3" colspan="5">注意事項</th>'+
-	'<th data-priority="1">獨贏</th>'+
-	'<th data-priority="1">位置</th>'+
-	'<th data-priority="2">AI</th>'+
-	'</tr></thead>'+ */
+  const Thead2 = 
 	'<thead><tr>'+
 	'<th>號</th><th data-priority="1">馬名</th><th data-priority="1">騎師</th><th data-priority="3">練馬師</th>'+
 	'<th data-priority="1">檔</th><th data-priority="1">負磅</th>'+
@@ -267,21 +234,6 @@
 	$( "#left-panel" ).enhanceWithin().panel();
 	//$.event.special.tap.tapholdThreshold = 1000;
 	$.event.special.tap.emitTapOnTaphold = false;
-	//Get race info which will be used during subsequent page inits
-	//  Don't use await here as it will cause some controls (eg. sliders) un-initialized when accessed in race-page init!!!
-	getFromCache ("cache", "RaceInfo")
-	.then (rec => {
-		if (rec) {
-			RaceDate = rec.raceDate;
-			Event = rec.event;
-			HorsesOSRaceDate = rec.horsesOSRaceDate;
-			HistoryOSRaceDate = rec.historyOSRaceDate;
-			MaxRaceNo = rec.maxRaceNo;
-			Season = rec.season;
-			if (MaxRaceNo > 5)  //in case diff from scrollmenu default no.
-				updateScrollMenu (MaxRaceNo);
-		}
-	})
 	$.mobile.loadPage( "#trainer-page" );
 	//$.mobile.loadPage( "#result-page" ); 
 	$.mobile.loadPage( "#jockey-page" );  //to init data-tables before add.rows() in race-page
@@ -294,7 +246,7 @@
 	let $tbl = $page.find("table");
 	let tblID = "#"+$tbl.prop("id");
 	let pageID = "#"+$page.prop("id");
-	getFromCache ("cache", $tbl.attr("cache-name")
+	getFromCache ("cache", $tbl.attr("cache-name"))
 	.then (rec => {
 		let data = (rec && rec.data) ? rec.data : null;
 		let table = $tbl.DataTable( {
@@ -517,13 +469,9 @@
 			break;
 		case "trainer-page":
 			$("#trainer-table").DataTable().columns.adjust().draw();
-			//for (let i=0; i < 4; i++)
-			//	$("#trainer-table td").has("rank"+i).css("background-color", TimeRankColors[i]);
 			break;			
 		case "jockey-page":
 			$("#jockey-table").DataTable().columns.adjust().draw();
-			//for (let j=0; j < 4; j++)
-			//	$("#jockey-table td").has("rank"+j).css("background-color", TimeRankColors[j]);
 			break;
 		case "result-page":
 			$("#result-table").DataTable().columns.adjust().draw();
@@ -619,7 +567,7 @@
 		$.mobile.changePage("#dialog", {
 			transition: "pop"
 		});
-		//$("#dialog").popup().popup("open");
+
 		let $btn = $("#start-dl-btn");
 		// check button state to ensure no download in progress
 		if ($btn[0].hasAttribute("disabled") == false) { //download not in progress
@@ -930,7 +878,6 @@
 					$(".super").hide();
 				popupMsg ("You have signed in as " + (SuperUser ? "super user:":"normal user:") + profile.email, 3500);
 			});
-			/* Moved to Document.ready event handler 
 			getFromCache ("cache", "RaceInfo")
 			.then (rec => {
 				if (rec) {
@@ -944,8 +891,7 @@
 						updateScrollMenu (MaxRaceNo);
 				}
 				return getFromCache ("cache", "Bets")
-			}) */
-			getFromCache ("cache", "Bets")
+			})
 			.then (rec => {
 				if (rec && rec.raceDate && timeFromNow (rec.raceDate) > -86400000) {
 					Bet.tbl = rec.betTbl;
