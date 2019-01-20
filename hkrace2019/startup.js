@@ -778,6 +778,7 @@
 	/*******************/
 	$("div a.change-defaults") 
 	.on("click", function() {
+		window.scrollTo(0, 0);  //scroll to top left before popup open, otherwise iphone misplace dialog
 		$("#df-weight-rate").val(WgRate).selectmenu( "refresh" );
 		$("#df-dr-rate").val(DrRate).selectmenu( "refresh" );
 		$("#change-defaults-dialog").popup("open");
