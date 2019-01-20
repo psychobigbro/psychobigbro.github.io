@@ -12,8 +12,8 @@
   var HistoryOSRaceDate = "";	//raceDate of downloaded iDB history store dd-mm-yyyy
   var Tfjs = {modelName:'model'}; 	//global object for TensorFlow.js model and params
   var Features;
-  const DrRate = "0.1";
-  const WgRate = "0.1";
+  var DrRate = "0.1";
+  var WgRate = "0.1";	//unless changed by change-defaults-dialog
   var StarterCacheTimeoutMinutes = 5;
   var IDbPromise;
   var IDbVersionNo = 1;
@@ -232,6 +232,7 @@
 	$( "#page-menu" ).enhanceWithin().popup();
 	$( "#popup-marker" ).enhanceWithin().popup();
 	$( "#left-panel" ).enhanceWithin().panel();
+	$( "#change-defaults-dialog" ).enhanceWithin().popup();
 	//$.event.special.tap.tapholdThreshold = 1000;
 	$.event.special.tap.emitTapOnTaphold = false;
 	$.mobile.loadPage( "#trainer-page" );
@@ -761,6 +762,27 @@
 		}
 	});
 	
+	/***********************/
+	/* change-defaults-btn */
+	/***********************/
+	$("#change-defaults-btn").on("click", function() {
+		$("#change-defaults-dialog").popup("close");
+		DrRate = $("#df-dr-rate").val();
+		WgRate = $("#df-weight-rate").val();
+		// REMINDER: cache all defaults here no matter they are changed or not!!
+		cacheToStore ("cache", {key:"Defaults", DrRate:DrRate, WgRate:WgRate});
+	});
+
+	/*******************/
+	/* change-defaults */
+	/*******************/
+	$("div a.change-defaults") 
+	.on("click", function() {
+		$("#df-weight-rate").val(WgRate).selectmenu( "refresh" );
+		$("#df-dr-rate").val(DrRate).selectmenu( "refresh" );
+		$("#change-defaults-dialog").popup("open");
+	})
+	
 	$('#select-RC').change(function(){
 		console.log ("#select-RC changed to",$(this).val());
 		let $dt = $("#select-distance");
@@ -900,19 +922,16 @@
 				else {
 					Bet.tbl = Array(11).fill(null).map(() => Array(14).fill(null));
 					Bet.raceDate = "";
-				} /* cache moved to courseSelect
-				return getFromCache ("cache", "DrRate");
+				}
+				return getFromCache ("cache", "Defaults");
 			})
 			.then (rec => {
-				if (rec)
-					DrRate = rec.drRate ? rec.drRate : 0.1;
-				$('#dr-rate').val(DrRate).selectmenu( "refresh" );	
-				return getFromCache ("cache", "WgRate");
-			})
-			.then (rec => {
-				if (rec)
-					WgRate = rec.wgRate ? rec.wgRate : 0.1;
-				$('#weight-rate').val(WgRate).selectmenu( "refresh" ); */
+				if (rec) {
+					if (rec.WgRate)
+						WgRate = rec.WgRate;
+					if (rec.DrRate)
+						DrRate = rec.DrRate;
+				}
 				return getFromCache ("cache", "Settings");
 			})
 			.then (rec => {

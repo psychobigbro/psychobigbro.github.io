@@ -33,7 +33,7 @@
 <body>
   <div data-role="page" id="race-page" data-theme="a" >
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>v0.60 190115</h1>
+      <h1>v0.61 190120</h1>
 	  <div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 	    <a href="#left-panel" data-role="button" data-icon="gear" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
 			class="ui-nodisc-icon">menu</a>
@@ -220,6 +220,7 @@
 		<li data-icon="bug" class="super"><a class="exec-func" func="toggleOnlineDebug"><h3>Toggle Debug</h3></a></li>
 		<li data-icon="star" class="super"><a class="exec-func" func="recordBetRecords"><h3>recordBetRecords</h3></a></li>
 		<li data-icon="star" class="super"><a class="exec-func" func="recordOdds"><h3>recordOdds</h3></a></li>
+		<li data-icon="edit" class="super"><a class="change-defaults"><h3>Change Defaults</h3></a></li>
 		<!--li data-icon="lock"><a class="exec-func" func="googleAuthorization"><h3>Google授權</h3></a></li-->
 		<!-- above not working for iphone, tried location.href, etc. -->
 		<li data-icon="google-plus"><a class="ui-nodisc-icon" href="https://script.google.com/macros/s/AKfycbycwkuTZbAuOLNyA4gHKrjv422WYNDeAAPg1xLSg-KL0prwETA/exec?">
@@ -371,6 +372,41 @@
 	</div>
   </div>
   <!-- /select-dialog -->
+  <div data-role="popup" id="change-defaults-dialog" data-overlay-theme="b" data-theme="a" data-dismissible="true">
+	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+	<div class="ui-content">
+		<legend>默認負磅調速率：</legend>
+		<select name="df-weight-rate" id="df-weight-rate" data-iconpos="right" data-mini="false">
+       		<option value=0>0秒/磅</option>
+       		<option value=0.01>0.01秒/磅</option>
+       		<option value=0.02>0.02秒/磅</option>
+       		<option value=0.03>0.03秒/磅</option>
+       		<option value=0.04>0.04秒/磅</option>
+       		<option value=0.05>0.05秒/磅</option>
+       		<option value=0.06>0.06秒/磅</option>
+      		<option value=0.07>0.07秒/磅</option>
+       		<option value=0.08>0.08秒/磅</option>
+       		<option value=0.09>0.09秒/磅</option>
+       		<option selected value=0.1>0.1秒/磅</option>
+		</select>
+		<legend><br>默認檔位調速率：</legend>
+		<select name="df-dr-rate" id="df-dr-rate" data-iconpos="right" data-mini="false">
+       		<option value=0>0秒/檔</option>
+       		<option value=0.01>0.01秒/檔</option>
+       		<option value=0.02>0.02秒/檔</option>
+       		<option value=0.03>0.03秒/檔</option>
+       		<option value=0.04>0.04秒/檔</option>
+       		<option value=0.05>0.05秒/檔</option>
+       		<option value=0.06>0.06秒/檔</option>
+      		<option value=0.07>0.07秒/檔</option>
+       		<option value=0.08>0.08秒/檔</option>
+       		<option value=0.09>0.09秒/檔</option>
+       		<option selected value=0.1>0.1秒/檔</option>
+		</select>
+		<button id="change-defaults-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c" >更新</button>
+	</div>
+  </div>
+  <!-- /change-defaults-dialog -->
   <div data-role="popup" id="event-dialog" data-overlay-theme="b" data-theme="a" style="max-width:30em;">
   	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	<div class="ui-content">
@@ -383,7 +419,7 @@
 		<button id="change-event-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c" >Change</button>
 	</div>
   </div>
-  <!-- /select-dialog -->
+  <!-- /event-dialog -->
   <script src="startup.js"></script>
   <script src="data.js"></script>
   <script src="ui.js"></script>
