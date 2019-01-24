@@ -292,6 +292,7 @@ function queryInPlaceTrumpcards (byPassCache, season, raceDate, trainer, inPlaLi
 }
 
 /* Return a promise to query IDB Horses for in place(1-4) records and check for remarks */
+/* Also set new horse remarks depending on last race record */
 function queryInPlaceRemarks (byPassCache, raceDate, RCC, track, course, distance, horseWeight, horseNo, jockey) {
 	return new Promise (function (resolve, reject) {
 		if (byPassCache)
@@ -325,9 +326,21 @@ function queryInPlaceRemarks (byPassCache, raceDate, RCC, track, course, distanc
 			return index.getAll(range);
 		})
 		.then ( function(recs) {
-			let remarks = {weight:false, distance:false, course:false, distKing:false, HJInPlaCnt:0, HJTotCnt:0};
+			let remarks = {weight:false, distance:false, course:false, distKing:false,
+						   HJInPlaCnt:0, HJTotCnt:0};
 			let sameRCCTrkDistCnt = 0;
 			let sameRCCTrkDistInPlaCnt = 0;
+			/* set newHorse remarks */
+			if (recs.length > 0) {
+				remarks.newHorse = false;
+				if (toDateObj(raceDate).getTime() - toDateObj(recs[0].yyyymmdd.toHyphenatedDate()).getTime() > 1814400000)  //3600*1000*24*21 days
+					remarks.comeBack = true;
+				else
+					remarks.comeBack = false;
+			} else {
+				remarks.newHorse = true;
+				remarks.comeBack = false;
+			}
 			recs.forEach(function(rec) {
 				if (rec.RCC == RCC && rec.track == track && rec.distance == distance)
 					sameRCCTrkDistCnt++;
@@ -558,8 +571,10 @@ function execGoogleAppPromise  (func,
 			timeout:respTimeout
 		})
 		.then (function(result,status,xhr) {
-			if (result.status == "ACK")  
+			if (result.status == "ACK") {
+				checkUserLevel (result.userLevel);
 				resolve(result.response);  //let caller do further check of response (may be null)
+			}
 			else 				
 				reject(result);  //NAK, let promise .catch display app returned error
 		})

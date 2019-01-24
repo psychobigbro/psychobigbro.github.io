@@ -3,6 +3,7 @@
   var ErudaEnabled = false;
   var Season = 0;		//season of history store 
   var SuperUser = false;
+  var UserLevel = 0;  //global changeable by Webapp result.userLevel to set individual super class elements on/off
   var RaceDate = "";  //global to hold current raceDate AS OBTAINED FROM last online Starters, dd-mm-yyyy, by loadDataAndRefreshDomPromise
 					  //format also used in cache for outdating; for display convenience; also updated upon event change; 
   var MaxRaceNo = 0;  //global to hold max. race no corr. to Event
@@ -238,6 +239,9 @@
 	$.mobile.loadPage( "#trainer-page" );
 	//$.mobile.loadPage( "#result-page" ); 
 	$.mobile.loadPage( "#jockey-page" );  //to init data-tables before add.rows() in race-page
+	// All super class elements are hidden initially, SuperUser will be checked later to turn them all on or
+	// they may be individually turned on by userLevel set by google webapp returned result.userLevel
+	$(".super").hide(); //hide superuser functions upon startup
   });
   /***********************************/
   /* on various pageinit, pagecreate */
@@ -897,8 +901,8 @@
 				SuperUser = (profile.email == 'psychobigbro@gmail.com');
 				if (SuperUser)
 					$(".super").show();
-				else
-					$(".super").hide();
+				//else
+				//	$(".super").hide();
 				popupMsg ("You have signed in as " + (SuperUser ? "super user:":"normal user:") + profile.email, 3500);
 			});
 			getFromCache ("cache", "RaceInfo")

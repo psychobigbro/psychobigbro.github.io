@@ -410,3 +410,16 @@ async function recordOdds () {
 		});
 	}
 }
+
+function checkUserLevel (userLevel) {
+	//SuperUser bypass all checks
+	if (!SuperUser && userLevel != UserLevel) {
+		console.log ("User level changed from",UserLevel,"to",userLevel);
+		UserLevel = userLevel;
+		// handle changes for all bits
+		if (UserLevel & 2)
+			$(".ai-func").show();
+		else
+			$(".ai-func").hide();
+	}
+}
