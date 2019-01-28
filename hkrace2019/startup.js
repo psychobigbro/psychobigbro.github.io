@@ -3,6 +3,7 @@
   var ErudaEnabled = false;
   var Season = 0;		//season of history store 
   var SuperUser = false;
+  var AppEmail = "";  //global to hold email of current google app user (returned by webapp response
   var UserLevel = 0;  //global changeable by Webapp result.userLevel to set individual super class elements on/off
   var RaceDate = "";  //global to hold current raceDate AS OBTAINED FROM last online Starters, dd-mm-yyyy, by loadDataAndRefreshDomPromise
 					  //format also used in cache for outdating; for display convenience; also updated upon event change; 
@@ -901,9 +902,7 @@
 				SuperUser = (profile.email == 'psychobigbro@gmail.com');
 				if (SuperUser)
 					$(".super").show();
-				//else
-				//	$(".super").hide();
-				popupMsg ("You have signed in as " + (SuperUser ? "super user:":"normal user:") + profile.email, 3500);
+				popupMsg ("Signed in Firebase as " + (SuperUser ? "super user:":"normal user:") + profile.email, 3000);
 			});
 			getFromCache ("cache", "RaceInfo")
 			.then (rec => {

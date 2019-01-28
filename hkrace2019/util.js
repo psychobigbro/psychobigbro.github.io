@@ -411,8 +411,9 @@ async function recordOdds () {
 	}
 }
 
-function checkUserLevel (userLevel) {
+function checkUser (result) {
 	//SuperUser bypass all checks
+	let userLevel = result.userLevel;
 	if (!SuperUser && userLevel != UserLevel) {
 		console.log ("User level changed from",UserLevel,"to",userLevel);
 		UserLevel = userLevel;
@@ -421,5 +422,11 @@ function checkUserLevel (userLevel) {
 			$(".ai-func").show();
 		else
 			$(".ai-func").hide();
+	}
+	let userEmail = result.userEmail;
+	if (AppEmail != userEmail) {
+		$('#app-email').text(userEmail);
+		AppEmail = userEmail;
+		popupMsg ("WebApp User " + AppEmail, 3000);
 	}
 }

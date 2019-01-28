@@ -147,7 +147,7 @@ function refreshPage ($page, thead, starter, pred, stat) {
 			timeArr[i] = MaxSeconds;
 			continue;	//ignore Standby Horse
 		}
-		let horseName = runner.horseName + (runner.scratch ? "(退出)" : "");
+		let horseName = runner.horseName + (stat[s+1].newHorse ? "&#9816" : "") + (runner.scratch ? "(退出)" : "");
 		let allowance = runner.allowance + runner.flAllowance;
 		let jockey = runner.jockey + ((allowance>0) ? "(-"+allowance+")" : "");
 		tblContent += "<tr>";
@@ -190,9 +190,9 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		let remarkWeight = stat[s+1].weight ? "&#10028" : "";
 		let remarkCourse = stat[s+1].course ? "&#10028" : "";
 		let remarkDistance = stat[s+1].distKing ? "&#10026" : stat[s+1].distance ? "&#10025" : "";
-		//let remarkTestHorse = stat[s+2].testHorse ? "&#10028" : "";
-		let remarkTestHorse = stat[s+1].newHorse ? "新" :
-							  stat[s+2].testHorse ? "&#10028" : "";
+		let remarkTestHorse = stat[s+2].testHorse ? "&#10028" : "";
+		//let remarkTestHorse = stat[s+1].newHorse ? "&#9816" : //"&#9816" black knight
+		//					  stat[s+2].testHorse ? "&#10028" : "";
 		let remarkTestHorseFail = stat[s+2].testHorseFail ? "&#10025" : "";
 /*13*/	tblContent += "<td>" + remarkTestHorse + "</td>";
 		tblContent += "<td>" + remarkTestHorseFail + "</td>";

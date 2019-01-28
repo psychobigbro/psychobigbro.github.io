@@ -572,7 +572,7 @@ function execGoogleAppPromise  (func,
 		})
 		.then (function(result,status,xhr) {
 			if (result.status == "ACK") {
-				checkUserLevel (result.userLevel);
+				checkUser(result);
 				resolve(result.response);  //let caller do further check of response (may be null)
 			}
 			else 				
