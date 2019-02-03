@@ -745,7 +745,6 @@ function lbwInteger(str) {
 
 function updateOddsAndScores (raceNo) {
 	return new Promise (function (resolve, reject) {
-		dataLoading (true); //disable button to avoided repeated calls
 		if ( $("#online-mode-switch").val() == "off" ) {  //return cache in offline mode
 			getFromCache ("winOdds", raceNo, RaceDate)
 			.then ( rec => {
@@ -761,6 +760,8 @@ function updateOddsAndScores (raceNo) {
 			return;
 		};
 		// get winOdds online
+		dataLoading (true); //disable button to avoided repeated online call
+		popupMsg ("更新賠率",2000);
 		let param = JSON.stringify({raceDate:Event[0],venue:Event[1], raceNo:raceNo});
 		execGoogleAppPromise ("fetchWinPlaOdds", param)
 		.then (async obj => {

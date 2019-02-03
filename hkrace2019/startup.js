@@ -16,6 +16,8 @@
   var Features;
   var DrRate = "0.1";
   var WgRate = "0.1";	//unless changed by change-defaults-dialog
+  var FrWinOdds = "1";
+  var ToWinOdds = "99";	//unless changed by change-defaults-dialog
   var StarterCacheTimeoutMinutes = 5;
   var IDbPromise;
   var IDbVersionNo = 1;
@@ -771,11 +773,21 @@
 	/* change-defaults-btn */
 	/***********************/
 	$("#change-defaults-btn").on("click", function() {
+		let lowerWinOdds = Number($("#lowerWinOdds").val());
+		let upperWinOdds = Number($("#upperWinOdds").val());
+		if (isNaN(lowerWinOdds) || isNaN(upperWinOdds) || lowerWinOdds > upperWinOdds ||
+			lowerWinOdds < 1 || lowerWinOdds > 99 || upperWinOdds < 1 || upperWinOdds > 99) {
+			$("#lowerWinOdds").val('').blur();
+			$("#upperWinOdds").val('').blur();  //display placeholder
+			return;
+		}
 		$("#change-defaults-dialog").popup("close");
 		DrRate = $("#df-dr-rate").val();
 		WgRate = $("#df-weight-rate").val();
+		FrWinOdds = lowerWinOdds;
+		ToWinOdds = upperWinOdds;
 		// REMINDER: cache all defaults here no matter they are changed or not!!
-		cacheToStore ("cache", {key:"Defaults", DrRate:DrRate, WgRate:WgRate});
+		cacheToStore ("cache", {key:"Defaults", DrRate:DrRate, WgRate:WgRate, FrWinOdds:FrWinOdds, ToWinOdds:ToWinOdds});
 	});
 
 	/*******************/
@@ -784,8 +796,11 @@
 	$("div a.change-defaults") 
 	.on("click", function() {
 		window.scrollTo(0, 0);  //scroll to top left before popup open, otherwise iphone misplace dialog
+		$("#left-panel").panel("close");
 		$("#df-weight-rate").val(WgRate).selectmenu( "refresh" );
 		$("#df-dr-rate").val(DrRate).selectmenu( "refresh" );
+		$("#lowerWinOdds").val(FrWinOdds);
+		$("#upperWinOdds").val(ToWinOdds);
 		$("#change-defaults-dialog").popup("open");
 	})
 	
@@ -935,6 +950,10 @@
 						WgRate = rec.WgRate;
 					if (rec.DrRate)
 						DrRate = rec.DrRate;
+					if (rec.FrWinOdds)
+						FrWinOdds = rec.FrWinOdds;
+					if (rec.ToWinOdds)
+						ToWinOdds = rec.ToWinOdds;
 				}
 				return getFromCache ("cache", "Settings");
 			})

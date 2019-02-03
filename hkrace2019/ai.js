@@ -99,8 +99,9 @@ function refreshAIScores (raceDate, raceNo, scores, wins) {
 		let $row = $tblBody.find("tr:nth-child(" + rowIdx + ")");
 		$row.find("td:nth-last-child(1)")
 			.css("backgroundColor", TimeRankColors[i]);
-		// special highlight of horse num with high score as well as winodds >=10
-		if ( wins[rowIdx-1].odds >=10 )
+		// special highlight of horse num with high score as well as winodds between FrWinOdds & ToWinOdds
+		let winOdds = wins[rowIdx-1].odds;
+		if (  winOdds >=FrWinOdds && winOdds <=ToWinOdds)
 			$row.find("td:nth-child(1)")
 				.css("backgroundColor", TimeRankColors[i]);
 	}
