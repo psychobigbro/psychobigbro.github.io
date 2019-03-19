@@ -464,6 +464,8 @@ function queryTestHorse (byPassCache, season, raceDate, horseNo) {
 				frontPos = 6;
 			if (lastPos <= frontPos)
 				state1 = true;  //1 1, 2 2, 3 3, 4 4 ... considered leading
+			else
+				return false; //(77,) 88, 99 not considered
 		} else
 			state1 = priorPos < lastPos;
     
@@ -485,6 +487,8 @@ function queryTestHorse (byPassCache, season, raceDate, horseNo) {
 			frontPos2 = 6;
 			if (lastPos2 <= frontPos2)
 				state2 = true; //1 1,2 2,3 3,4 4,5 5,6 6,(7 7) considered leading,else catch up
+			else
+				return false; //(77,) 88, 99 not considered
 		} else
 			state2 = priorPos2 < lastPos2;
 		if (dist1 < 5 && dist2 < 5 && state1 != state2) //頭馬距離 must be < 5
