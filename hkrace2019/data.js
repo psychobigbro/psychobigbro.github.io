@@ -620,6 +620,8 @@ function startFireStoreQueriesForPredictions (byPassCache, starter) {
 			RCC = $("#select-RC").val();
 			track = $("#select-track").val();
 			course = $("#select-course").val();
+			//fix course set to null when value is ''
+			if (!course) course = '';
 			distance = Number($("#select-distance").val());
 		}
   		fireStorePromises.push (getAdjBestTime
