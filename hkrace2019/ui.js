@@ -107,6 +107,8 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		RCC = $("#select-RC").val();
 		track = $("#select-track").val();
 		course = $("#select-course").val();
+		//fix course = null when value is ''
+		if (!course) course = '';
 		distance = $("#select-distance").val();
 	}
 	// remove old tbody and replace thead
@@ -149,7 +151,8 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		}
 		let horseName = runner.horseName + (stat[s+1].newHorse ? "&#9816" : "") + (runner.scratch ? "(退出)" : "");
 		let allowance = runner.allowance + runner.flAllowance;
-		let jockey = runner.jockey + ((allowance>0) ? "(-"+allowance+")" : "");
+		//let jockey = runner.jockey + ((allowance>0) ? "(-"+allowance+")" : "");
+		let jockey = runner.jockey;
 		tblContent += "<tr>";
 /*1*/	tblContent += "<td class='seqno'>" + runner.num + "</td>";
 /*2*/	tblContent += "<td>" 
