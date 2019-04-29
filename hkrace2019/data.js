@@ -143,7 +143,7 @@ function loadDataAndRefreshDomPromise (event, byPassCache, raceNo) {
 }
 
 /* Return a promise to query Firestore Horses\horseNo\Records to calculate adjusted best time */
-function getAdjBestTime (byPassCache, raceDate, RCC, track, course, distance, dr, weight, horseNo) {
+function getAdjBestTime (byPassCache, raceDate, RCC, track, course, distance, dr, weight, horseNo, season) {
 	return new Promise (function (resolve, reject) {
 		if (byPassCache)
 			_getAdjBestTimeFromIDB (resolve, reject);
@@ -187,6 +187,7 @@ function getAdjBestTime (byPassCache, raceDate, RCC, track, course, distance, dr
 		})
 		.then ( function(recs) {
 			let bestTime = MaxSeconds;  // indicate N/A
+			let bestSeasonTime = MaxSeconds;  // indicate N/A for best time of current season
 			let dateMade = "N/A";
 			let weightMade = 0;
 			let drMade = 0;
@@ -211,11 +212,15 @@ function getAdjBestTime (byPassCache, raceDate, RCC, track, course, distance, dr
 					adjRecTime = normalTime;
 					recWeight = rec.weight;
 					recClass = rec.class;
+				};
+				// added best season time
+				if (season == rec.season && rec.finTime < bestSeasonTime) {
+					bestSeasonTime = rec.finTime;
 				}
 			});
 			console.log("From iDB",horseNo,"=>", bestTime, dateMade);
 			let obj = {date:dateMade,weight:weightMade,dr:drMade,recTime:recTime,adjRecTime:adjRecTime,
-					   predTime:bestTime, horseWeight:recWeight, class:recClass};
+					   predTime:bestTime, horseWeight:recWeight, class:recClass, bestSeasonTime:bestSeasonTime};
 			cacheToStore ("predictedTime",{key:horseNo+RCC+track+course+distance,  //* for all courses
 										raceDate:raceDate, timeRec:obj,
 										drRate:drRate, wgRate:wgRate});
@@ -606,7 +611,8 @@ function startFireStoreQueriesForPredictions (byPassCache, starter) {
 								 starter.distance,
 								 starter.runners[i].dr,
 								 actWeight,
-								 starter.runners[i].horseNo
+								 starter.runners[i].horseNo,
+								 starter.season
 								)
 							   );
 		// then get times for RCC+track+course+distance depending on settings

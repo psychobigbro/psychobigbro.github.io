@@ -175,7 +175,11 @@ function refreshPage ($page, thead, starter, pred, stat) {
 			tblContent += "<td><div class='scrollable'>" + dateMade + "</div></td>";
 		let time = pred[p].predTime;
 		timeArr[i] = runner.scratch ? MaxSeconds : time;
-/*8*/	tblContent += "<td>" + secToMin(time) + "</td>";
+		let bestSeasonTime = secToMin(pred[p].bestSeasonTime);
+		let ind = time < pred[p].bestSeasonTime ? "<" : time > pred[p].bestSeasonTime ? ">" : "=";
+/*8*/	tblContent += "<td><div class='scrollable'>" + secToMin(time) 
+					+ (bestSeasonTime == "N/A" ? "" : "&nbsp;&nbsp;&nbsp;" + ind + "&nbsp;" + bestSeasonTime)
+					+ "</div></td>";
 		dateMade = pred[p+1].date;
 /*9*/	if (dateMade.length==8) { //yyyymmdd -> dd/mm/yy
 			dateMade = dateMade.substr(6,2)+"/"+dateMade.substr(4,2)+"/"+dateMade.substr(2,2);
