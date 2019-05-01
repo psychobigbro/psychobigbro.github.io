@@ -492,7 +492,7 @@
 	/**************/
 	$("div a.reload-btn")
 	.on("tap", function() {
-		if (this.hasAttribute("disabled") || !SuperUser)  //only superuser can do reload!!
+		if (this.hasAttribute("disabled"))  //all users can do reload!!
 			return;
 		let raceNo = getActiveRaceNo ();
 		if (raceNo && Event)//starters cache and HKJCOnline use numeric raceNo
