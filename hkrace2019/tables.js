@@ -89,7 +89,8 @@ function startLoadingDataForTables (starters) {
 									starters[r].distance,
 									starters[r].runners[i].dr,
 									actWeight,
-									starters[r].runners[i].horseNo
+									starters[r].runners[i].horseNo,
+									starters[r].season
 									)
 									);
 		}

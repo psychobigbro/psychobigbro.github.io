@@ -218,7 +218,7 @@ function getAdjBestTime (byPassCache, raceDate, RCC, track, course, distance, dr
 					bestSeasonTime = rec.finTime;
 				}
 			});
-			console.log("From iDB",horseNo,"=>", bestTime, dateMade);
+			console.log("From iDB",horseNo+RCC+track+course+distance,"=>", bestTime, dateMade, bestSeasonTime);
 			let obj = {date:dateMade,weight:weightMade,dr:drMade,recTime:recTime,adjRecTime:adjRecTime,
 					   predTime:bestTime, horseWeight:recWeight, class:recClass, bestSeasonTime:bestSeasonTime};
 			cacheToStore ("predictedTime",{key:horseNo+RCC+track+course+distance,  //* for all courses
@@ -639,7 +639,8 @@ function startFireStoreQueriesForPredictions (byPassCache, starter) {
 								 distance,
 								 starter.runners[i].dr,
 								 actWeight,
-								 starter.runners[i].horseNo
+								 starter.runners[i].horseNo,
+								 starter.season
 								)
 							   );
 		}
@@ -648,7 +649,7 @@ function startFireStoreQueriesForPredictions (byPassCache, starter) {
 }
 
 function startFireStoreQueriesForStatistics (byPassCache, starter) {
-	// Read best times (for predict-page) from firestore via promises
+	// Read statistics (for summary-page) from firestore via promises
 	let fireStorePromises = [];
 	for (let i=0; i<starter.runners.length; i++) {
 		// first get jockey trainer in place ratio			   
