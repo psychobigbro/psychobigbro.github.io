@@ -173,8 +173,8 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		}
 		else /* N/A */
 			tblContent += "<td><div class='scrollable'>" + dateMade + "</div></td>";
-		// limit predTime to 2 decimal to avoid precision error during comparsion
-		let time = pred[p].predTime.toFixed(2);
+		// limit predTime to 2 decimal to avoid precision error during comparsion; need the + sign to get number not string
+		let time = +pred[p].predTime.toFixed(2);
 		timeArr[i] = runner.scratch ? MaxSeconds : time;
 		let bestSeasonTime = secToMin(pred[p].bestSeasonTime);
 		let ind = time < pred[p].bestSeasonTime ? "<" : time > pred[p].bestSeasonTime ? ">" : "=";
