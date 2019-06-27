@@ -275,34 +275,40 @@ function placeBetsForStrategy (starters, predictedTime) {
 	for (let r = 0, p = 0; r < starters.length; r++) {
 		let starter = starters[r];
 		let timeArr = [];
-		let noRecCnt = 0;
+		let noRecCnt = 0;  //num of horses with predicted time
+		let numInRace = starter.runners.length;  //actual num of horses running in race
 		for (let n = 0; n < starter.runners.length; n++, p++) {  //this loop cant be skipped, need p++
 			let runner = starter.runners[n];
 			if (runner.num == "(Null)" ) {
 				timeArr[n] = MaxSeconds;
+				numInRace--;
 				continue;  //ignore standby horse
 			}
 			let time = predictedTime[p].predTime;
 			timeArr[n] = runner.scratch ? MaxSeconds : time;
-			if (!runner.scratch && time == MaxSeconds)
-				noRecCnt++;	  //count no. of runners w/o time record
+			if (runner.scratch)
+				numInRace--;
+			else if (time == MaxSeconds)
+				noRecCnt++;	  //count no. of actual runners w/o time record
 		}
-		//scanned 1 race, decide to bet or not
-		if (starter.class < 5 && noRecCnt < 3) {
+		//scanned 1 race, bet only race with class no. and with certain ratio of horses with predicted time
+		if (starter.class > 0 && noRecCnt/numInRace < 0.3) {
 			let indices = indicesOfSortedArray (timeArr);
 			for (let i= 0; i < 3; i++)
 				if (timeArr[indices[i]] < MaxSeconds)
-					bets.push ({raceNoIdx:r,numIdx:indices[i]});
+					bets.push ({raceNoIdx:r,numIdx:indices[i],nHorses:numInRace});
 		}
 	};
 	if (bets.length > 0) {
 		Bet.raceDate = starters[0].raceDate;
 		Bet.tbl = Array(11).fill(null).map(() => Array(14).fill(null));
 		$.each (bets, function (i, bet) {
-			Bet.tbl[bet.raceNoIdx][bet.numIdx] = {winAmt:"10",qinLeg:"",plaAmt:"10",qplLeg:""};		
+			Bet.tbl[bet.raceNoIdx][bet.numIdx] = {winAmt:"10",qinLeg:"",plaAmt:"10",qplLeg:"",nHorses:bet.nHorses};		
 		});
-		Bet.modelName = "strategy";
-		cacheToStore ("cache", {key:"Bets",betTbl:Bet.tbl, raceDate:Bet.raceDate, modelName:Bet.modelName});
+		Bet.modelName = "speediest";
+		Bet.sheetName = "BetsOnStrategy";  //sheetname to store bet records in google apps
+		cacheToStore ("cache", {key:"Bets",betTbl:Bet.tbl, raceDate:Bet.raceDate, modelName:Bet.modelName,
+								sheetName:Bet.sheetName});
 	}
 	return bets;
 }

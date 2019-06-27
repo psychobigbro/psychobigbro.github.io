@@ -430,3 +430,19 @@ function checkUser (result) {
 		popupMsg ("WebApp User " + AppEmail, 3000);
 	}
 }
+
+async function updateSyndicatePopup (name) {
+	console.log ("update syndicate for "+name);
+	$("#person-name").text(name);
+	let	syndicates = [];
+	let syndicateNo = 0;
+	let rec = await getFromCache ("cache", "syndicates");
+	if (rec && rec.data) {
+		syndicates = rec.data;
+		if (syndicates[name])
+			syndicateNo = syndicates[name];
+	}
+	$("#syndicateNo").val(syndicateNo);
+	$( "#change-syndicate-dialog" ).data('opener', {name:name, syndicates:syndicates})
+								   .popup("open");
+}

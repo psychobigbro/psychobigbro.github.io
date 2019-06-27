@@ -33,7 +33,7 @@
 <body>
   <div data-role="page" id="race-page" data-theme="a" >
     <div data-role="header" data-theme="b" data-position="fixed">
-      <h1>v0.75 190507</h1>
+      <h1>v0.76 190627</h1>
 	  <div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 	    <a href="#left-panel" data-role="button" data-icon="gear" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
 			class="ui-nodisc-icon">menu</a>
@@ -71,6 +71,7 @@
 		<thead><tr>
 		<th>編</th>
 		<th data-priority="1">馬</th>
+		<th data-priority="1">馬</th>
 		<th data-priority="1">騎</th>
 		<th data-priority="1">練</th>
 		<th data-priority="1" colspan="2">排位</th>
@@ -86,7 +87,7 @@
 		<th data-priority="6">AI</th>
 		</tr></thead>
 		<thead><tr>
-		<th>號</th><th>名</th><th>師</th><th>馬</th>
+		<th>號</th><th>名</th><th>齡</th><th>師</th><th>馬</th>
 		<th>檔</th><th>負磅</th>
 		<th>記錄</th><th>預測時間</th><th>記錄</th><th>參考時間</th>
 		<th>上位</th><th>上位</th>
@@ -119,6 +120,7 @@
 		<th>練馬師</th><th>第一場</th><th>第二場</th><th>第三場</th>
 		<th>第四場</th><th>第五場</th><th>第六場</th><th>第七場</th>
 		<th>第八場</th><th>第九場</th><th>第十場</th><th>第士場</th>
+		<th>序</th>
 		</tr></thead>
       </table>
 	</div>
@@ -131,6 +133,7 @@
 		<th>騎師</th><th>第一場</th><th>第二場</th><th>第三場</th>
 		<th>第四場</th><th>第五場</th><th>第六場</th><th>第七場</th>
 		<th>第八場</th><th>第九場</th><th>第十場</th><th>第士場</th>
+		<th>序</th>
 		</tr></thead>
       </table>
 	</div>
@@ -411,6 +414,16 @@
 	</div>
   </div>
   <!-- /change-defaults-dialog -->
+  <div data-role="popup" id="change-syndicate-dialog" data-overlay-theme="b" data-theme="a" data-dismissible="true">
+	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+	<div class="ui-content">
+		<h2><span id="person-name">&nbsp;</span></h2>
+		<legend>集團：</legend>
+		<input id="syndicateNo" type="number" name="syndicateNo" value="" min="0" max="9" placeholder="0 to 9">
+		<button id="change-syndicate-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c" >更新</button>
+	</div>
+  </div>
+  <!-- /change-syndicate-dialog -->
   <div data-role="popup" id="event-dialog" data-overlay-theme="b" data-theme="a" style="max-width:30em;">
   	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	<div class="ui-content">

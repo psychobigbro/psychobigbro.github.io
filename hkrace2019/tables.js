@@ -18,15 +18,20 @@ function updateTrainerJockeyTables () {
 			let predictedTime = data;  						//predictedTime is second half
 			let maxRaceNo = starters.length;
 			let raceDate = starters[0].raceDate;
-			let obj = buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime);
+			//read syndicates from cache
+			let syndicates = [];
+			let rec = await getFromCache ("cache", "syndicates");
+			if (rec && rec.data)
+				syndicates = rec.data;			
+			let obj = buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime, syndicates);
 			cacheToStore ("cache", {key:"TrainerEntries", raceDate:raceDate, data:obj.trainerEntries});
 			cacheToStore ("cache", {key:"JockeyRides", raceDate:raceDate, data:obj.jockeyRides})
 			let tTable = $("#trainer-table").DataTable();
 			tTable.clear().rows.add(obj.trainerEntries);
 			let jTable = $("#jockey-table").DataTable();
 			jTable.clear().rows.add(obj.jockeyRides);
-			$( jTable.column(0).nodes() ).addClass( 'fixed-column' );
-			$( tTable.column(0).nodes() ).addClass( 'fixed-column' );
+			$( jTable.column(0).nodes() ).addClass( 'fixed-column syndicated' );
+			$( tTable.column(0).nodes() ).addClass( 'fixed-column syndicated' );
 			/*** add raceDate attribute to header cells for reference by taphold event handler ***/
 			$( jTable.columns().header()).removeClass("finished").attr("raceDate",raceDate);
 			$( tTable.columns().header()).removeClass("finished").attr("raceDate",raceDate);
@@ -46,6 +51,12 @@ function updateTrainerJockeyTables () {
 			// redraw tables
 			tTable.columns.adjust().draw();
 			jTable.columns.adjust().draw();
+			// set update syndicate event handler
+			$("#trainer-table, #jockey-table").find("td.syndicated").on ("tap", function(e){
+				updateSyndicatePopup ( $(this).text() );
+				return false;
+			});
+
 			popupMsg("完成"+Event[0]+Event[1]+"共" + maxRaceNo + "場賽事", 5000);
 			dataLoading (false);
 		})
@@ -98,7 +109,7 @@ function startLoadingDataForTables (starters) {
 	return Promise.all(fireStorePromises)
 }
 
-function buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime) {
+function buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime, syndicates) {
 	let tTbl = [];
 	let jTbl = [];
 	//idx increment in the inner loops to cope with jTInPlace and predictedTime array index
@@ -144,9 +155,22 @@ function buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime) {
 			jTbl[jRows[indices[i]]][c+1] = "<rank" + i + ">" + cellText + "</rank" + i + ">";
 		}
 	}
-	//each trainer may appear more than once in a race, sort to group rows of same trainer
+	//set trainer/jockey order number at last column idx 12 of each table
+	for (let r=0; r<tTbl.length; r++) {
+		let name = tTbl[r][0];
+		let syndicateNo = syndicates[name];
+		tTbl[r][12] = syndicateNo ? syndicateNo : 0;
+	}
+	for (let r=0; r<jTbl.length; r++) {
+		let name = jTbl[r][0];
+		let syndicateNo = syndicates[name];
+		jTbl[r][12] = syndicateNo ? syndicateNo : 0;
+	}
+		
+	//each trainer may appear more than once in a race, sort by syndicate number then by trainer
 	tTbl.sort ((x, y) => {
-		return	(x[0] < y[0]) ? -1 : (x[0] > y[0]) ? 1 :
+		return	(x[12] < y[12]) ? 1 : (x[12] > y[12]) ? -1 :
+				(x[0] < y[0]) ? -1 : (x[0] > y[0]) ? 1 :
 				(x[1] != "" ) ? -1 : (y[1] != "" ) ? 1 :  //non-blank should be on top (-1)
 				(x[2] != "" ) ? -1 : (y[2] != "" ) ? 1 :
 				(x[3] != "" ) ? -1 : (y[3] != "" ) ? 1 :
@@ -154,7 +178,10 @@ function buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime) {
 				(x[5] != "" ) ? -1 : (y[5] != "" ) ? 1 :
 				(x[6] != "" ) ? -1 : (y[6] != "" ) ? 1 : 0;
 	});
-	//each jockey will not appear more than once in a race, no need to sort
+	//each jockey will not appear more than once in a race, only sort by jockey syndicate number
+	jTbl.sort ((x, y) => {
+		return	(x[12] < y[12]) ? 1 : (x[12] > y[12]) ? -1 : 0;
+	});
 	return ({trainerEntries:tTbl, jockeyRides:jTbl});
 	
 	function rowOfEmptyCell (tbl, raceNo, name) {

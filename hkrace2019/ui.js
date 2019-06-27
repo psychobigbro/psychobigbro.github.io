@@ -120,25 +120,18 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		$tbl.find("thead").remove();
 		$tbl.append(thead);
 	}
-		//if ($tbl.prop("id") == "race-table") {
-			$tbl.find("thead:first-child th:nth-child(7)").text(starter.RCC+starter.track+starter.distance);
-			$tbl.find("thead:first-child th:nth-child(9)").text(RCC+track+distance+" "+course);
-		//} else {
-		//	$tbl.find("thead:first-child th:nth-child(6)").text(starter.RCC+starter.track+starter.distance);
-		//	$tbl.find("thead:first-child th:nth-child(7)").text(RCC+track+distance+" "+course);
-		//}
-	//} else {
-		//$tbl.find("thead:first-child th:nth-child(7)").text(starter.RCC+starter.track+starter.distance);
-		//$tbl.find("thead:first-child th:nth-child(9)").text(RCC+track+distance+" "+course);
-	//}
+
+	$tbl.find("thead:first-child th:nth-child(8)").text(starter.RCC+starter.track+starter.distance);
+	$tbl.find("thead:first-child th:nth-child(10)").text(RCC+track+distance+" "+course);
+
 	if (!ai)
 		if ($tbl.prop("id") == "summary-table")
-			$tbl.find("thead:first-child th:nth-child(15)").attr("data-priority","6");
+			$tbl.find("thead:first-child th:nth-child(16)").attr("data-priority","6");
 		else
-			$tbl.find("thead:first-child th:nth-child(20)").attr("data-priority","6");
+			$tbl.find("thead:first-child th:nth-child(21)").attr("data-priority","6");
 	if ($tbl.prop("id") == "race-table" && $("#odds-switch").val() == "off") {
-		$tbl.find("thead:first-child th:nth-child(18)").attr("data-priority","6");
 		$tbl.find("thead:first-child th:nth-child(19)").attr("data-priority","6");
+		$tbl.find("thead:first-child th:nth-child(20)").attr("data-priority","6");
 	}
 	let tblContent = "<tbody>";
 	//s index to stat, p index to pred
@@ -150,23 +143,27 @@ function refreshPage ($page, thead, starter, pred, stat) {
 			continue;	//ignore Standby Horse
 		}
 		let horseName = runner.horseName + (stat[s+1].newHorse ? "&#9816" : "") + (runner.scratch ? "(退出)" : "");
+		// + (runner.horseAge <= 4 ? "&#127793" : "") +(runner.scratch ? "(退出)" : "");
 		let allowance = runner.allowance + runner.flAllowance;
 		//let jockey = runner.jockey + ((allowance>0) ? "(-"+allowance+")" : "");
 		let jockey = runner.jockey;
+		
+/*IMPORTANT : field insertion or deletion requires amendments of th:nth-child() and may be last-child() */
 		tblContent += "<tr>";
 /*1*/	tblContent += "<td class='seqno'>" + runner.num + "</td>";
 /*2*/	tblContent += "<td>" 
 					+ '<a href='+HKJCHorseUrl+runner.horseNo+' target="_blank">'+horseName+'</a>';
 					+ "</td>";
-/*3*/	tblContent += "<td>" + jockey + "</td>";
-/*4*/	tblContent += "<td>" + runner.trainer + "</td>";
-/*5*/	tblContent += "<td>" + runner.dr + "</td>";
+/*3*/	tblContent += "<td>" + runner.horseAge + "</td>";
+/*4*/	tblContent += "<td>" + jockey + "</td>";
+/*5*/	tblContent += "<td>" + runner.trainer + "</td>";
+/*6*/	tblContent += "<td>" + runner.dr + "</td>";
 		if (allowance)
-/*6*/		tblContent += "<td style='font-style: italic;'>" + (runner.weight-allowance) + "</td>";
+/*7*/		tblContent += "<td style='font-style: italic;'>" + (runner.weight-allowance) + "</td>";
 		else
 			tblContent += "<td>" + runner.weight + "</td>";
 		let dateMade = pred[p].date;
-/*7*/	if (dateMade.length==8) { //yyyymmdd -> dd/mm/yy 
+/*8*/	if (dateMade.length==8) { //yyyymmdd -> dd/mm/yy 
 			dateMade = dateMade.substr(6,2)+"/"+dateMade.substr(4,2)+"/"+dateMade.substr(2,2);
 			tblContent += "<td><div class='scrollable'>" + dateMade + "&nbsp;&nbsp;&nbsp;" + pred[p].dr + "檔" + pred[p].weight
 						+ "磅" + pred[p].recTime + "秒</div></td>";
@@ -178,11 +175,11 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		timeArr[i] = runner.scratch ? MaxSeconds : time;
 		let bestSeasonTime = secToMin(pred[p].bestSeasonTime);
 		let ind = time < pred[p].bestSeasonTime ? "<" : time > pred[p].bestSeasonTime ? ">" : "=";
-/*8*/	tblContent += "<td><div class='scrollable'>" + secToMin(time) 
+/*9*/	tblContent += "<td><div class='scrollable'>" + secToMin(time) 
 					+ (bestSeasonTime == "N/A" ? "" : "&nbsp;&nbsp;&nbsp;" + ind + "&nbsp;" + bestSeasonTime)
 					+ "</div></td>";
 		dateMade = pred[p+1].date;
-/*9*/	if (dateMade.length==8) { //yyyymmdd -> dd/mm/yy
+/*10*/	if (dateMade.length==8) { //yyyymmdd -> dd/mm/yy
 			dateMade = dateMade.substr(6,2)+"/"+dateMade.substr(4,2)+"/"+dateMade.substr(2,2);
 			tblContent += "<td><div class='scrollable'>" + dateMade + "&nbsp;&nbsp;&nbsp;" + pred[p+1].dr + "檔" + pred[p+1].weight
 						+ "磅" + pred[p+1].recTime + "秒</div></td>";
@@ -190,11 +187,11 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		else /* N/A */
 			tblContent += "<td><div class='scrollable'>" + dateMade + "</div></td>";
 		time = pred[p+1].predTime;
-/*10*/	tblContent += "<td>" + secToMin(time) + "</td>";		
-/*11*/	tblContent += "<td>" + stat[s][0] + "/" + stat[s][1] + "</td>";
+/*11*/	tblContent += "<td>" + secToMin(time) + "</td>";		
+/*12*/	tblContent += "<td>" + stat[s][0] + "/" + stat[s][1] + "</td>";
 // trump in place ratio display replaced by Horse Jockey in place ratio
-/*12	tblContent += "<td>" + stat[s+3][0] + "/" + stat[s+3][1] + "</td>"; */
-/*12*/	tblContent += "<td>" + stat[s+1].HJInPlaCnt + "/" + stat[s+1].HJTotCnt + "</td>";
+/*13	tblContent += "<td>" + stat[s+3][0] + "/" + stat[s+3][1] + "</td>"; */
+/*13*/	tblContent += "<td>" + stat[s+1].HJInPlaCnt + "/" + stat[s+1].HJTotCnt + "</td>";
 		let remarkWeight = stat[s+1].weight ? "&#10028" : "";
 		let remarkCourse = stat[s+1].course ? "&#10028" : "";
 		let remarkDistance = stat[s+1].distKing ? "&#10026" : stat[s+1].distance ? "&#10025" : "";
@@ -202,14 +199,14 @@ function refreshPage ($page, thead, starter, pred, stat) {
 		//let remarkTestHorse = stat[s+1].newHorse ? "&#9816" : //"&#9816" black knight
 		//					  stat[s+2].testHorse ? "&#10028" : "";
 		let remarkTestHorseFail = stat[s+2].testHorseFail ? "&#10025" : "";
-/*13*/	tblContent += "<td>" + remarkTestHorse + "</td>";
+/*14*/	tblContent += "<td>" + remarkTestHorse + "</td>";
 		tblContent += "<td>" + remarkTestHorseFail + "</td>";
 		tblContent += "<td>" + remarkWeight + "</td>";
 		tblContent += "<td>" + remarkDistance + "</td>";
-/*17*/	tblContent += "<td>" + remarkCourse + "</td>";
-/*18*/	tblContent += "<td>" + "" + "</td>";	//WinOdds
-/*19*/	tblContent += "<td>" + "" + "</td>";	//PlaOdds
-/*20*/	tblContent += "<td>" + "" + "</td>";	//AI Score
+/*18*/	tblContent += "<td>" + remarkCourse + "</td>";
+/*19*/	tblContent += "<td>" + "" + "</td>";	//WinOdds
+/*20*/	tblContent += "<td>" + "" + "</td>";	//PlaOdds
+/*21*/	tblContent += "<td>" + "" + "</td>";	//AI Score
 		tblContent += "</tr>";
 	}
 	tblContent += "</tbody>";
@@ -221,7 +218,7 @@ function refreshPage ($page, thead, starter, pred, stat) {
 	for (let i=0; i<4; i++) {
 		let rowIdx = indices[i]+1;
 		let $cell = $tbody.find("tr:nth-child(" + rowIdx + ")")
-					.find("td:nth-child(8)");
+					.find("td:nth-child(9)");
 		if ($cell.text() != "N/A")
 			$cell.css("background-color", TimeRankColors[i]);			   
 	}

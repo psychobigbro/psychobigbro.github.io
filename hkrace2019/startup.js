@@ -95,10 +95,11 @@
   /* for predict-table */
   const Thead1 = 
 	'<thead><tr>'+
-	'<th>號</th><th data-priority="2">馬名</th><th data-priority="3">騎師</th><th data-priority="3">練馬師</th>'+
+	'<th>號</th><th data-priority="2">馬名</th><th data-priority="5">齡</th>'+
+	'<th data-priority="3">騎師</th><th data-priority="3">練馬師</th>'+
 	'<th data-priority="2">檔</th><th data-priority="2">負磅</th>'+
 	'<th data-priority="1">記錄</th><th data-priority="1">預測時間</th><th data-priority="1">記錄</th><th data-priority="1">參考時間</th>'+
-	'<th data-priority="5">上位</th>'+ '<th data-priority="5">上位</th>' +
+	'<th data-priority="5">上位</th>'+ '<th data-priority="5">上位</th>'+
 	'<th data-priority="5">試</th><th data-priority="5">失</th><th data-priority="5">重</th><th data-priority="5">程</th><th data-priority="5">道</th>'+
 	'<th data-priority="4">W</th>'+
 	'<th data-priority="4">P</th>'+
@@ -107,7 +108,8 @@
   /* for race-table */
   const Thead2 = 
 	'<thead><tr>'+
-	'<th>號</th><th data-priority="1">馬名</th><th data-priority="1">騎師</th><th data-priority="3">練馬師</th>'+
+	'<th>號</th><th data-priority="1">馬名</th><th data-priority="5">齡</th>'+
+	'<th data-priority="1">騎師</th><th data-priority="3">練馬師</th>'+
 	'<th data-priority="1">檔</th><th data-priority="1">負磅</th>'+
 	'<th data-priority="2">記錄</th><th data-priority="2">預測時間</th>'+
 	'<th data-priority="6">記錄</th><th data-priority="6">參考時間</th>'+
@@ -237,6 +239,7 @@
 	$( "#popup-marker" ).enhanceWithin().popup();
 	$( "#left-panel" ).enhanceWithin().panel();
 	$( "#change-defaults-dialog" ).enhanceWithin().popup();
+	$( "#change-syndicate-dialog" ).enhanceWithin().popup();
 	//$.event.special.tap.tapholdThreshold = 1000;
 	$.event.special.tap.emitTapOnTaphold = false;
 	$.mobile.loadPage( "#trainer-page" );
@@ -267,15 +270,25 @@
 			scrollY: "90vh",  //% of viewport height
 			scrollCollapse: true,
 			fixedColumns: true,
-			fixedHeader: false
+			fixedHeader: false,
+			columnDefs: [{		//column 0 to 11 visible, column 12 invisible 
+				targets: [ 12 ],
+                visible: true,
+            }]
 		});
-		$( table.column(0).nodes() ).addClass( 'fixed-column' );  //for stying 1st column
+		$( table.column(0).nodes() ).addClass( 'fixed-column syndicated' );  //for styling 1st column
 		$(window).resize(function() {
 			table.draw();
 		});
 		/*** corner cell click event handler, need to be separated for the 2 tbls as iphone may not work correctly ***/
 		$page.find("th:first-child").on ("click", (e) => {
 			$("#page-menu").popup( "open", { x: e.pageX, y: e.pageY, transition: "slideDown"} );
+			return false;
+		});
+		/*** 1st column syndicated names tap events handlers ***/
+		/*** CAN'T USE taphold as datatable has complicated div structure causing duplicated taphold trigger ***/
+		$page.find("td.syndicated").on ("tap", function(e){
+			updateSyndicatePopup ( $(this).text() );
 			return false;
 		});
 		/*** title raceno taphold events handlers ***/
@@ -769,6 +782,24 @@
 		}
 	});
 	
+	/************************/
+	/* change-syndidate-btn */
+	/************************/
+	$("#change-syndicate-btn").on("click", function() {
+		let opener = $("#change-syndicate-dialog").data("opener");
+		let name = opener.name;
+		let syndicates = opener.syndicates;
+		let syndicateNo = Number($("#syndicateNo").val());
+		if (isNaN(syndicateNo) || syndicateNo < 0 || syndicateNo > 9 ) {
+			$("#syndicateNo").val('').blur();
+			return;
+		}
+		syndicates[name] = syndicateNo;
+		cacheToStore ("cache", {key:"syndicates",data:syndicates});
+		$("#change-syndicate-dialog").popup("close");
+		console.log (name+"'s syndicate changed to: "+syndicateNo);
+	});
+	
 	/***********************/
 	/* change-defaults-btn */
 	/***********************/
@@ -937,6 +968,8 @@
 				if (rec && rec.raceDate && timeFromNow (rec.raceDate) > -86400000) {
 					Bet.tbl = rec.betTbl;
 					Bet.raceDate = rec.raceDate;
+					Bet.modelName = rec.modelName;
+					Bet.sheetName = rec.sheetName;
 				}
 				else {
 					Bet.tbl = Array(11).fill(null).map(() => Array(14).fill(null));
