@@ -790,14 +790,14 @@
 		let name = opener.name;
 		let syndicates = opener.syndicates;
 		let syndicateNo = Number($("#syndicateNo").val());
-		if (isNaN(syndicateNo) || syndicateNo < 0 || syndicateNo > 9 ) {
+		if (isNaN($("#syndicateNo").val()) || syndicateNo < 0 || syndicateNo > 9 ) {
 			$("#syndicateNo").val('').blur();
 			return;
 		}
 		syndicates[name] = syndicateNo;
 		cacheToStore ("cache", {key:"syndicates",data:syndicates});
 		$("#change-syndicate-dialog").popup("close");
-		console.log (name+"'s syndicate changed to: "+syndicateNo);
+		popupMsg (name+" 集團： "+syndicateNo,2000);
 	});
 	
 	/***********************/
