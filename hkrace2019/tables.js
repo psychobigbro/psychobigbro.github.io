@@ -48,7 +48,7 @@ function updateTrainerJockeyTables () {
 				$(jTable.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
 				$(tTable.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
 			}
-			// redraw tables
+			// redraw tables before binding event handlers to be effective (like in pageinit)
 			tTable.columns.adjust().draw();
 			jTable.columns.adjust().draw();
 			// set update syndicate event handler
@@ -56,7 +56,12 @@ function updateTrainerJockeyTables () {
 				updateSyndicatePopup ( $(this).text() );
 				return false;
 			});
-
+			// redraw table again if table page is active, otherwise event-handler not yet effective
+			let activePageId = $.mobile.pageContainer.pagecontainer( "getActivePage" ).attr('id');
+			if (activePageId == "trainer-page")
+				tTable.columns.adjust().draw();
+			else if (activePageId == "jockey-page")
+				jTable.columns.adjust().draw();
 			popupMsg("完成"+Event[0]+Event[1]+"共" + maxRaceNo + "場賽事", 5000);
 			dataLoading (false);
 		})
