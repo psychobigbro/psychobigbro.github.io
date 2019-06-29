@@ -62,6 +62,7 @@ function updateTrainerJockeyTables () {
 				tTable.columns.adjust().draw();
 			else if (activePageId == "jockey-page")
 				jTable.columns.adjust().draw();
+
 			popupMsg("完成"+Event[0]+Event[1]+"共" + maxRaceNo + "場賽事", 5000);
 			dataLoading (false);
 		})
