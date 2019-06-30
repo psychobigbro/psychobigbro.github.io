@@ -260,6 +260,7 @@
 	getFromCache ("cache", $tbl.attr("cache-name"))
 	.then (rec => {
 		let data = (rec && rec.data) ? rec.data : null;
+		let invisibleCols = (rec && rec.invisibleCols) ? rec.invisibleCols : [-1];
 		let table = $tbl.DataTable( {
 			data: data,
 			paging: false,
@@ -271,9 +272,9 @@
 			scrollCollapse: true,
 			fixedColumns: true,
 			fixedHeader: false,
-			columnDefs: [{		//column 0 to 11 visible, column 12 invisible 
-				targets: [ 12 ],
-                visible: true,
+			columnDefs: [{
+				targets: invisibleCols,
+                visible: false,
             }]
 		});
 		$( table.column(0).nodes() ).addClass( 'fixed-column syndicated' );  //for styling 1st column

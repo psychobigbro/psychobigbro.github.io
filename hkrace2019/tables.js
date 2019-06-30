@@ -24,8 +24,7 @@ function updateTrainerJockeyTables () {
 			if (rec && rec.data)
 				syndicates = rec.data;			
 			let obj = buildJockeyTrainerTableContents (starters, jTInPlace, predictedTime, syndicates);
-			cacheToStore ("cache", {key:"TrainerEntries", raceDate:raceDate, data:obj.trainerEntries});
-			cacheToStore ("cache", {key:"JockeyRides", raceDate:raceDate, data:obj.jockeyRides})
+
 			let tTable = $("#trainer-table").DataTable();
 			tTable.clear().rows.add(obj.trainerEntries);
 			let jTable = $("#jockey-table").DataTable();
@@ -48,21 +47,35 @@ function updateTrainerJockeyTables () {
 				$(jTable.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
 				$(tTable.cells(":has(rank"+i+")").nodes()).addClass("rank"+i);
 			}
+			// columns with index > maxRaceNo should be invisible
+			tTable.columns().visible(true, false);  // no redraw 
+			jTable.columns().visible(true, false);
+			for (let c=maxRaceNo+1; c < 13; c++) {  //col index range from 0 to 12, incl syndicateNo col
+				tTable.column(c).visible(false, false);
+				jTable.column(c).visible(false, false);				
+			}
 			// redraw tables before binding event handlers to be effective (like in pageinit)
 			tTable.columns.adjust().draw();
 			jTable.columns.adjust().draw();
+
 			// set update syndicate event handler
 			$("#trainer-table, #jockey-table").find("td.syndicated").on ("tap", function(e){
 				updateSyndicatePopup ( $(this).text() );
 				return false;
 			});
 			// redraw table again if table page is active, otherwise event-handler not yet effective
+			// DOES NOT WORK for ios Chrome, still need to reload page manually!!!
 			let activePageId = $.mobile.pageContainer.pagecontainer( "getActivePage" ).attr('id');
 			if (activePageId == "trainer-page")
 				tTable.columns.adjust().draw();
 			else if (activePageId == "jockey-page")
 				jTable.columns.adjust().draw();
 
+			let colVisibles = tTable.columns().visible().toArray();  //both tables have same visible columns
+			let invisibleCols = [];  //store invisible column indices for startup recovery from cache
+			colVisibles.forEach((col, index) => col ? null : invisibleCols.push(index));
+			cacheToStore ("cache", {key:"TrainerEntries", raceDate:raceDate, data:obj.trainerEntries, invisibleCols:invisibleCols});
+			cacheToStore ("cache", {key:"JockeyRides", raceDate:raceDate, data:obj.jockeyRides, invisibleCols:invisibleCols});
 			popupMsg("完成"+Event[0]+Event[1]+"共" + maxRaceNo + "場賽事", 5000);
 			dataLoading (false);
 		})
